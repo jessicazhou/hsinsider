@@ -1,0 +1,5 @@
+{
+  "scaffold": {
+    "command": "scaffold dir ./scaffold --theme=./"
+  }
+}

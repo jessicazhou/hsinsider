@@ -1,0 +1,9 @@
+{
+  "dist": {
+    "src": [
+    	"client/js/lib/*.js",
+    	"client/js/*.js"
+    ],
+    "dest": "static/js/global.js"
+  }
+}

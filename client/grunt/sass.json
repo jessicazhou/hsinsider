@@ -1,0 +1,10 @@
+{
+	"dist": {
+		"options": {
+			"sourceMap": true
+		},
+		"files": {
+		  "static/css/screen.css": "client/sass/screen.scss"
+		}
+	}
+}

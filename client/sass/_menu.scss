@@ -1,0 +1,120 @@
+/* =Menu
+-------------------------------------------------------------- */
+header.site-header {
+	/*height: 130px;*/
+	background: #212121;
+
+	.topics-wrapper {
+		background: #363636;
+	}
+
+	.topics-nav {
+		min-height: 35px;
+		margin-bottom: 0px;
+		background: #363636;
+		border: 0px none;
+		border-radius: 0px;
+
+		.navbar-brand {
+			display: none;
+			padding: 0px;
+		}
+
+		.navbar-toggle {
+			@include hsinsider-border-radius( 0px );
+		}
+
+		.navbar-collapse {
+			padding-left: 4px;
+			.topics-title {
+				display: block;
+				float: left;
+				height: 35px;
+				padding: 7px 15px 7px 5px;
+				color: #dcfba8;
+				font-weight: bold;
+			}
+		}
+
+		ul.nav.navbar-nav {
+			li {
+				padding: 0px;
+				a {
+					height: 35px;
+					padding: 7px 15px;
+					color: #BDBDBD;
+					&:hover, &:active, &:focus {
+						color: $highlight-color;
+					}
+				}
+			}
+		}
+	}
+
+	img.hsinsider-logo {
+    	max-width: 85px;
+    	width: 100%;
+	}
+
+	.projectby {
+		margin-left: auto;
+		p {
+			font-family: "letter-gothic-std","Courier New",Courier,monospace;
+			color: white;
+			font-size: 12px;
+			margin: 0px 0px 5px;
+		}
+		img {
+			max-width: 212px;
+		}
+	}
+
+	@media( max-width: $screen-sm-max ) {
+		.projectby {
+			p{ 
+				font-size: 8px;
+			}
+			img {
+				max-width: 157px;
+			}
+		}
+	}
+}
+
+/* Small menu */
+.menu-toggle {
+	display: none;
+}
+
+@media screen and (max-width: 600px) {
+	.menu-toggle,
+	.main-navigation.toggled .nav-menu {
+		display: block;
+	}
+
+	.main-navigation ul {
+		display: none;
+	}
+}
+
+.site-main .comment-navigation,
+.site-main .posts-navigation,
+.site-main .post-navigation {
+	margin: 0 0 1.5em;
+	overflow: hidden;
+}
+
+.comment-navigation .nav-previous,
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous {
+	float: left;
+	width: 50%;
+}
+
+.comment-navigation .nav-next,
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	float: right;
+	text-align: right;
+	width: 50%;
+}

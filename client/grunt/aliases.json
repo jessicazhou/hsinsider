@@ -1,0 +1,21 @@
+{
+  "default": [
+    "build"
+  ],
+  "scripts": [
+    "concat",
+    "uglify"
+  ],
+  "styles": [
+    "sass",
+    "postcss",
+    "cssmin"
+  ],
+  "build": [
+    "scripts",
+    "styles"
+  ],
+  "scaffold": [
+    "shell:scaffold"
+  ]
+}
