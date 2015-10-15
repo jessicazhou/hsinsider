@@ -244,7 +244,7 @@ class HSInsider_Special_Users {
 		
 		$post = get_post( $post_id );
 		
-		if( current_user_can( 'edit_others_posts' ) && is_staff_post( $post ) )
+		if( current_user_can( 'edit_others_posts' ) && hsinsider_is_staff_post( $post ) )
 			return wp_set_post_terms( $post_id, array( 'Staff Stories' ), 'browse', true );
 		
 		if( empty( $_POST[ 'school_meta_nonce' ] ) )

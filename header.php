@@ -24,8 +24,3 @@
 		</div>
 		<?php endif; ?>
 		<div id="content" class="site-content container">
-			<div class="row hidden-sm hidden-xs">
-				<div class="col-sm-12">
-					<div class="leaderboard ad" id="div-gpt-ad-783778988016615787-1"></div>
-				</div>
-			</div>

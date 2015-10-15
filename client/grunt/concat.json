@@ -2,6 +2,7 @@
   "dist": {
     "src": [
     	"client/js/lib/*.js",
+    	"client/js/lib/*.*.min.js",
     	"client/js/*.js"
     ],
     "dest": "static/js/global.js"

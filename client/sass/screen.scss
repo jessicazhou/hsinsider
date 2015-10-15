@@ -1,16 +1,20 @@
 // Global Values and styles
 
-@import 'bootstrap';
+@import 'LAT';
 
 @import 'variables';
 
 @import 'mixins';
 
+@import 'font-awesome';
+
+@import 'bootstrap';
+
 @import 'structure';
 
-//@import 'off-canvas';
-
 @import 'menu';
+
+@import 'nav';
 
 @import 'forms';
 
