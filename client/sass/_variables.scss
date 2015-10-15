@@ -7,15 +7,18 @@ $bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")
 // Variables
 // --------------------------------------------------
 
+//== Off Canvas
+
+$offcanvas-animation-time: 0.25s;
 
 //== Colors
 //
 //## Gray and brand colors for use across Bootstrap.
 
 $gray-darker:            lighten(#000, 13.5%) !default; // #222
-$gray-dark:              lighten(#000, 20%) !default;   // #333
+$gray-dark:              #202020;
 $gray:                   lighten(#000, 33.5%) !default; // #555
-$gray-light:             lighten(#000, 46.7%) !default; // #777
+$gray-light:             #c3c3c3;
 $gray-lighter:           lighten(#000, 93.5%) !default; // #eee
 
 $brand-primary:         #428bca !default;
@@ -24,8 +27,11 @@ $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 
-$highlight-color: #dcfba8;
+$white: #ffffff;
+$black: #000000;
 
+$highlight-color: #4eec89;
+$horizontal-line-color: #e2e2e2;
 
 //== Scaffolding
 //
@@ -34,20 +40,19 @@ $highlight-color: #dcfba8;
 // Background color for `<body>`.
 $body-bg:               #fff !default;
 // Global text color on `<body>`.
-$text-color:            $gray-dark !default;
+$text-color:            $black;
 
 // Global textual link color.
-$link-color:            $brand-primary !default;
+$link-color:            $black;
 // Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      darken( $highlight-color, 12% );
 
 
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
-
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-sans-serif:  'Source Sans Pro', Helvetica, Arial, sans-serif;
+$font-family-serif:       'Belizio', serif;
 // Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
 $font-family-base:        $font-family-sans-serif !default;
@@ -70,7 +75,7 @@ $line-height-computed:    floor(($font-size-base * $line-height-base)) !default;
 
 // By default, this inherits from the `<body>`.
 $headings-font-family:    inherit !default;
-$headings-font-weight:    500 !default;
+$headings-font-weight:    200;
 $headings-line-height:    1.1 !default;
 $headings-color:          inherit !default;
 
@@ -149,7 +154,7 @@ $table-border-color:            #ddd !default;
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-$btn-font-weight:                normal !default;
+$btn-font-weight:                300;
 
 $btn-default-color:              #333 !default;
 $btn-default-bg:                 #fff !default;
@@ -851,6 +856,6 @@ $page-header-border-color:    $gray-lighter !default;
 // Width of horizontal description list titles
 $dl-horizontal-offset:        $component-offset-horizontal !default;
 // Horizontal line color.
-$hr-border:                   $gray-lighter !default;
+$hr-border:                   $horizontal-line-color;
 
 

@@ -9,8 +9,12 @@
  * @return void
  */
 function hsinsider_enqueue_assets() {
+	
+	// Enqueue Spiffy Google Fonts
+	wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,200,600,200italic,300italic,400italic', array(), '1.0' );
+
 	// Enqueue Main Stylesheet
-	wp_enqueue_style( 'hsinsider-screen', get_template_directory_uri() . '/static/css/screen.css', array(), '1.0' );
+	wp_enqueue_style( 'hsinsider-screen', get_template_directory_uri() . '/static/css/screen.css', array( 'google-fonts' ), '1.1' );
 
 	// Deregister the jquery version bundled with wordpress
 	wp_deregister_script( 'jquery' );
@@ -24,6 +28,7 @@ function hsinsider_enqueue_assets() {
 	wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=' . hsinsider_site_config( 'api.googlemaps' ) . '&callback=initMap', array( 'hsinsider-global-js' ), '1.0', true );
 	
 	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-effects-slide' );
 	wp_enqueue_script( 'hsinsider-global-js' );
 
 	if( is_tax( 'school' ) ) {

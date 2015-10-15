@@ -38,10 +38,8 @@ if ( ! function_exists( 'hsinsider_setup' ) ):
 
 		// Set up theme's use of wp_nav_menu().
 		register_nav_menus( array(
-			'primary' => __( 'Primary Menu', 'hsinsider' ),
-		) );
-		register_nav_menus( array(
-			'topics' => __( 'Topics Menu', 'hsinsider' ),
+			'sections_menu' => __( 'Sections', 'hsinsider' ),
+			'topics_menu' => __( 'Topics', 'hsinsider' ),
 		) );
 
 		// Enable support for HTML5 components.

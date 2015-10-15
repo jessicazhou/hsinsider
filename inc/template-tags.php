@@ -115,46 +115,43 @@ add_action( 'save_post',     'hsinsider_category_transient_flusher' );
  */
 function hsinsider_get_school( $post = null ) {
 
-	//Singular page or passed a post object
-	if( !empty( $post ) || is_singular() ) {
-
-		if( empty( $post ) )
-			$post = get_post();
-	
-		$terms = get_the_terms( $post->ID, 'school' );
-	
-		if( empty( $terms ) || !is_array( $terms ) )
-			return false;
-		
-		$term = reset( $terms );
-
-	//On a school archive page
-	} elseif( is_tax( 'school' ) ) {
-
+	$term = false;
+	/**
+	 * If we're on a school page, just return the current school object
+	 */
+	if( is_tax( 'school' ) ) {
 		$term = get_queried_object();
-
-	//Author page
-	} elseif( is_author() )  {
-
+	} 
+	/**
+	 * If we're on a an author page, get the term_id from the current author object
+	 * author object and use it to find the School
+	 */
+	elseif ( is_author() ) {
 		$author = get_queried_object();
+	
+		if( !empty( $author ) || is_object( $author ) ) {
+			$term_id = (int) get_user_attribute( $author->ID, 'school', true );
 		
-		if( empty( $author ) || !is_object( $author ) )
-			return false;
-		
-		$term_id = (int) get_user_attribute( $author->ID, 'school', true );
-		
-		if( empty( $term_id ) )
-			return false;
-		
-		$term = wpcom_vip_get_term_by( 'id', $term_id, 'school' );
-		
-		if( empty( $term ) )
-			return false;
-		
-	} else {
-		return false;
+			if( !empty( $term_id ) ) {
+				$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
+			}
+		}
+	} 
+	/**
+	 * Default
+	 * Find the School for the current post
+	 */
+	else {
+		if( empty( $post ) ) {
+			$post = get_post();
+		}
+		$terms = get_the_terms( $post->ID, 'school' );
+
+		if( !empty( $terms ) || is_array( $terms ) ) {
+			$term_id = $terms[0]->term_id;
+			$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
+		}
 	}
-		
 	return $term;
 }
 
@@ -249,7 +246,7 @@ function hsinsider_get_school_link( $post = null ) {
  * Prints a link to the school page
  */
 function hsinsider_school_link( $class = 'school', $post = null ) {
-	
+
 	$term = hsinsider_get_school( $post );
 	
 	if( empty( $term ) )
@@ -260,7 +257,7 @@ function hsinsider_school_link( $class = 'school', $post = null ) {
 	if( empty( $term_link ) )
 		return;
 	
-	echo '<a href="' . esc_url( $term_link ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $term->name ) . '</a>';
+	echo '<a href="' . esc_url( $term_link ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $term->name ) . '<i class="LATLinkOutArrow"></i></a>';
 
 }
 
@@ -384,18 +381,6 @@ function hsinsider_get_menu_name_by_location( $location = false ) {
 		return;
 	
 	return $menu->name;
-}
-
-/**
- * Get the excerpt
- * @TODO Don't do this
- *
- */
-function hsinsider_get_the_excerpt() {
-	
-	$post = get_post();
-
-	return wp_trim_words( strip_shortcodes( strip_tags( $post->post_content ) ), 120, ' &hellip;' );
 }
 
 /**

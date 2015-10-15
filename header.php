@@ -16,7 +16,7 @@
 
 <body <?php body_class(); ?>>
 	<div id="page" class="hfeed site">
-		<?php ai_get_template_part( 'template-parts/site', 'header' ); ?>
+		<?php ai_get_template_part( 'template-parts/module', 'header' ); ?>
 		<?php if( is_home() || is_category() ) : ?>
 		<div class="jumbotron">
 			<div id="banner" class="container-fluid">
@@ -24,8 +24,3 @@
 		</div>
 		<?php endif; ?>
 		<div id="content" class="site-content container">
-			<div class="row hidden-sm hidden-xs">
-				<div class="col-sm-12">
-					<div class="leaderboard ad" id="div-gpt-ad-783778988016615787-1"></div>
-				</div>
-			</div>
