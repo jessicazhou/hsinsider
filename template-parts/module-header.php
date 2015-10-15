@@ -23,21 +23,15 @@
 			
 			<div class="menus">
 				<div class="menus-wrapper">
-					<ul id="menu-schools" class="menu menu-mobile">
-						<li>
-							<a href="#">Schools & Organizations<i class="fa fa-angle-down"></i></a>
-						</li>
-					</ul>
-					<ul id="menu-activities" class="menu menu-mobile">
-						<li>
-							<a href="#"><?php esc_html_e( 'Topics', 'hsinsider' ); ?><i class="fa fa-angle-down"></i></a>
-						</li>
-					</ul>
-					<ul id="top-search" class="menu">
-						<li>
-							<a href="#" class="trb_nav_search_form_submit"><i class="fa fa-search"></i></a>
-						</li>
-					</ul>
+					<button id="menu-schools" class="menu menu-mobile">
+						<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?><i class="LATDDArrowDown"></i>
+					</button>
+					<button id="menu-activities" class="menu menu-mobile">
+						<?php esc_html_e( 'Topics', 'hsinsider' ); ?><i class="LATDDArrowDown"></i>
+					</button>
+					<button id="top-search" class="menu">
+						<i class="LATSearch01"></i>
+					</button>
 				</div>
 			</div>
 			<div class="show-search">
@@ -46,10 +40,10 @@
 		</div>
 	</nav>
 	
-	<menuwrapper>
+	<div class="menuwrapper">
 		<menu data-menu="menu-schools">
 			<ul class="menu-overlay">
-				<li class="back"><a href="#" class="backLink"><i class="fa fa-angle-left"> Back to all</i></a></li>
+				<li class="back"><a href="#" class="backLink"><i class="LATDDArrowLeft"> Back to all</i></a></li>
 				<?php foreach( range( 'A', 'Z' ) as $range ) : ?>
 					<li class="school">
 						<a id="<?php echo esc_attr( $range ); ?>"><?php echo esc_html( $range ); ?></a>
@@ -61,22 +55,22 @@
 				<div class="title">Schools</div>
 				<ul>
 					<li>
-						<a href="#">A-C <i class="fa fa-angle-right"></i></a>
+						<a href="#">A-C <i class="LATDDArrowRight"></i></a>
 					</li>
 					<li>
-						<a href="#">D-F <i class="fa fa-angle-right"></i></a>
+						<a href="#">D-F <i class="LATDDArrowRight"></i></a>
 					</li>
 					<li>
-						<a href="#">G-L <i class="fa fa-angle-right"></i></a>
+						<a href="#">G-L <i class="LATDDArrowRight"></i></a>
 					</li>
 					<li>
-						<a href="#">M-P <i class="fa fa-angle-right"></i></a>
+						<a href="#">M-P <i class="LATDDArrowRight"></i></a>
 					</li>
 					<li>
-						<a href="#">R-T <i class="fa fa-angle-right"></i></a>
+						<a href="#">R-T <i class="LATDDArrowRight"></i></a>
 					</li>
 					<li>
-						<a href="#">V-Z <i class="fa fa-angle-right"></i></a>
+						<a href="#">V-Z <i class="LATDDArrowRight"></i></a>
 					</li>
 				</ul>
 			</div>

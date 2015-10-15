@@ -21,6 +21,11 @@ a {
 		text-decoration: none;
 	}
 }
+
+button:focus {
+	outline:0;
+}
+
 /* =Content
 -------------------------------------------------------------- */
 
