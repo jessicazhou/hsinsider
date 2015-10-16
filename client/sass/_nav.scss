@@ -8,9 +8,8 @@
  */
 
 #navigation, #footer-social, #footer-copyright {
-    background-color: #212121;
+    background-color: $gray-dark;
     color: #FFF;
-    opacity: 0.97;
     a {
     	color: #fff;
     }
@@ -30,10 +29,6 @@
 	position:absolute;
 	z-index:9999;
 	width:100%;
-	-webkit-backface-visibility: hidden;
-	-webkit-box-shadow: 1px 0px 1px 2px #242323 ;
-	-moz-box-shadow: 1px 0px 1px 2px #242323 ;
-	box-shadow: 1px 0px 1px 2px #242323 ;
 	.menus, .logo {
 		height: 40px;
 		float: left;

@@ -7794,7 +7794,7 @@ button.close {
   margin-right: auto; }
 
 html body .site-content {
-  padding-top: 61px; }
+  padding-top: 60px; }
   html body .site-content .content-area {
     margin-left: -15px;
     margin-right: -15px; }
@@ -7975,9 +7975,8 @@ header.site-header {
  * It needs to be reformatted for SASS and all moved into the _menu.scss file
  */
 #navigation, #footer-social, #footer-copyright {
-  background-color: #212121;
-  color: #FFF;
-  opacity: 0.97; }
+  background-color: #202020;
+  color: #FFF; }
   #navigation a, #footer-social a, #footer-copyright a {
     color: #fff; }
 
@@ -7992,9 +7991,7 @@ header.site-header {
 #navigation {
   position: absolute;
   z-index: 9999;
-  width: 100%;
-  -webkit-backface-visibility: hidden;
-  box-shadow: 1px 0px 1px 2px #242323; }
+  width: 100%; }
   #navigation .menus, #navigation .logo {
     height: 40px;
     float: left;
