@@ -27,6 +27,8 @@
 
 	<footer class="entry-footer">
 		<a class="read-more" href="<?php get_permalink( get_the_ID() ); ?>"><?php _e( 'Read More', 'hsinsider' ); ?></a>
+		<!-- Social Share -->
+		<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
 	</footer><!-- .entry-footer -->
 	<hr />
 </article><!-- #post-## -->

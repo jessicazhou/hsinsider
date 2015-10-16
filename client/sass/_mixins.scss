@@ -43,10 +43,10 @@
 }
 
 @mixin hsinsider-border-radius( $radius ) {
-	border-radius: $radius;
-	-moz-border-radius: $radius;
-	-webkit-border-radius: $radius;
-	-o-border-radius: $radius;
+	border-radius: $radius !important;
+	-moz-border-radius: $radius !important;
+	-webkit-border-radius: $radius !important;
+	-o-border-radius: $radius !important;
 }
 
 @mixin hsinsider-box-shadow( $h, $v, $blur, $spread, $color, $inset ) {

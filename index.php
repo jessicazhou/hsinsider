@@ -13,16 +13,38 @@
  */
 
 get_header(); ?>
+<?php if( is_home() || is_category() ) : ?>
+	<div class="jumbotron">
+		<?php 
+			$args = array(
+				'post_type' => 'any',
+				'post_status' => 'publish',
+				'category_name' => 'featured',
+				'posts_per_page' => 1
+			);
+			$the_query = new WP_Query( $args );
+
+			if ( $the_query->have_posts() ) {
+				$the_query->the_post();
+				/**
+				 * Get the template for the top featured post and save it's id
+				 * in $curated so we can pull it from the main blogroll later
+				 */
+				ai_get_template_part( 'template-parts/content', 'featured' );
+				$curated = get_the_ID();
+				
+				/**
+				 * Always reset the post data after a wp_query
+				 */
+				wp_reset_postdata();
+			}
+		?>
+	</div>
+<?php endif; ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
 		<?php if ( have_posts() ) : ?>
-
-			<?php if ( is_home() && ! is_front_page() ) : ?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-			<?php endif; ?>
 
 			<section class="blogroll">
 				<?php /* Start the Loop */ ?>
@@ -30,12 +52,13 @@ get_header(); ?>
 
 					<?php
 
-						/*
+						/**
 						 * Include the Post-Format-specific template for the content.
-						 * If you want to override this in a child theme, then include a file
-						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+						 * Remove the $curated post from the blogroll
 						 */
-						ai_get_template_part( 'template-parts/content', 'excerpt' );
+						if( $curated != get_the_ID() ) {
+							ai_get_template_part( 'template-parts/content', 'excerpt' );
+						}
 					?>
 
 				<?php endwhile; ?>

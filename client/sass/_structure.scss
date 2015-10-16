@@ -19,9 +19,8 @@
 
 html {
 	body{
-
 		.site-content {
-			
+			padding-top: 61px;
 			.content-area {
 				@include make-row();
 
@@ -38,10 +37,8 @@ html {
 				#sidebar-main.widget-area {
 					@include make-md-column( 4 );
 				}
-
 			}
 		}
-
 		footer.site-footer {
 			.site-info {
 				@include make-md-column( 12 );

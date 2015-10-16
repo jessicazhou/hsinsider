@@ -1,3 +1,6 @@
+/* =Content
+-------------------------------------------------------------- */
+
 @media( min-width: $screen-md-min ) {
 	.widget {
 		width: 300px;
@@ -23,5 +26,64 @@
 			}
 		}
 
+	}
+}
+
+/* =Social Share Icons --*/
+
+.trb_socialize_bar {
+	display: inline-block;
+	padding-top: 4px;
+}
+
+.trb_socialize_item {
+	width: 32px;
+	height: 32px;
+	padding: 5px 6px;
+	color: #333;
+	font-size: 20px;
+	line-height: 23px;
+	font-weight: 400;
+	cursor: pointer;
+	position: relative;
+	.trb_socialize_submenu { 
+		display: none; 
+		position: absolute; 
+		top: -33px; 
+		right: -78px; 
+		width:190px;
+		padding: 5px;
+		background-color: $gray-dark; 
+		color: #fff;
+		> .trb_socialize_item i {
+			color: #fff; 
+		}
+	}
+	&:hover > i {
+		color: #ccc;
+		&.LATFacebook {
+			color: #3B59B6;
+		}
+		&.LATTwitter {
+			color: #2CAAE1;
+		}
+		&.LATGooglePlus {
+			color: #D64A2D;
+		}
+		&.LATPinterest {
+			color: #CC2127;
+		}
+		&.LATStumbleUpon {
+			color: #eb4924;
+		}
+		&.LATReddit {
+			color: $highlight-color;
+		}
+	}
+	&[data-role=socialshare_parent]:hover {
+		background: $gray-dark;
+		> .trb_socialize_submenu {
+			display: block;
+		}
 	}
 }
