@@ -43,10 +43,21 @@ html {
 			background: $gray-dark;
 			color: $white;
 			.footer-widgets {
-				
+
 			}
 			.site-info {
 				@include make-md-column( 12 );
+				color: $white;
+				padding: 10px;
+				a {
+					display: block;
+					color: $white;
+					img {
+						height: 20px;
+						width: auto;
+						margin: 0px 10px;
+					}
+				}
 			}
 		}
 	}

@@ -16,7 +16,7 @@
 			</div>
 			<div class="row">
 				<div class="site-info">
-					<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'blankstrap' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'blankstrap' ), 'WordPress' ); ?></a>
+					<a href="<?php echo esc_url( __( 'https://latimes.com/', 'hsinsider' ) ); ?>"><?php esc_html_e( 'Presented By', 'hsinsider' ); ?><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/latimes.svg' ); ?>"/></a>
 				</div>
 			</div>
 		</section>

@@ -7834,11 +7834,20 @@ html body footer.site-footer {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
-    padding-right: 15px; }
+    padding-right: 15px;
+    color: #ffffff;
+    padding: 10px; }
     @media (min-width: 992px) {
       html body footer.site-footer .site-info {
         float: left;
         width: 100%; } }
+    html body footer.site-footer .site-info a {
+      display: block;
+      color: #ffffff; }
+      html body footer.site-footer .site-info a img {
+        height: 20px;
+        width: auto;
+        margin: 0px 10px; }
 
 /* =Menu
 -------------------------------------------------------------- */
