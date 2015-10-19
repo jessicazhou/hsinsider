@@ -40,6 +40,11 @@ html {
 			}
 		}
 		footer.site-footer {
+			background: $gray-dark;
+			color: $white;
+			.footer-widgets {
+				
+			}
 			.site-info {
 				@include make-md-column( 12 );
 			}

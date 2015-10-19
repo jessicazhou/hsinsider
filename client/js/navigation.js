@@ -68,7 +68,7 @@ jQuery( document ).ready( function( $ ) {
 
 			menuContainer = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
 
-			$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top+$( 'nav#navigation' ).outerHeight( true )+1 } );
+			$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top+$( 'nav#navigation' ).outerHeight( true ) } );
 			$( '.menuwrapper' ).show();
 
 			menuContainer.show( "slide", { direction: "right" }, 500 );

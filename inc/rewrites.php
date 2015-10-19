@@ -23,6 +23,6 @@ function hsinsider_get_post_byline() {
 }
 
 function hsinsider_excerpt_more( $more ) {
-	return '&ellipsis;';
+	return '&hellip;';
 }
 add_filter( 'excerpt_more', 'hsinsider_excerpt_more' );

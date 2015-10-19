@@ -23,29 +23,29 @@ class HSInsider_Widget_Latest_Popular extends HSInsider_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+		echo $args['before_widget'];
 	?>
-		<div class="widget">
-			<ul id="recent-widget-tabs" class="nav nav-tabs" role="tablist">
-				<li class="toggle active" role="presentation">
-					<a href="#popular" role="tab" aria-controls="popular" data-toggle="tab">Popular</a>
-				</li>
-					
-				<li class="toggle" role="presentation">
-					<a href="#recent" role="tab" aria-controls="recent" data-toggle="tab">Recent</a>
-				</li>
-			</ul>
-			<div id="recent-widget" class="tab-content">
-				<div id="popular" class="tab-pane active">
-					<h3>Popular Posts</h3>
-					<?php $this->popular() ?>
-				</div>
-				<div id="recent" class="tab-pane">
-					<h3>Recent Posts</h3>
-					<?php $this->recent() ?>
-				</div>
+		<ul id="recent-widget-tabs" class="nav nav-tabs" role="tablist">
+			<li class="toggle active" role="presentation">
+				<a href="#popular" role="tab" aria-controls="popular" data-toggle="tab">Popular</a>
+			</li>
+				
+			<li class="toggle" role="presentation">
+				<a href="#recent" role="tab" aria-controls="recent" data-toggle="tab">Recent</a>
+			</li>
+		</ul>
+		<div id="recent-widget" class="tab-content">
+			<div id="popular" class="tab-pane active">
+				<h3>Popular Posts</h3>
+				<?php $this->popular() ?>
+			</div>
+			<div id="recent" class="tab-pane">
+				<h3>Recent Posts</h3>
+				<?php $this->recent() ?>
 			</div>
 		</div>
 	<?php
+		echo $args['after_widget'];
 	}
 	
 	private function popular() {

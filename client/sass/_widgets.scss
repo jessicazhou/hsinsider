@@ -3,11 +3,11 @@
 
 @media( min-width: $screen-md-min ) {
 	.widget {
-		width: 300px;
 		margin: 0 auto;
 	}
 }
-#recent-widget {
+.widget_hsinsider_latest_popular {
+	width: 300px;
 	.tab-pane {
 		article {
 			border-bottom: 1px solid #ccc;
@@ -26,6 +26,42 @@
 			}
 		}
 
+	}
+}
+
+#footer-widgets {
+	overflow: auto;
+	h4, h4.widget-title {
+		padding: 10px 0px 15px;
+		margin-bottom: 15px;
+		font-weight: 600;
+		border-bottom: 1px solid $highlight-color;
+	}
+	.widget_hsinsider_newsletter {
+		input[type=email] {
+			width: 100%;
+			    padding: 0px 14px;
+    			height: 31px;
+		}
+		input[type=submit] {
+			@include hsinsider-form-button();
+			padding: 7px 14px;
+		}
+	}
+	.widget_nav_menu {
+		ul.menu {
+			list-style: none;
+			padding: 0px;
+			li {
+				padding: 2px 0px;
+				a {
+					color: $white;
+					&:hover {
+						font-weight: 400;
+					}
+				}
+			}
+		}
 	}
 }
 
