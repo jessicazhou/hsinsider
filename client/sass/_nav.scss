@@ -47,11 +47,14 @@
 		position: absolute;
 		right: 5px;
 		top: 15px;
+		.trb_socialize_bar {
+			float: left;
+		}
 		.menu {
 			@include hsinsider-button-dark();
 			float: left;
 			margin-left: 10px;
-			padding: 0px 10px;
+			padding: 5px 10px;
 			color: $gray-light;
 			-o-transition: .3s;
 			-ms-transition:.3s;

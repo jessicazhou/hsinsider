@@ -52,5 +52,8 @@ googletag.cmd.push( function() {
 	// Show the Ads
 	googletag.display( 'div-gpt-ad-783778988016615787-1' );
 	googletag.display( 'div-gpt-ad-783778988016615787-2' ); 
+	googletag.display( 'lat-hs-728x90' );
+	googletag.display( 'lat-hs-300x250-1' );
+	googletag.display( 'lat-hs-300x250-2' );
 } );
 

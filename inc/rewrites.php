@@ -15,11 +15,13 @@ function hsinsider_get_post_byline() {
 		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
 	}
 
-	$posted_on = '<a href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
+	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
 
-	$byline = '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>';
+	$byline = '<a class="posted_by" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>' . $posted_on;
 
-	echo '<div class="byline"><span class="posted-on">' . $posted_on . '</span>&nbsp;|&nbsp;<span class="post-author">' . $byline . '</span></div>';
+	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80 );
+
+	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }
 
 function hsinsider_excerpt_more( $more ) {

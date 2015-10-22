@@ -5,16 +5,40 @@
 
 if ( function_exists('register_sidebar') ) {
 	register_sidebar( array(
-		'name' => 'Sidebar',
-		'id' => 'sidebar-1',
+		'name' => 'Popular Posts',
+		'id' => 'popular-posts',
+		'before_widget' => '<div id="%1$s" class="widget %2$s container">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+	register_sidebar( array(
+		'name' => 'Mid-Roll',
+		'id' => 'mid-roll-1',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widget-title">',
 		'after_title' => '</h4>',
 	) );
 	register_sidebar( array(
-		'name' => 'After-article',
-		'id' => 'after-article-widgetized-area',
+		'name' => 'Mid-Roll 2',
+		'id' => 'mid-roll-2',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+	register_sidebar( array(
+		'name' => 'Mid-Roll 3',
+		'id' => 'mid-roll-3',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widget-title">',
+		'after_title' => '</h4>',
+	) );
+	register_sidebar( array(
+		'name' => 'Mid-Roll 4',
+		'id' => 'mid-roll-4',
 		'before_widget' => '<div id="%1$s" class="widget %2$s">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widget-title">',

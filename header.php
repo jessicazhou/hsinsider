@@ -17,4 +17,4 @@
 <body <?php body_class(); ?>>
 	<div id="page" class="hfeed site">
 		<?php ai_get_template_part( 'template-parts/module', 'header' ); ?>
-		<div id="content" class="site-content container">
+		<div id="content" class="site-content container-fluid">

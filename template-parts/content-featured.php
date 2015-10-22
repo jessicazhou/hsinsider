@@ -4,24 +4,31 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class() . ' row'; ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+		<?php $column_class = 'no-post-image' ?>
 		<!-- image -->
-	<figure class="featured-image">
-		<?php the_post_thumbnail(); ?>
-	</figure>
-	<section>
-		<!-- Social Share -->
-		<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
+		<?php if ( has_post_thumbnail() ) : ?>
+		<figure class="featured-image col-xs-12 col-sm-12 col-md-7">
+			<?php the_post_thumbnail(); ?>
+		</figure>
+		<?php $column_class = 'col-md-5'; ?>
+		<?php endif ?>
 
-		<!-- School -->
-		<?php hsinsider_school_link(); ?>
+		<section class="col-xs-12 col-sm-12 <?php echo $column_class; ?>">
+			<!-- Social Share -->
+			<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
 
-		<!-- title -->
-		<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
-		
-		<footer class="entry-footer">
-			<!-- byline -->
-			<?php hsinsider_get_post_byline(); ?>
-		</footer><!-- .entry-footer -->
-	</section>
+			<!-- School -->
+			<?php hsinsider_school_link(); ?>
+
+			<!-- title -->
+			<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+			
+			<footer class="entry-footer">
+				<!-- byline -->
+				<?php hsinsider_get_post_byline(); ?>
+			</footer><!-- .entry-footer -->
+		</section>
+
 </article><!-- #post-## -->

@@ -34,15 +34,24 @@ a:focus, button:focus {
 	display: block;
 	overflow: auto;
 	background: transparent;
-	padding: 0px 0px 30px !important;
+	padding: 20px 15px !important;
+	margin-bottom: 0px !important;
+	border-bottom: 1px solid #e4e4e4;
 	@include hsinsider-border-radius( 0px );
+	@include make-row();
+	&.feature {
+		padding: 0px !important;
+	}
 	article {
 		figure.featured-image {
 			display: inline-block;
 			float: left;
-			max-width: 576px;
-			max-height: 324px;
+			padding-left: 0px;
+			max-height: 430px;
 			overflow-y: hidden;
+			@media( max-width: $screen-sm-max ) {
+				padding-right: 0px;
+			}
 			img.wp-post-image {
 				width: 100%;
 				height: auto;
@@ -51,12 +60,22 @@ a:focus, button:focus {
 		section {
 			display: inline-block;
 			float: left;
-			width: 48%;
-			padding: 55px 0px 0px 30px;
+			padding-top: 6%;
+			padding-right: 0px;
+			&.no-post-image {
+				padding: 50px 0px;
+				text-align: center;
+			}
 			h1 {
 				margin-top: 16px;
 				font-size: 36px;
 				line-height: 40px;
+				@media( max-width: $screen-lg-min ) {
+					font-size: 30px;
+				}
+				@media( max-width: $screen-md-max ) {
+					font-size: 28px;
+				}
 			}
 			.trb_socialize_bar, .school {
 				display: block;
@@ -65,12 +84,19 @@ a:focus, button:focus {
 			.school {
 				margin-top: 15px;
 			}
+			@media( max-width: $screen-sm-max ) {
+				padding: 20px 40px !important;
+				text-align: center;
+			}
+			@media( max-width: $screen-md-max ) {
+				padding-top: 4%;
+			}
 		}
 	}
 }
 
 /* =Blogroll --*/
-section.blogroll {
+/*section.blogroll {
 	article.post {
 		h1.entry-title {
 			margin: 10px 0px;
@@ -97,16 +123,30 @@ section.blogroll {
 			}
 		}
 	}
-}
+}*/
 
 /* =Post --*/
 article.post {
-	.byline {
-		padding: 0px 0px 15px;
-		a {
-			text-transform: uppercase;
-			font-weight: 300;
-		    font-size: 11px;
+	overflow: auto;
+	figure.byline {
+		padding: 15px 0px 0px;
+		margin: 0;
+		display: inline-block;
+		text-align: left;
+		overflow: auto;
+		img {
+			border-radius: 90px;
+			float: left;
+		}
+		figcaption {
+			float: left;
+			padding: 22px;
+			a {
+				display: block;
+				text-transform: uppercase;
+				font-weight: 300;
+				font-size: 13px;
+			}
 		}
 	}
 	.brief {

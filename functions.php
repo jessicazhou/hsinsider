@@ -114,3 +114,7 @@ require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-popular.php'
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-polls.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.php' );
 /* End Data Structures */
+
+
+require_once( HSINSIDER_PATH . '/inc/eu-video-gallery.php' );
+require_once( HSINSIDER_PATH . '/inc/eu-video-gallery-2.php' );

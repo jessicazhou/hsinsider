@@ -1,8 +1,8 @@
 <article id="post-<?php the_ID(); ?>" class="reduced clearfix">
 	<?php if ( has_post_thumbnail() ) : ?>
-		<div class="post-image">
-			<?php the_post_thumbnail(); ?>
-		</div>
+	<figure class="post-image">
+		<?php the_post_thumbnail(); ?>
+	</figure>
 	<?php endif; ?>
 	
 	<h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
@@ -12,7 +12,7 @@
 	</div>
 	
 	<div class="school">
-		<?php hsinsider_school_link( 'school' ); ?>
+		<?php //hsinsider_school_link( 'school' ); ?>
 	</div>
 	
 	<?php if( is_author() ) : ?>

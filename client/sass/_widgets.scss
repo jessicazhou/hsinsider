@@ -6,48 +6,115 @@
 		margin: 0 auto;
 	}
 }
-.widget_hsinsider_latest_popular {
-	width: 300px;
-	.tab-pane {
-		article {
-			border-bottom: 1px solid #ccc;
-			padding: 10px 0;
-			.post-image {
-				float: left;
-				width: 30%;
-				margin: 0px 10px 0px 0px;
-				img {
-					width: 100%;
+
+#sidebar-main {
+	padding: 50px 0px;
+}
+
+.widget-area {
+	@include make-row();
+	border-bottom: 1px solid #e4e4e4;
+	
+	&.mid-roll {
+		padding: 50px 0px;
+
+		&.mid-roll-2 {
+			padding: 20px 0px;
+	
+			.widget_hsinsider_newsletter {
+				@include make-md-column( 8 );
+				 vertical-align: middle;
+				 padding: 50px 15px;
+				.widget-title{
+					@include make-md-column( 12 );
+				}
+				form {
+					input[type=email] {
+						height: 45px;
+					}
+					
+					input[type=submit] {
+						height: 45px;
+					}
+				}
+				@media( max-width: $screen-sm-max ) {
+					padding: 0px 15px 50px;
+					text-align: center;					
 				}
 			}
-			h4 {
-				margin: 5px 0px 0px;
-				font-size: 16px;
+		}
+	}
+}
+
+.widget_hsinsider_latest_popular {
+	overflow: auto;
+	article {
+		@include make-xs-column( 6 );
+		@include make-md-column( 3 );
+		text-align: center;
+		figure.post-image {
+			display: inline-block;
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+			&:after {
+				padding-top: 56.25%;
+				/* 16:9 ratio */
+				display: block;
+				content: '';
+			}
+		
+			img {
+				display: block;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
 			}
 		}
+	}
+		
+	h4 {
+		display: block;
+		margin: 5px 0px 0px;
+		padding: 20px 0px 10px;
+		font-size: 16px;
+		text-align: center;
+	}
+	
+	.date{
+		text-align: center;
+	}
+}
 
+.widget_hsinsider_newsletter {
+	input[type=email] {
+		width: 100%;
+		padding: 0px 14px;
+		height: 31px;
+	}
+	
+	input[type=submit] {
+		@include hsinsider-form-button();
+		padding: 7px 14px;
 	}
 }
 
 #footer-widgets {
 	overflow: auto;
+	border: 0px none;
 	h4, h4.widget-title {
 		padding: 10px 0px 15px;
 		margin-bottom: 15px;
 		font-weight: 600;
 		border-bottom: 1px solid $highlight-color;
 	}
-	.widget_hsinsider_newsletter {
-		input[type=email] {
-			width: 100%;
-			    padding: 0px 14px;
-    			height: 31px;
-		}
-		input[type=submit] {
-			@include hsinsider-form-button();
-			padding: 7px 14px;
-		}
+	
+	.widget_hsinsider_newsletter form{
+		@include make-row();
 	}
+	
 	.widget_nav_menu {
 		ul.menu {
 			list-style: none;

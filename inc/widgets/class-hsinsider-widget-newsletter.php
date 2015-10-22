@@ -29,7 +29,7 @@ class HSInsider_Widget_Newsletter extends HSInsider_Widget {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 		?>
-			<form action="//latimes.us10.list-manage.com/subscribe/post?u=f089ecc9238c5ee13b8e5f471&amp;id=d721736bdd" method="post" name="mc-embedded-subscribe-form" class="validate row" target="_blank" novalidate>
+			<form action="//latimes.us10.list-manage.com/subscribe/post?u=f089ecc9238c5ee13b8e5f471&amp;id=d721736bdd" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
 				<div class="col-xs-8 col-sm-9">
 					<input type="hidden" name="b_f089ecc9238c5ee13b8e5f471_d721736bdd" tabindex="-1" value="">
 					<input type="email" value="" placeholder="Enter your email address" name="EMAIL" class="required email">

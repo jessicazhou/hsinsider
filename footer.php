@@ -10,10 +10,8 @@
 
 	<footer class="site-footer" role="contentinfo">
 		<section class="container">
-			<div class="row">
-				<!-- Footer Widgets Go Here-->
-				<?php get_sidebar( 'footer' ); ?>
-			</div>
+			<!-- Footer Widgets Go Here-->
+			<?php get_sidebar( 'footer' ); ?>
 			<div class="row">
 				<div class="site-info">
 					<a href="<?php echo esc_url( __( 'https://latimes.com/', 'hsinsider' ) ); ?>"><?php esc_html_e( 'Presented By', 'hsinsider' ); ?><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/latimes.svg' ); ?>"/></a>

@@ -22,10 +22,9 @@ html {
 		.site-content {
 			padding-top: 60px;
 			.content-area {
-				@include make-row();
+				/*@include make-row();*/
 
 				main.site-main {
-					@include make-md-column( 8 );
 					
 					.col-nested:first-of-type {
 						padding-left: 0px;
@@ -35,7 +34,6 @@ html {
 					}
 				}
 				#sidebar-main.widget-area {
-					@include make-md-column( 4 );
 				}
 			}
 		}

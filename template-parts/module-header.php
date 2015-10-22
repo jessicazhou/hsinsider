@@ -9,7 +9,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<img class="hsinsider-logo img-responsive" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-2.png' ); ?>" >
+					<img class="hsinsider-logo img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
+					<img class="hsinsider-logo img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
 
 					<?php if( hsinsider_has_school_image() ) : ?>
 						<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
@@ -25,11 +26,15 @@
 					
 					<div class="menus">
 						<div class="menus-wrapper">
+							<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
+							<a id="menu-about" class="menu" href="/about/">
+								<?php esc_html_e( 'About', 'hsinsider' ); ?>
+							</a>
 							<button id="menu-schools" class="menu menu-mobile">
-								<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?><i class="LATDDArrowDown"></i>
+								<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?>
 							</button>
 							<button id="menu-activities" class="menu menu-mobile">
-								<?php esc_html_e( 'Topics', 'hsinsider' ); ?><i class="LATDDArrowDown"></i>
+								<?php esc_html_e( 'Topics', 'hsinsider' ); ?>
 							</button>
 							<button id="top-search" class="menu">
 								<i class="LATSearch01"></i>
