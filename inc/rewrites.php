@@ -2,28 +2,6 @@
 /**
  * Custom rewrite modifications
  */
-
-/**
- * Retrieve and compile Post Byline Information
- */
-function hsinsider_get_post_byline() {
-	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string = sprintf( $time_string, esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ) );
-	}
-	else {
-		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
-	}
-
-	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
-
-	$byline = '<a class="posted_by" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>' . $posted_on;
-
-	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80 );
-
-	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
-}
-
 function hsinsider_excerpt_more( $more ) {
 	return '&hellip;';
 }

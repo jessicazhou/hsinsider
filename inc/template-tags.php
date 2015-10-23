@@ -3,38 +3,6 @@
  * Helper functions
  */
 
-if ( ! function_exists( 'hsinsider_posted_on' ) ) :
-	/**
-	 * Prints HTML with meta information for the current post-date/time and author.
-	 */
-	function hsinsider_posted_on() {
-		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-		}
-
-		$time_string = sprintf( $time_string,
-			esc_attr( get_the_date( 'c' ) ),
-			esc_html( get_the_date() ),
-			esc_attr( get_the_modified_date( 'c' ) ),
-			esc_html( get_the_modified_date() )
-		);
-
-		$posted_on = sprintf(
-			_x( 'Posted on %s', 'post date', 'hsinsider' ),
-			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
-		);
-
-		$byline = sprintf(
-			_x( 'by %s', 'post author', 'hsinsider' ),
-			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
-		);
-
-		echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>';
-
-	}
-endif;
-
 if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 	/**
 	 * Prints HTML with meta information for the categories, tags and comments.
@@ -64,6 +32,27 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 		edit_post_link( __( 'Edit', 'hsinsider' ), '<span class="edit-link">', '</span>' );
 	}
 endif;
+
+/**
+ * Retrieve and compile Post Byline Information
+ */
+function hsinsider_get_post_byline() {
+	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		$time_string = sprintf( $time_string, esc_attr( get_the_date( 'c' ) ), esc_html( get_the_date() ) );
+	}
+	else {
+		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
+	}
+
+	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
+
+	$byline = '<a class="posted_by" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>' . $posted_on;
+
+	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80 );
+
+	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
+}
 
 /**
  * Returns true if a blog has more than 1 category.

@@ -22,7 +22,7 @@ if( empty( $title ) || empty( $url ) ) {
 		<i class="LATTwitter"></i>
 	</a>
 
-	<span class="trb_socialize_item" data-role="socialshare_parent">
+	<!-- <span class="trb_socialize_item" data-role="socialshare_parent">
 		<i class="LATShare"></i>
 		<ul class="trb_socialize_submenu">
 			
@@ -46,9 +46,9 @@ if( empty( $title ) || empty( $url ) ) {
 				<i class="LATReddit"></i>
 			</a>
 		</ul>
-	</span>
+	</span> -->
 
 	<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
 
-	<a class="trb_socialize_item" href="#" onclick="window.print();return false;"><i class="LATPrinter"></i></a>
+	<!-- <a class="trb_socialize_item" href="#" onclick="window.print();return false;"><i class="LATPrinter"></i></a> -->
 </span>

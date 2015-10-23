@@ -8279,6 +8279,8 @@ a:focus, button:focus {
     display: table; }
   .jumbotron:after {
     clear: both; }
+  .jumbotron p {
+    font-size: 16px; }
   .jumbotron.feature {
     padding: 0px !important; }
   .jumbotron article figure.featured-image {
@@ -8718,82 +8720,36 @@ article.comment {
 #gmap {
   /*height: 575px;*/ }
 
-/*  Styles for EU Custom Gallery. Overrides default Orbit styles
+/*  Styles for EU Custom Gallery
  *  Author: James Perez
- *	Created On: 08/18/15
+ *  Created On: 08/18/15
  */
 @media (max-width: 991px) {
-  .orbit-container .eu_prev, .orbit-container .eu_next, .orbit-container .eu_expand_gallery, .orbit-container .eu_slide_number {
-    border-radius: 6px;
-    position: absolute; }
-  .orbit-container .eu_expand_gallery {
-    display: none; }
-  .orbit-container ul.eu_gallery figcaption {
-    font-size: 14px; }
   .eu_video_gallery_container .video_info {
     padding-top: 20px; }
-  .eu_video_gallery_container .orbit-container {
+  .eu_video_gallery_container #video-carousel {
     display: none; } }
 
-@media (min-width: 991px) {
-  .eu_gallery_container {
-    position: relative;
-    width: 100%;
-    top: 0;
-    left: 0; }
-    .eu_gallery_container .orbit-container .orbit-slides-container img {
-      width: auto; }
-  ul.eu_gallery {
-    height: 300px; }
-    ul.eu_gallery figure {
-      overflow: auto;
-      width: 100%;
-      margin: 0px !important; }
-      ul.eu_gallery figure .img_container {
-        display: block; }
-      ul.eu_gallery figure img {
-        margin: 0 auto;
-        max-height: 100%; }
-      ul.eu_gallery figure figcaption {
-        color: #333333;
-        font-size: 16px;
-        margin: 0px;
-        padding: 10px 5px; }
-        ul.eu_gallery figure figcaption h2 {
-          display: none; }
-        ul.eu_gallery figure figcaption .gigya-post {
-          display: none; }
-  .eu_prev, .eu_next, .eu_expand_gallery, .eu_slide_number {
-    padding: 8px 10px !important; }
-    .eu_prev:hover, .eu_next:hover, .eu_expand_gallery:hover, .eu_slide_number:hover {
-      background-color: #FDDDAA;
-      border-color: #fee9c8;
+@media (min-width: 768px) {
+  .eu_video_gallery {
+    padding: 0px; }
+  .carousel-control {
+    padding: 8px 10px !important;
+    background: transparent !important;
+    width: auto; }
+    .carousel-control > i {
+      position: absolute;
+      top: 35%;
+      font-size: 28px;
+      color: #202020; }
+    .carousel-control:hover > i {
+      color: #4eec89; }
+    .carousel-control:focus {
       color: #333333; }
-    .eu_prev:focus, .eu_next:focus, .eu_expand_gallery:focus, .eu_slide_number:focus {
-      color: #333333;
-      background: rgba(255, 255, 255, 0.5);
-      border-color: none transparent; }
+    .carousel-control.right {
+      right: 3%; }
   .camera {
     padding: 6px 10px !important; }
-  .eu_next i, .eu_prev i {
-    font-size: 20px;
-    padding: 0 25%; }
-  .eu_next {
-    right: 10px;
-    text-align: right; }
-  .eu_prev {
-    left: 10px; }
-  .eu_expand_gallery {
-    margin: 0px; }
-    .eu_expand_gallery i {
-      font-size: 16px; }
-  .eu_slide_number {
-    position: absolute;
-    margin: 0px;
-    padding: 6px !important;
-    text-align: center; }
-  .eu_expand_gallery, .eu_slide_number {
-    right: 10px; }
   .eu_video_gallery_container .video_info .gigya-post {
     padding-top: 20px; } }
 
@@ -8805,7 +8761,8 @@ article.comment {
     ul.eu_gallery figure figcaption {
       font-size: 14px; }
   .eu_video_gallery_container .active_video .video_info h2 {
-    font-size: 24px; }
+    font-size: 28px;
+    padding-bottom: 15px; }
   .eu_video_gallery_container ul.eu_video_gallery {
     overflow: hidden;
     width: 90%;
@@ -8842,12 +8799,11 @@ article.comment {
         .eu_video_gallery_container ul.eu_video_gallery li figure figcaption {
           position: relative; }
           .eu_video_gallery_container ul.eu_video_gallery li figure figcaption h3 {
-            font-size: 16px;
-            font-weight: bold; }
+            font-size: 18px; }
       .eu_video_gallery_container ul.eu_video_gallery li .video_thumb:hover > .video_thumb_container > .camera {
-        background-color: #FDDDAA;
-        border-color: #fee9c8;
-        color: #333333; }
+        /*background-color: $highlight-color;
+							border-color: $highlight-color;*/
+        color: #4eec89; }
       .eu_video_gallery_container ul.eu_video_gallery li .video_thumb:focus > .video_thumb_container > .camera {
         color: #333333;
         background: rgba(255, 255, 255, 0.5);

@@ -7,39 +7,43 @@
 		.video_info {
 			padding-top: 20px;
 		}
+		#video-carousel {
+			display: none;
+		}
 	}
 }
 
-@media( min-width: $screen-sm-max ) {
+@media( min-width: $screen-sm-min ) {
+
+	.eu_video_gallery {
+		padding: 0px;
+	}
 
 	.carousel-control {
 		padding: 8px 10px !important;
-		&:hover {
-			background-color: #FDDDAA;
-			border-color: #fee9c8;
-			color: #333333;
+		background: transparent !important;
+		width: auto;
+		& > i {
+			position: absolute;
+			top: 35%;
+			font-size: 28px;
+			color: $gray-dark;
+		}
+		&:hover > i {
+			color: $highlight-color;
 		}
 		&:focus {
 			color: #333333;
-			background: rgba(255, 255, 255, .50);
-			border-color: none transparent;
+		}
+
+		&.right {
+			right: 3%;
 		}
 
 	}
 
 	.camera {
 		padding: 6px 10px !important;
-	}
-
-	.eu_slide_number {
-		position: absolute;
-		margin: 0px;
-		padding:  6px !important;
-		text-align: center;
-	}
-
-	.eu_expand_gallery, .eu_slide_number {
-		right: 10px;
 	}
 
 	.eu_video_gallery_container {
@@ -68,7 +72,8 @@
 		.active_video {
 			.video_info {
 				h2 {
-					font-size: 24px;
+					font-size: 28px;
+					padding-bottom: 15px;
 				}
 				span {
 
@@ -116,16 +121,15 @@
 					figcaption {
 						position: relative;
 						h3 {
-							font-size: 16px;
-							font-weight: bold;
+							font-size: 18px;
 						}
 					}
 				}
 				.video_thumb {
 					&:hover > .video_thumb_container > .camera {
-							background-color: #FDDDAA;
-							border-color: #fee9c8;
-							color: #333333;
+							/*background-color: $highlight-color;
+							border-color: $highlight-color;*/
+							color: $highlight-color;
 					}
 					&:focus > .video_thumb_container > .camera {
 						color: #333333;

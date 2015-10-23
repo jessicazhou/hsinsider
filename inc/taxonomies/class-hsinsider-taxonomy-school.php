@@ -17,7 +17,7 @@ class HSInsider_Taxonomy_School extends HSInsider_Taxonomy {
 	public function create_taxonomy() {
 	
 		add_filter( 'pre_post_link', array( $this, 'permalink' ), 9, 2 );
-		add_action( 'fm_term_' . $this->name, array( $this, 'school_meta' ) );
+		//add_action( 'fm_term_' . $this->name, array( $this, 'school_meta' ) );
 		add_action( 'add_meta_boxes', array( $this, 'change_category_meta_box_name' ), 0 );
 		add_action( 'template_redirect', array( $this, 'reorder_posts' ) );
 
@@ -93,27 +93,6 @@ class HSInsider_Taxonomy_School extends HSInsider_Taxonomy {
 		else {
 			return str_replace( '%category%', 'hs-insider', $permalink );
 		}
-	}
-	
-	public function school_meta() {
-	
-		$fm = new Fieldmanager_Group( array(
-			'name' => 'school_info',
-			'children' => array(
-				'address' => new Fieldmanager_Textfield( 'Address', array(
-						'name' => 'address',
-						'attributes' => array(
-							'placeholder' => '202 W 1st St. Los Angeles, CA 90012'
-						)
-					)
-				),
-				'website' => new Fieldmanager_Textfield( 'School URL' ),
-				'facebook' => new Fieldmanager_Textfield( 'Facebook URL' ),
-				'twitter' => new Fieldmanager_Textfield( 'Twitter URL' ),
-				'logo' => new Fieldmanager_Media( 'Logo' ),
-			)
-		) );
-		$fm->add_term_form( 'School Info', $this->name );
 	}
 	
 	public function change_category_meta_box_name() {

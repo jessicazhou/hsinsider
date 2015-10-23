@@ -99,6 +99,15 @@ require_once( HSINSIDER_PATH . '/inc/partials.php' );
 // them, leave the Begin and End comments in place.
 /* Begin Data Structures */
 
+// FieldManager Fields
+require_once( HSINSIDER_PATH . '/inc/fields.php' );
+
+// Post Type Base Class
+require_once( HSINSIDER_PATH . '/inc/post-types/class-hsinsider-post-type.php' );
+
+//Custom Post Types
+require_once( HSINSIDER_PATH . '/inc/post-types/class-hsinsider-post-type-video.php' );
+
 // Taxonomy Base Class
 require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy.php' );
 
@@ -115,6 +124,6 @@ require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-polls.php' )
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.php' );
 /* End Data Structures */
 
-
+// Video Gallery
 require_once( HSINSIDER_PATH . '/inc/eu-video-gallery.php' );
 require_once( HSINSIDER_PATH . '/inc/eu-video-gallery-2.php' );
