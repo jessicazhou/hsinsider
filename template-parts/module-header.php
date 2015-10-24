@@ -12,16 +12,19 @@
 					<img class="hsinsider-logo img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
 					<img class="hsinsider-logo img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
 
-					<?php if( hsinsider_has_school_image() ) : ?>
-						<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
-					<?php endif; ?>
+					<?php if( hsinsider_get_school() ) : ?>
+							
+						<span class="school-header">
+						<?php if( hsinsider_has_school_image() ) : ?>
+							<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
+						<?php endif; ?>
+						<?php hsinsider_school_link(); ?>
+						</span>
 					
-					<?php 
-						if( hsinsider_get_school() ) :
-							hsinsider_school_link();
-						elseif( is_category() ) :
-							$category = get_queried_object(); ?>
-							<a href="<?php echo esc_url( wpcom_vip_get_term_link( $category, $category->taxonomy ) ); ?>" class="school topic"><?php echo esc_html( $category->name ); ?></a>
+					<?php elseif( is_category() ) :
+						$category = get_queried_object(); ?>
+						<a href="<?php echo esc_url( wpcom_vip_get_term_link( $category, $category->taxonomy ) ); ?>" class="school topic"><?php echo esc_html( $category->name ); ?></a>
+				
 					<?php endif; ?>
 					
 					<div class="menus">

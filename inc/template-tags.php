@@ -171,6 +171,9 @@ function hsinsider_get_school_meta( $meta_key = null, $post = null ) {
  * Checks if the school has an image (set in fieldmanager)
  */
 function hsinsider_has_school_image( $post = null ) {
+	if( empty( $post ) ) {
+		$post = get_post();
+	}
 
 	$attachment_id = hsinsider_get_school_meta( 'logo', $post );
 
@@ -186,6 +189,9 @@ function hsinsider_has_school_image( $post = null ) {
  * Gets the school image (set in fieldmanager)
  */
 function hsinsider_get_school_image( $image_size = 'thumbnail', $post = null ) {
+	if( empty( $post ) ) {
+		$post = get_post();
+	}
 
 	$attachment_id = hsinsider_get_school_meta( 'logo', $post );
 	
@@ -215,7 +221,10 @@ function hsinsider_school_image( $size = 'thumbnail' ) {
  * Gets a link to the school page
  */
 function hsinsider_get_school_link( $post = null ) {
-	
+	if( empty( $post ) ) {
+		$post = get_post();
+	}
+
 	$term = hsinsider_get_school( $post );
 	
 	if( empty( $term ) )
@@ -235,7 +244,10 @@ function hsinsider_get_school_link( $post = null ) {
  * Prints a link to the school page
  */
 function hsinsider_school_link( $class = 'school', $post = null ) {
-
+	if( empty( $post ) ) {
+		$post = get_post();
+	}
+	
 	$term = hsinsider_get_school( $post );
 	
 	if( empty( $term ) )

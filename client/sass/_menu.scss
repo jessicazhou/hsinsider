@@ -4,6 +4,25 @@ header.site-header {
 	background: $gray-dark;
 	.hsinsider-logo {
 		max-height: 60px;
+		float: left;
+		padding-right: 20px;
+	}
+	.school-header {
+		display: inline-block;
+		float: left;
+		padding-left: 25px;
+		border-left: 1px solid $white;
+		a img {
+			height: 60px;
+			width: auto;
+		}
+		a.school {
+			font-family: $font-family-serif;
+			font-size: 16px;
+			i {
+				display: none;
+			}
+		}
 	}
 }
 

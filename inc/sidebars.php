@@ -52,6 +52,14 @@ if ( function_exists('register_sidebar') ) {
 		'before_title' => '<h4 class="widget-title">',
 		'after_title' => '</h4>',
 	) );
+	register_sidebar( array(
+		'name' => 'Single Post',
+		'id' => 'single-post',
+		'before_widget' => '<div id="%1$s" class="widget %2$s">',
+		'after_widget' => '</div>',
+		'before_title' => '<h4 class="widget-title">',
+		'after_title' => '</h4>',
+	) );
 }
 
 //returns the number of widgets in a sidebar for later use

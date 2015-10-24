@@ -46,6 +46,22 @@
 	}
 }
 
+#sidebar-single-post {
+	.widget_hsinsider_latest_popular {
+		article {
+			@include make-xs-column( 12 );
+			padding-bottom: 25px;
+		}
+		h4 {
+			display: block;
+			margin: 0px;
+			padding: 5px 0px;
+			font-size: 16px;
+			text-align: center;
+		}
+	}
+}
+
 .widget_hsinsider_latest_popular {
 	overflow: auto;
 	article {

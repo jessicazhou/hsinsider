@@ -131,6 +131,23 @@ a:focus, button:focus {
 /* =Post --*/
 article.post {
 	overflow: auto;
+	&.single {
+		h1.entry-title {
+			font-size: 32px;
+		}
+		.wp-post-image {
+			width: 100%;
+			height: auto;
+			padding-bottom: 40px;
+		}
+		.entry-meta {
+			margin-bottom: 20px;
+		}
+		p { 
+			color: #000000;
+			line-height: 1.8em;
+		}
+	}
 	figure.byline {
 		padding: 15px 0px 0px;
 		margin: 0;
