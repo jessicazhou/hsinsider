@@ -47,7 +47,7 @@ get_header(); ?>
 		<?php get_sidebar( 'popular' ); ?>
 		<div class="jumbotron">
 			<div class="container">
-				<?php echo hsinsider_video_gallery(); ?>
+				<?php hsinsider_video_gallery(); ?>
 			</div>
 		</div>
 		<?php if ( have_posts() ) : ?>

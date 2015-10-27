@@ -2113,7 +2113,7 @@
  * Created On: 08/19/15
  */	    
 
-$( document ).ready( function(){
+$( document ).ready( function() {
 
 	/**
 	 * If a gallery doesn't exist on this page, then don't do anything
@@ -2264,18 +2264,6 @@ $( document ).ready( function(){
  	 * If its a video gallery, we need the YouTube IFrame API
 	 */
 	else if( $( '.eu_video_gallery_container' ).length ) {
-		//var youtube_id = $( 'ul.eu_video_gallery li.active figure' ).first().data( 'youtube_id' );
-
-		/*var share_args = { 
-			featured_img: $( 'ul.eu_video_gallery li.active figure' ).first().find( 'img' ).attr( 'src' ), 
-			permalink: $( 'ul.eu_video_gallery li.active figure' ).first().data( 'permalink' ),
-			the_title: $( 'ul.eu_video_gallery li.active figure' ).first().data( 'video_title' ), 
-			target: 'gigya-container', 
-			icon_path: $( '.eu_video_gallery_container' ).data( 'icon-path' )
-		};*/
-		
-		//emergingusShowShareUI( share_args );
-
 		/**
  		 * Import YouTube IFrame API
 		 */
@@ -2294,8 +2282,6 @@ $( document ).ready( function(){
 			permalink = $( this ).data( 'permalink' );
 			author = $( this ).data( 'video_author' );
 
-			console.log( player );
-
 			player.cueVideoById( youtube_id );
 
 			$( '.video_info h2' ).html( '<a href="' + permalink + '" >' + video_title + '</a>' );
@@ -2303,47 +2289,10 @@ $( document ).ready( function(){
 			$( '.video_info .post-byline' ).html( author );
 			$( '.video_thumb' ).removeClass( 'active' );
 			$( this ).addClass( 'active ');
-
-			//$( '.gigya-post' ).html( '<div id="gigya-container"></div>' );
-
-			/*share_args = { 
-				featured_img: $( this ).find( 'img' ).attr( 'src' ), 
-				permalink: permalink, 
-				the_title: video_title, 
-				target: 'gigya-container', 
-				icon_path: $( '.eu_video_gallery_container' ).data( 'icon-path' )
-			};*/
-			//emergingusShowShareUI( share_args );			
-		});
+		
+		} );
 	}
-
-	/*function emergingusShowShareUI( share_args ) {
-		var shareImage = function( provider ) {
-			return share_args.icon_path + provider.toLowerCase() + '_000000_20.png';
-		};
-
-		var act = new gigya.socialize.UserAction();
-		act.setTitle( share_args.thetitle );
-		act.setLinkBack( share_args.permalink );
-		act.addMediaItem( { type: 'image', src: share_args.featured_img, href: share_args.permalink } );
-
-		var showShareBarUI_params = {
-			containerID: share_args.target,
-			shareButtons: [ 'Facebook', 'Twitter', 'Share', 'Email', 'Print' ].map( function( provider ) {
-				return {
-					provider: provider,
-					iconImgUp: shareImage( provider )
-				};
-			}),
-			iconsOnly: 'true',
-			showCounts: 'none',
-			userAction: act,
-			moreEnabledProviders: 'facebook, twitter, google, linkedin, googlebookmarks, reddit, tumblr, pinterest, gmail, evernote',
-			showEmailButton: false
-			}
-		gigya.socialize.showShareBarUI( showShareBarUI_params );
-	}*/
-});
+} );
 
 /**
  * If a gallery exists, run the YouTube Iframe API
@@ -2352,19 +2301,7 @@ if( document.getElementById( "video-carousel" ) ) {
 	var player;
 	function onYouTubeIframeAPIReady() {
 		console.log( 'player ready' );
-		player = new YT.Player('player', {
-			events: {
-				'onStateChange': onPlayerStateChange
-			}
-		});
-	}
-
-	var done = false;
-	function onPlayerStateChange( event ) {
-		/*if (event.data == YT.PlayerState.PLAYING && !done) {
-	        setTimeout(stopVideo, 6000);
-	        done = true;
-	    }*/
+		player = new YT.Player('player', {} );
 	}
 
 	function stopVideo() {
@@ -2375,6 +2312,9 @@ if( document.getElementById( "video-carousel" ) ) {
 		player.cueVideoById( youtube_id );
 	}
 }
+
+
+
 /**
  * LA Times HS Insider Maps
  * This script uses the Google Maps API to display a map of Los Angeles

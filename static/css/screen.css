@@ -8591,7 +8591,8 @@ article.comment {
             top: 0;
             bottom: 0;
             right: 0;
-            left: 0; }
+            left: 0;
+            width: 100%; }
           .eu_video_gallery_container ul.eu_video_gallery li figure .video_thumb_container .camera {
             position: absolute;
             top: auto;
@@ -8602,8 +8603,6 @@ article.comment {
           .eu_video_gallery_container ul.eu_video_gallery li figure figcaption h3 {
             font-size: 18px; }
       .eu_video_gallery_container ul.eu_video_gallery li .video_thumb:hover > .video_thumb_container > .camera {
-        /*background-color: $highlight-color;
-							border-color: $highlight-color;*/
         color: #4eec89; }
       .eu_video_gallery_container ul.eu_video_gallery li .video_thumb:focus > .video_thumb_container > .camera {
         color: #333333;

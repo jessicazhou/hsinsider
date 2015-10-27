@@ -9,8 +9,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<img class="hsinsider-logo img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
-					<img class="hsinsider-logo img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
+					<a href="<?php echo esc_url( home_url() ); ?>">
+						<img class="hsinsider-logo img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
+						<img class="hsinsider-logo img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
+					</a>
 
 					<?php if( hsinsider_get_school() ) : ?>
 							
