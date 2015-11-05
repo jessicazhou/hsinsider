@@ -22,12 +22,16 @@
 
 .show-search {
 	position:absolute;
+	top: 60px;
 	right:0;
 	left: 0;
 	display:none;
 	z-index:10000;
 	background-color: #363636;
 	padding: 10px 20px;
+	@media( max-width: $screen-sm-max ) {
+		top: 45px;
+	}
 	#searchform {
 		span {
 			border: 0;

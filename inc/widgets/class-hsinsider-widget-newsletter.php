@@ -30,11 +30,11 @@ class HSInsider_Widget_Newsletter extends HSInsider_Widget {
 		}
 		?>
 			<form action="//latimes.us10.list-manage.com/subscribe/post?u=f089ecc9238c5ee13b8e5f471&amp;id=d721736bdd" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-				<div class="col-xs-8 col-sm-9">
+				<div class="col-xs-8">
 					<input type="hidden" name="b_f089ecc9238c5ee13b8e5f471_d721736bdd" tabindex="-1" value="">
 					<input type="email" value="" placeholder="Enter your email address" name="EMAIL" class="required email">
 				</div>
-				<div class="col-xs-4 col-sm-3">
+				<div class="col-xs-4">
 					<input type="submit" class="" value="Submit" name="subscribe">
 				</div>
 			</form>

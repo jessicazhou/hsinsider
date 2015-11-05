@@ -9,14 +9,14 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package Blankstrap
+ * @package HSInsider
  */
 
 get_header(); ?>
 	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+		<main id="main" class="site-main container-fluid" role="main">
 		<?php if( is_home() || is_category() ) : ?>
-			<div class="jumbotron feature">
+			<div class="hero jumbotron blogroll">
 				<?php 
 					$args = array(
 						'post_type' => 'any',
@@ -32,7 +32,7 @@ get_header(); ?>
 						 * Get the template for the top featured post and save it's id
 						 * in $curated so we can pull it from the main blogroll later
 						 */
-						ai_get_template_part( 'template-parts/content', 'featured' );
+						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$curated = get_the_ID();
 						
 						/**
@@ -45,14 +45,14 @@ get_header(); ?>
 		<?php endif; ?>
 		
 		<?php get_sidebar( 'popular' ); ?>
-		<div class="jumbotron">
+		<div class="row">
 			<div class="container">
-				<?php hsinsider_video_gallery(); ?>
+				<?php //hsinsider_video_gallery(); ?>
 			</div>
 		</div>
 		<?php if ( have_posts() ) : ?>
 			<?php $post_count = 0; ?>
-			<section class="blogroll">
+			<section class="blogroll row">
 				<?php while ( have_posts() ) : the_post(); //the Loop ?>
 
 					<?php
@@ -62,11 +62,7 @@ get_header(); ?>
 						 * TODO: Move jumbotron div into featured template
 						 */
 						if( $curated != get_the_ID() ) {
-							
-							echo '<div class="jumbotron">';
-							ai_get_template_part( 'template-parts/content', 'featured' );
-							echo '</div>';
-
+							ai_get_template_part( 'template-parts/content', 'blogroll' );
 							$post_count ++;
 						}
 				

@@ -126,4 +126,3 @@ require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.p
 
 // Video Gallery
 require_once( HSINSIDER_PATH . '/inc/eu-video-gallery.php' );
-require_once( HSINSIDER_PATH . '/inc/eu-video-gallery-2.php' );

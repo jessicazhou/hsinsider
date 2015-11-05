@@ -5,7 +5,7 @@
  * Created On: 08/19/15
  */	    
 
-$( document ).ready( function() {
+jQuery( document ).ready( function( $ ) { 
 
 	/**
 	 * If a gallery doesn't exist on this page, then don't do anything

@@ -49,7 +49,7 @@ function hsinsider_get_post_byline() {
 
 	$byline = '<a class="posted_by" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>' . $posted_on;
 
-	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80 );
+	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80, '', '', array( 'class' => 'img-circle' ) );
 
 	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }

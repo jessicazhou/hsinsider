@@ -23,7 +23,7 @@ function hsinsider_enqueue_assets() {
 	wp_register_script( 'jquery', get_template_directory_uri() . '/static/js/jquery.min.js', array(), '2.1.4', true );
 
 	// Global Script placed in the footer
-	wp_register_script( 'hsinsider-global-js', get_template_directory_uri() . '/static/js/global.js', array( 'jquery' ), '1.2', true );
+	wp_register_script( 'hsinsider-global-js', get_template_directory_uri() . '/static/js/global.js', 'jquery', '1.2', true );
 
 	wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=' . hsinsider_site_config( 'api.googlemaps' ) . '&callback=initMap', array( 'hsinsider-global-js' ), '1.0', true );
 	
