@@ -7847,7 +7847,7 @@ header.site-header {
       float: left; }
       header.site-header .school-header a.school {
         display: block;
-        padding: 7% 6px;
+        padding: 6% 6px;
         font-family: "Belizio", serif;
         font-size: 16px; }
         header.site-header .school-header a.school i {
@@ -8355,8 +8355,6 @@ a:focus, button:focus {
         width: 100%;
         height: auto; }
   .blogroll section {
-    display: inline-block;
-    float: left;
     padding-top: 6%; }
     .blogroll section.no-post-image {
       padding: 50px 0px;
@@ -8465,15 +8463,25 @@ a.school {
   .hero p {
     font-size: 16px; }
 
-@media (max-width: 992px) {
+.school-archive-header {
+  border-bottom: 1px solid #e4e4e4; }
   .school-archive-header .map {
-    padding-right: 0px; } }
-
-.school-archive-header h1.entry-title {
-  font-family: 'Belizio'; }
-  @media (min-width: 992px) {
-    .school-archive-header h1.entry-title {
-      font-size: 32px; } }
+    padding-left: 0px; }
+    @media (max-width: 992px) {
+      .school-archive-header .map {
+        padding-right: 0px; } }
+  .school-archive-header h1.entry-title {
+    font-family: 'Belizio'; }
+    @media (min-width: 992px) {
+      .school-archive-header h1.entry-title {
+        font-size: 32px; } }
+  .school-archive-header img.school-image {
+    width: 100%;
+    max-width: 165px;
+    height: auto; }
+    @media (max-width: 991px) {
+      .school-archive-header img.school-image {
+        margin: 0 auto 14px; } }
 
 /* =Ads
 -------------------------------------------------------------- */
@@ -8813,21 +8821,13 @@ article.comment {
 
 #gmap {
   width: 100%;
-  height: 275px; }
+  height: auto; }
   @media (min-width: 480px) {
     #gmap {
       height: 375px; } }
   @media (min-width: 992px) {
     #gmap {
       height: 425px; } }
-
-#gmap {
-  /*height: 575px;*/ }
-
-.school-archive-header {
-  border-bottom: 1px solid #e4e4e4; }
-  .school-archive-header .map {
-    padding-left: 0px; }
 
 /*  Styles for EU Custom Gallery
  *  Author: James Perez

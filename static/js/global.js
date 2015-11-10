@@ -2331,6 +2331,9 @@ if( document.getElementById( "video-carousel" ) ) {
 /**
  * Callback function to initialize the map once the Google Maps API is loaded
  */
+
+var map;
+
 function initMap() {
 
 	var styles = [
@@ -2380,22 +2383,21 @@ function initMap() {
 		name: "Styled Map"
 	});
 
-	var mapOptions = {
-        center: { lat: 34.052235, lng: -118.243683 },
-        zoom: 10,
-        scrollwheel: false,
-        zoomControlOptions: {
-            style: google.maps.ZoomControlStyle.SMALL
-        }
-    };
+	school_marker = $( '#gmap' ).data( 'marker' );
 
-    school_marker = $( '#gmap' ).data( 'marker' );
+	if( school_marker !== 'none' ) {
 
-    console.log( school_marker );
+		var mapOptions = {
+			center: { lat: 34.052235, lng: -118.243683 },
+			zoom: 10,
+			scrollwheel: false,
+			zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL
+			}
+		};
 
-    if( school_marker !== 'none' ) {
-
-    	map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+		map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+		google.maps.event.trigger( map, 'resize' );
 
 		// apply the styles
 		map.mapTypes.set( 'map_style', styledMap );
@@ -2424,6 +2426,7 @@ function codeAddress( school_marker ) {
 				position: results[0].geometry.location,
 				title: school_name
 			} );
+			map.setCenter( marker.getPosition() );
 		} else {
 			alert( "Geocode was not successful for the following reason: " + status );
 		}

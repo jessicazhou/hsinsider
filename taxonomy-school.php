@@ -19,8 +19,7 @@ if( is_object( $term ) ) : ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main container-fluid" role="main">
 			<header class="hero jumbotron blogroll school-archive-header row">
-				<?php
-
+				<?php 
 					$school_address = hsinsider_get_school_meta( 'address' );
 					$school = hsinsider_get_school();
 					$column = 'no-post-image';
@@ -31,37 +30,31 @@ if( is_object( $term ) ) : ?>
 							'address' => $school_address
 						);
 
-						if( ! empty( $school_marker['address'] ) ) :
-							$school_marker = json_encode( $school_marker ); 
-							$column = 'col-md-5' ?>
-
-							<div class="map col-md-7">
-								<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
-							</div>
-
-						<?php endif;
-					} 
-				?>
+						$school_marker = json_encode( $school_marker ); 
+						$column = 'col-md-5' ?>
+						
+				<?php } ?>
+				<div class="map col-md-7">
+					<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
+				</div>
 				<section class="col-xs-12 col-sm-12 <?php echo $column; ?>">
-
 					<!-- Social Share -->
 					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
 
 					<!-- title -->
 					<h1 class="entry-title"><?php esc_html_e( $school->name, 'hsinsider' ); ?></h1>
 					<?php if( hsinsider_has_school_image() ) : ?>
-						<figure>
+					<div class="row">
+						<div class="col-sm-12 col-md-4">
 							<?php hsinsider_school_image(); ?>
-							<figcaption></figcaption>
-						</figure>
+						</div>
+						<div class="col-sm-12 col-md-8">
+							<p><?php esc_html_e( $school->description, 'hsinsider' ); ?></p>
+						</div>
+					</div>
 					<?php endif; ?>
-					
-					<footer class="entry-footer">
-						
-					</footer><!-- .entry-footer -->
 				</section><!-- .page-header -->
 			</header>
-
 			<?php if ( have_posts() ) : ?>
 			<?php $post_count = 0; ?>
 			<section class="blogroll row">

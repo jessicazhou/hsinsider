@@ -1,6 +1,6 @@
 #gmap {
 	width: 100%;
-	height: 275px;
+	height: auto;
 
 	@media( min-width: $screen-xs-min ) {
 		height: 375px;
@@ -8,16 +8,5 @@
 
 	@media( min-width: $screen-md-min ) {
 		height: 425px;
-	}
-
-	@media( min-width: $screen-lg-min ) {
-		/*height: 575px;*/
-	}
-}
-
-.school-archive-header {
-	border-bottom: 1px solid #e4e4e4;
-	.map {
-		padding-left: 0px;
 	}
 }

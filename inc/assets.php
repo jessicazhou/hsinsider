@@ -25,7 +25,7 @@ function hsinsider_enqueue_assets() {
 	// Global Script placed in the footer
 	wp_register_script( 'hsinsider-global-js', get_template_directory_uri() . '/static/js/global.js', 'jquery', '1.2', true );
 
-	wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=' . hsinsider_site_config( 'api.googlemaps' ) . '&callback=initMap', array( 'hsinsider-global-js' ), '1.0', true );
+	wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=' . hsinsider_site_config( 'api.googlemaps' ) . '&v=3.14&callback=initMap', array( 'hsinsider-global-js' ), '1.0', true );
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-effects-slide' );

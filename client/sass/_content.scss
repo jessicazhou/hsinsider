@@ -51,8 +51,6 @@ a:focus, button:focus {
 		} 
 	}
 	section {
-		display: inline-block;
-		float: left;
 		padding-top: 6%;
 		&.no-post-image {
 			padding: 50px 0px;
@@ -187,7 +185,9 @@ a.school {
 }
 
 .school-archive-header {
+	border-bottom: 1px solid #e4e4e4;
 	.map {
+		padding-left: 0px;
 		@media( max-width: $screen-md-min ) {
 			padding-right: 0px;
 		}
@@ -196,6 +196,14 @@ a.school {
 		font-family: 'Belizio';
 		@media( min-width: $screen-md-min ) {
 			font-size: 32px;
+		}
+	}
+	img.school-image {
+		width: 100%;
+		max-width: 165px;
+		height: auto;
+		@media( max-width: $screen-sm-max ) {
+			margin: 0 auto 14px;
 		}
 	}
 }
