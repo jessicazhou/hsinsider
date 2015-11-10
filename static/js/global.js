@@ -2284,12 +2284,19 @@ jQuery( document ).ready( function( $ ) {
 
 			player.cueVideoById( youtube_id );
 
+			facebookLink = 'https://www.facebook.com/sharer/sharer.php?u=' + permalink;
+			twitterLink = 'https://twitter.com/home?status=' + video_title + '+' + permalink;
+
+			console.log( $( 'a.trb_socalize_item.facebook' ) );
+
 			$( '.video_info h2' ).html( '<a href="' + permalink + '" >' + video_title + '</a>' );
 			$( '.video_info .post-excerpt' ).html( description );
 			$( '.video_info .post-byline' ).html( author );
+			$( '.video_info .trb_socialize_item.facebook' ).attr( 'href', facebookLink );
+			$( '.video_info .trb_socialize_item.twitter' ).attr( 'href', twitterLink );
+
 			$( '.video_thumb' ).removeClass( 'active' );
 			$( this ).addClass( 'active ');
-		
 		} );
 	}
 } );
@@ -2382,41 +2389,44 @@ function initMap() {
         }
     };
 
-    map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+    school_marker = $( '#gmap' ).data( 'marker' );
 
-    // apply the styles
-    map.mapTypes.set( 'map_style', styledMap );
-    map.setMapTypeId( 'map_style' );
+    console.log( school_marker );
 
-	codeAddress();
+    if( school_marker !== 'none' ) {
+
+    	map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+
+		// apply the styles
+		map.mapTypes.set( 'map_style', styledMap );
+		map.setMapTypeId( 'map_style' );
+
+		codeAddress( school_marker );
+	}
 }
 
-function codeAddress() {
+function codeAddress( school_marker ) {
 	/**
 	 * Create geocoder object
 	 */
 	var geocoder;
 	geocoder = new google.maps.Geocoder();
 
-	markers = $( '#gmap' ).data( 'markers' );
-
-	$.each( markers, function() {
-		var school_name = String( this.school );
-		/**
-		 * Use geocoder to convert address into longitude and latitude
-		 * and drop a pin on the map
-		 */
-		geocoder.geocode( { 'address': this.address }, function( results, status ) {
-			if ( status == google.maps.GeocoderStatus.OK ) {
-				var marker = new google.maps.Marker( {
-					map: map,
-					position: results[0].geometry.location,
-					title: school_name
-				} );
-			} else {
-				alert( "Geocode was not successful for the following reason: " + status );
-			}
-		} );
+	var school_name = String( school_marker.school );
+	/**
+	 * Use geocoder to convert address into longitude and latitude
+	 * and drop a pin on the map
+	 */
+	geocoder.geocode( { 'address': school_marker.address }, function( results, status ) {
+		if ( status == google.maps.GeocoderStatus.OK ) {
+			var marker = new google.maps.Marker( {
+				map: map,
+				position: results[0].geometry.location,
+				title: school_name
+			} );
+		} else {
+			alert( "Geocode was not successful for the following reason: " + status );
+		}
 	} );
 }
 

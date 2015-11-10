@@ -16,7 +16,7 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main container-fluid" role="main">
 		<?php if( is_home() || is_category() ) : ?>
-			<div class="hero jumbotron blogroll">
+			<header class="hero jumbotron blogroll">
 				<?php 
 					$args = array(
 						'post_type' => 'any',
@@ -41,13 +41,13 @@ get_header(); ?>
 						wp_reset_postdata();
 					}
 				?>
-			</div>
+			</header>
 		<?php endif; ?>
 		
 		<?php get_sidebar( 'popular' ); ?>
-		<div class="row">
+		<div class="row widget-area">
 			<div class="container">
-				<?php //hsinsider_video_gallery(); ?>
+				<?php echo hsinsider_video_gallery(); ?>
 			</div>
 		</div>
 		<?php if ( have_posts() ) : ?>
@@ -73,7 +73,7 @@ get_header(); ?>
 				<?php endwhile; ?>
 			</section>
 
-			<?php //the_posts_navigation(); ?>
+			<?php the_posts_navigation(); ?>
 
 		<?php else : ?>
 

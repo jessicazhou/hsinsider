@@ -18,22 +18,32 @@ header.site-header {
 	.school-header {
 		display: block;
 		float: left;
-		padding-left: 25px;
-		border-left: 1px solid $white;
-		a img {
-			height: 60px;
-			width: auto;
-		}
 		a {
 			display: block;
 			float: left;
 			&.school {
 				display: block;
-				padding-top: 16px;
+				padding: 7% 6px;
 				font-family: $font-family-serif;
 				font-size: 16px;
 				i {
 					display: none;
+				}
+			}
+			img {
+				height: 60px;
+				width: auto;
+			}
+			@media( max-width: $screen-md-min ) {
+
+				img {
+					height: 45px;
+				}
+				&.school {
+					width: 180px;
+					height: 100%;
+					padding: 4px 7px;
+					font-size: 14px;
 				}
 			}
 		}

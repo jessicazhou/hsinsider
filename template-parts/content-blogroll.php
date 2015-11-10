@@ -9,10 +9,10 @@
 		<?php $column_class = 'no-post-image' ?>
 		<!-- image -->
 		<?php if ( has_post_thumbnail() ) : ?>
-		<figure class="featured-image col-xs-12 col-sm-12 col-md-7">
-			<?php the_post_thumbnail(); ?>
-		</figure>
-		<?php $column_class = 'col-md-5'; ?>
+			<figure class="featured-image col-xs-12 col-sm-12 col-md-7">
+				<?php the_post_thumbnail(); ?>
+			</figure>
+			<?php $column_class = 'col-md-5'; ?>
 		<?php endif ?>
 
 		<section class="col-xs-12 col-sm-12 <?php echo $column_class; ?>">

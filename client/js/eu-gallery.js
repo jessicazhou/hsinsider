@@ -176,12 +176,19 @@ jQuery( document ).ready( function( $ ) {
 
 			player.cueVideoById( youtube_id );
 
+			facebookLink = 'https://www.facebook.com/sharer/sharer.php?u=' + permalink;
+			twitterLink = 'https://twitter.com/home?status=' + video_title + '+' + permalink;
+
+			console.log( $( 'a.trb_socalize_item.facebook' ) );
+
 			$( '.video_info h2' ).html( '<a href="' + permalink + '" >' + video_title + '</a>' );
 			$( '.video_info .post-excerpt' ).html( description );
 			$( '.video_info .post-byline' ).html( author );
+			$( '.video_info .trb_socialize_item.facebook' ).attr( 'href', facebookLink );
+			$( '.video_info .trb_socialize_item.twitter' ).attr( 'href', twitterLink );
+
 			$( '.video_thumb' ).removeClass( 'active' );
 			$( this ).addClass( 'active ');
-		
 		} );
 	}
 } );

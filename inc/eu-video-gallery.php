@@ -81,7 +81,15 @@ function hsinsider_video_gallery() {
 			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . __( $videos[0]['title'] ) .'</a></h2>';
 			$gallery .=	'			<p class="post-excerpt">' . __( $videos[0]['description'] ) .'</p>';
 			$gallery .= '			<p class="post-byline">' . __( $videos[0]['author'] ) . '</p>';
-			$gallery .= 			esc_html( ai_get_template_part( 'template-parts/module', 'share', array( 'url' => $videos[0]['link'], 'title' => $videos[0]['title'] ) ) );
+			$gallery .= '			<span class="trb_socialize_bar">
+										<a target="_blank" class="trb_socialize_item facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . esc_attr( $videos[0]['link'] ) . '" style="padding-left: 0px;">
+											<i class="LATFacebook"></i>
+										</a>
+										<a target="_blank" class="trb_socialize_item twitter" href="https://twitter.com/home?status=' . esc_attr__( $videos[0]['title'], 'hsinsider' ) . '+' . esc_attr( $videos[0]['link'] ) .'">
+											<i class="LATTwitter"></i>
+										</a>
+										<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
+									</span>';
 			$gallery .= '		</div>';
 			$gallery .= '	</div>';
 			$gallery .= '	<div class="row">';

@@ -144,6 +144,7 @@ function hsinsider_get_school( $post = null ) {
 	return $term;
 }
 
+
 /**
  * Gets the meta for the school from Fieldmanager
  */

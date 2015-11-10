@@ -7841,22 +7841,28 @@ header.site-header {
         max-height: 45px; }
   header.site-header .school-header {
     display: block;
-    float: left;
-    padding-left: 25px;
-    border-left: 1px solid #ffffff; }
-    header.site-header .school-header a img {
-      height: 60px;
-      width: auto; }
+    float: left; }
     header.site-header .school-header a {
       display: block;
       float: left; }
       header.site-header .school-header a.school {
         display: block;
-        padding-top: 16px;
+        padding: 7% 6px;
         font-family: "Belizio", serif;
         font-size: 16px; }
         header.site-header .school-header a.school i {
           display: none; }
+      header.site-header .school-header a img {
+        height: 60px;
+        width: auto; }
+      @media (max-width: 992px) {
+        header.site-header .school-header a img {
+          height: 45px; }
+        header.site-header .school-header a.school {
+          width: 180px;
+          height: 100%;
+          padding: 4px 7px;
+          font-size: 14px; } }
 
 .menuwrapper {
   position: fixed;
@@ -8348,31 +8354,31 @@ a:focus, button:focus {
       .blogroll article.post figure.featured-image img.wp-post-image {
         width: 100%;
         height: auto; }
-    .blogroll article.post section {
-      display: inline-block;
-      float: left;
-      padding-top: 6%; }
-      .blogroll article.post section.no-post-image {
-        padding: 50px 0px;
-        text-align: center; }
-      .blogroll article.post section h1 {
-        margin-top: 16px;
-        font-size: 36px; }
-        @media (max-width: 1200px) {
-          .blogroll article.post section h1 {
-            font-size: 30px; } }
-        @media (max-width: 991px) {
-          .blogroll article.post section h1 {
-            font-size: 24px; } }
-      .blogroll article.post section .trb_socialize_bar, .blogroll article.post section .school {
-        display: block;
-        padding: 0px; }
-      .blogroll article.post section .school {
-        margin-top: 15px; }
+  .blogroll section {
+    display: inline-block;
+    float: left;
+    padding-top: 6%; }
+    .blogroll section.no-post-image {
+      padding: 50px 0px;
+      text-align: center; }
+    .blogroll section h1 {
+      margin-top: 16px;
+      font-size: 36px; }
+      @media (max-width: 1200px) {
+        .blogroll section h1 {
+          font-size: 30px; } }
       @media (max-width: 991px) {
-        .blogroll article.post section {
-          padding: 20px 40px !important;
-          text-align: center; } }
+        .blogroll section h1 {
+          font-size: 24px; } }
+    .blogroll section .trb_socialize_bar, .blogroll section .school {
+      display: block;
+      padding: 0px; }
+    .blogroll section .school {
+      margin-top: 15px; }
+    @media (max-width: 991px) {
+      .blogroll section {
+        padding: 20px 40px !important;
+        text-align: center; } }
   @media (max-width: 991px) {
     .blogroll:not(.hero) article.post figure.featured-image {
       padding-right: 15px; } }
@@ -8447,8 +8453,27 @@ a.school {
     padding: 0px; }
     .hero article.post figure.featured-image {
       padding-left: 0px; }
+  .hero h1 {
+    margin-top: 16px;
+    font-size: 36px; }
+    @media (max-width: 1200px) {
+      .hero h1 {
+        font-size: 30px; } }
+    @media (max-width: 991px) {
+      .hero h1 {
+        font-size: 24px; } }
   .hero p {
     font-size: 16px; }
+
+@media (max-width: 992px) {
+  .school-archive-header .map {
+    padding-right: 0px; } }
+
+.school-archive-header h1.entry-title {
+  font-family: 'Belizio'; }
+  @media (min-width: 992px) {
+    .school-archive-header h1.entry-title {
+      font-size: 32px; } }
 
 /* =Ads
 -------------------------------------------------------------- */
@@ -8799,6 +8824,11 @@ article.comment {
 #gmap {
   /*height: 575px;*/ }
 
+.school-archive-header {
+  border-bottom: 1px solid #e4e4e4; }
+  .school-archive-header .map {
+    padding-left: 0px; }
+
 /*  Styles for EU Custom Gallery
  *  Author: James Perez
  *  Created On: 08/18/15
@@ -8808,6 +8838,9 @@ article.comment {
     padding-top: 20px; }
   .eu_video_gallery_container #video-carousel {
     display: none; } }
+
+.eu_video_gallery_container {
+  padding: 15px 0px; }
 
 @media (min-width: 768px) {
   .eu_video_gallery {
