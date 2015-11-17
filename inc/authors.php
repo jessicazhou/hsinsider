@@ -8,7 +8,7 @@
 
 function hsinsider_get_coauthors () {
 	if ( function_exists( 'coauthors' ) ) { 
-		$coauthors = coauthors_posts_links( null, null, 'By&nbsp;', null, false );
+		$coauthors = coauthors_posts_links( null, null, null, null, false );
 	} else { 
 		$coauthors = the_author(); 
 	}

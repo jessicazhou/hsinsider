@@ -20,7 +20,7 @@
 			<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
 
 			<!-- School -->
-			<?php hsinsider_school_link(); ?>
+			<?php hsinsider_school_link( 'school', $post->ID ); ?>
 
 			<!-- title -->
 			<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
@@ -30,5 +30,4 @@
 				<?php hsinsider_get_post_byline(); ?>
 			</footer><!-- .entry-footer -->
 		</section>
-
 </article><!-- #post-## -->

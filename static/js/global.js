@@ -2385,7 +2385,7 @@ function initMap() {
 
 	school_marker = $( '#gmap' ).data( 'marker' );
 
-	if( school_marker !== 'none' ) {
+	if( school_marker !== '' ) {
 
 		var mapOptions = {
 			center: { lat: 34.052235, lng: -118.243683 },

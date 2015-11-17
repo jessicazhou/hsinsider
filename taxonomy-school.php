@@ -18,10 +18,13 @@ if( is_object( $term ) ) : ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main container-fluid" role="main">
-			<header class="hero jumbotron blogroll school-archive-header row">
+			<header class="hero jumbotron blogroll archive-header row">
 				<?php 
 					$school_address = hsinsider_get_school_meta( 'address' );
 					$school = hsinsider_get_school();
+
+					//Defaults
+					$school_marker = 'none';
 					$column = 'no-post-image';
 
 					if( ! empty( $school_address ) ) {
@@ -33,10 +36,11 @@ if( is_object( $term ) ) : ?>
 						$school_marker = json_encode( $school_marker ); 
 						$column = 'col-md-5' ?>
 						
+						<div class="map col-md-7">
+							<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
+						</div>
+
 				<?php } ?>
-				<div class="map col-md-7">
-					<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
-				</div>
 				<section class="col-xs-12 col-sm-12 <?php echo $column; ?>">
 					<!-- Social Share -->
 					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>

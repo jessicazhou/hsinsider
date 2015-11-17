@@ -47,9 +47,10 @@ function hsinsider_get_post_byline() {
 
 	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
 
-	$byline = '<a class="posted_by" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>' . $posted_on;
+	$byline = hsinsider_get_coauthors() . $posted_on;
+	$author = get_coauthors()[0];
 
-	$avatar = get_avatar( get_the_author_meta( 'ID' ), 80, '', '', array( 'class' => 'img-circle' ) );
+	$avatar = get_avatar( $author->ID, null, '', '', array( 'class' => 'img-circle' ) );
 
 	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }
@@ -118,14 +119,28 @@ function hsinsider_get_school( $post = null ) {
 	elseif ( is_author() ) {
 		$author = get_queried_object();
 	
-		if( !empty( $author ) || is_object( $author ) ) {
+		if( !empty( $author ) && is_object( $author ) ) {
 			$term_id = (int) get_user_attribute( $author->ID, 'school', true );
 		
 			if( !empty( $term_id ) ) {
 				$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
 			}
+			/*
+			 * If the user doesn't have a school assigned, get the school from the post
+			 */
+			else {
+				if( empty( $post ) ) {
+					$post = get_post();
+				}
+				$terms = get_the_terms( $post->ID, 'school' );
+
+				if( !empty( $terms ) && is_array( $terms ) ) {
+					$term_id = $terms[0]->term_id;
+					$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
+				}
+			}
 		}
-	} 
+	}
 	/**
 	 * Default
 	 * Find the School for the current post
@@ -136,7 +151,7 @@ function hsinsider_get_school( $post = null ) {
 		}
 		$terms = get_the_terms( $post->ID, 'school' );
 
-		if( !empty( $terms ) || is_array( $terms ) ) {
+		if( !empty( $terms ) && is_array( $terms ) ) {
 			$term_id = $terms[0]->term_id;
 			$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
 		}
