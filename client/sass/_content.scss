@@ -53,7 +53,7 @@ a:focus, button:focus {
 	section {
 		padding-top: 6%;
 		&.no-post-image {
-			padding: 50px 0px;
+			padding: 50px 15px;
 			text-align: center;
 		}
 		h1 {
@@ -201,6 +201,13 @@ a.school {
 			font-size: 32px;
 		}
 	}
+
+	.no-post-image {
+		.school-image-column, .school-description-column {
+			@include make-md-column( 12 );
+		}
+	}
+
 	img.school-image, img.avatar {
 		width: 100%;
 		max-width: 165px;

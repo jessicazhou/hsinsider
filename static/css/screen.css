@@ -8357,7 +8357,7 @@ a:focus, button:focus {
   .blogroll section {
     padding-top: 6%; }
     .blogroll section.no-post-image {
-      padding: 50px 0px;
+      padding: 50px 15px;
       text-align: center; }
     .blogroll section h1 {
       margin-top: 16px;
@@ -8478,6 +8478,15 @@ a.school {
     @media (min-width: 992px) {
       .archive-header h1.entry-title {
         font-size: 32px; } }
+  .archive-header .no-post-image .school-image-column, .archive-header .no-post-image .school-description-column {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    @media (min-width: 992px) {
+      .archive-header .no-post-image .school-image-column, .archive-header .no-post-image .school-description-column {
+        float: left;
+        width: 100%; } }
   .archive-header img.school-image, .archive-header img.avatar {
     width: 100%;
     max-width: 165px;

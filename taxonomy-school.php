@@ -47,16 +47,21 @@ if( is_object( $term ) ) : ?>
 
 					<!-- title -->
 					<h1 class="entry-title"><?php esc_html_e( $school->name, 'hsinsider' ); ?></h1>
-					<?php if( hsinsider_has_school_image() ) : ?>
+
 					<div class="row">
-						<div class="col-sm-12 col-md-4">
+						<?php if( hsinsider_has_school_image() ): ?>
+						<div class="col-sm-12 col-md-4 school-image-column">
 							<?php hsinsider_school_image(); ?>
 						</div>
-						<div class="col-sm-12 col-md-8">
+						<?php endif; ?>
+
+						<?php if( '' != $school->description ): ?>
+						<div class="col-sm-12 col-md-8 school-description-column">
 							<p><?php esc_html_e( $school->description, 'hsinsider' ); ?></p>
 						</div>
+						<?php endif; ?>
 					</div>
-					<?php endif; ?>
+
 				</section><!-- .page-header -->
 			</header>
 			<?php if ( have_posts() ) : ?>
