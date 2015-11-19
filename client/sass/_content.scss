@@ -1,5 +1,9 @@
 body {
 	font-weight: 200;
+	&.noscroll {
+		position: fixed; 
+		overflow-y: none;
+	}
 }
 
 /* =Headings

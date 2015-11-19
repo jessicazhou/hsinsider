@@ -2462,7 +2462,7 @@ jQuery( document ).ready( function( $ ) {
 				$( 'menu.open' ).removeClass( 'open' );
 				$( '.menuwrapper' ).hide();
 				$( '.menuwrapper' ).find( '.menu-overlay' ).hide();
-				$( document ).unbind( 'scroll' );
+				$( 'body' ).removeClass( 'noscroll' );
 			} );
 		}
 
@@ -2492,7 +2492,7 @@ jQuery( document ).ready( function( $ ) {
 			currentMenu.hide( "slide", { direction: "right" }, 500, function( e ) {	
 				$( '.menuwrapper' ).hide();
 				currentMenu.find( '.menu-overlay' ).hide();
-				$( document ).unbind( 'scroll' );
+				$( 'body' ).removeClass( 'noscroll' );
 			} );
 
 		} else {
@@ -2525,9 +2525,7 @@ jQuery( document ).ready( function( $ ) {
 
 				currentMenu.show( "slide", { direction: "right" }, 500 );
 
-				$( document ).bind( 'scroll', function () { 
-					window.scrollTo( 0, 0 ); 
-				} );
+				$( 'body' ).addClass( 'noscroll' );
 			}
 		}
 	} );
@@ -2567,7 +2565,7 @@ jQuery( document ).ready( function( $ ) {
 				$( '.menuwrapper' ).hide();
 				currentMenu.removeClass( 'open' );
 				currentMenu.find( '.menu-overlay' ).hide();
-				$( document ).unbind( 'scroll' );
+				$( 'body' ).removeClass( 'noscroll' );
 			} );
 		}
 	} );
@@ -2592,9 +2590,8 @@ jQuery( document ).ready( function( $ ) {
 				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
 			 }, 500 );
 			
-			$( document ).bind( 'scroll', function () { 
-				window.scrollTo( 0, 0 ); 
-			} );
+			$( 'body' ).addClass( 'noscroll' );
+
 		} else {
 			$( '#menu-hamburger' ).removeClass( 'active' );
 			$( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
@@ -2607,7 +2604,7 @@ jQuery( document ).ready( function( $ ) {
 				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
 			}, 500 );
 
-			$( document ).unbind( 'scroll' );
+			$( 'body' ).removeClass( 'noscroll' );
 		}
 	} );
 	
