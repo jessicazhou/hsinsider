@@ -4,8 +4,6 @@
  * TODO: refactor if time allows
  */
 
-var menuContainer = false;
-var thisClick = false;
 var backLinkTop = false;
 jQuery( document ).ready( function( $ ) { 
 
@@ -23,57 +21,77 @@ jQuery( document ).ready( function( $ ) {
 	$( '#top-search' ).on( 'click', function ( e ) { 
 		e.preventDefault();
 
+		if( $( 'menu.open' ).length ) {
+			$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function( e ) {
+				$( '.active' ).removeClass( 'active' );
+				$( 'menu.open' ).removeClass( 'open' );
+				$( '.menuwrapper' ).hide();
+				$( '.menuwrapper' ).find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
+		}
+
     	$( '.show-search' ).slideToggle( 'fast' );
     	$( 'button.menu-mobile' ).removeClass( 'active' );
 	} );
 	
 	/**
 	 * Show/Hide Menus
-	 * Refactored: 10/15
+	 * Refactored (again) : 11/2
 	 */
-	$( 'button.menu-mobile' ).click( function( e ) { 
+	$( 'button.menu-mobile' ).click( function( e ) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		/**
-		 * If this is the active menu, close it
-		 */
-		if( $( this ).hasClass( 'active' ) ) { 
-			menuContainer.hide( "slide", { direction: "right" }, 500 );
-			menuContainer = false;
+		var currentMenu;
 
+		if( $( this ).hasClass( 'active' ) ) {
+			// find currently open menu and remove the open class
+			currentMenu = $( 'menu.open' );
+			currentMenu.removeClass( 'open' );
+
+			//remove active class from button
 			$( this ).removeClass( 'active' );
-		}
-
-		else {
 			
-			/** 
-			 * Make sure search bar is closed
-			 */
-			$( '.show-search' ).hide();
+			//hide the menu
+			currentMenu.hide( "slide", { direction: "right" }, 500, function( e ) {	
+				$( '.menuwrapper' ).hide();
+				currentMenu.find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
 
-			/**
-			 * If another menu is open, close it
-			 */
-			if( menuContainer ) { 
-				menuContainer.hide( "slide", { direction: "right" }, 500 );
-				menuContainer = false;
-			}
+		} else {
+			// hide search bar
+			$( '.show-search' ).hide( 'slide' );
 
-			/** 
-			 * Make this the active button/menu
-			 */
-			$( 'button.menu-mobile' ).removeClass( 'active' );
+			// remove active class from buttons
+			$( '.active' ).removeClass( 'active' );
 			$( this ).addClass( 'active' );
+			currentMenu = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
+			
+			// close any open menus
+			if( $( 'menu.open' ).length ) {
+				$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function ( e ) {
+					
+					// add open class to selected menu
+					$( 'menu.open' ).removeClass( 'open' );
+					currentMenu.addClass( 'open' );
+					currentMenu.show( "slide", { direction: "right" }, 500, function ( e ) {
+						currentMenu.find( '.menu-overlay' ).hide();
+					} );
+				} );
+			
+			} else {
+				// add open class to selected menu
+				currentMenu.addClass( 'open' );
 
-			menuContainer = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
+				$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) - 1 } );
+				$( '.menuwrapper' ).show();
 
-			$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top+$( 'nav#navigation' ).outerHeight( true )+1 } );
-			$( '.menuwrapper' ).show();
+				currentMenu.show( "slide", { direction: "right" }, 500 );
 
-			menuContainer.show( "slide", { direction: "right" }, 500 );
-
-			$( 'html' ).click( 'menuOffClick' );
+				$( 'body' ).addClass( 'noscroll' );
+			}
 		}
 	} );
 
@@ -81,6 +99,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Show/Hide School Lists
 	 */
 	$( 'a', 'menu[data-menu="menu-schools"]' ).click( function( e ) { 
+		e.stopPropagation();
 		if( $( this ).attr( 'href' ) == '#' && !jQuery( this ).hasClass( 'backLink' ) ) { 
 			e.preventDefault();
 			
@@ -90,7 +109,6 @@ jQuery( document ).ready( function( $ ) {
 				jQuery( '.back', 'menu[data-menu="menu-schools"]' ).show();
 			 } ).css( 'overflow', 'scroll' );
 			jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
-			
 		 }
 	 } );
 	
@@ -101,87 +119,59 @@ jQuery( document ).ready( function( $ ) {
 	 } );
 	
 	/** 
-	 * I think this hides an open menu when the page is clicked
+	 * Hide menu when page is clicked
+	 * Refactored - 11/2
 	 */
-	$( 'html' ).click( function( e ) { 
-
-		/** 
-		 * I have no idea what thisClick is for
-		 * I suspect the original programmer didn't know
-		 * about the e.stopPropagation() function
-		 */
-		if( thisClick ) { 
-			thisClick = false;
-			return;
-		 }
-		
-		if( !menuContainer ) { 
-			return;
-		 }
-
-		if( !menuContainer.is( e.target ) && menuContainer.has( e.target ).length === 0 ) { 
-		
-			if( $( '.menu-overlay' ).is( ':visible' ) ) { 
-				$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).hide( "slide", { direction: "right" }, 500 );
-				$( '.back', 'menu[data-menu="menu-schools"]' ).hide();
-			 }
-		
-			if( $( 'a', '#menu-hamburger' ).hasClass( 'active' ) ) { 
-				return hideMenuMobile();
-			 }
-		
-			window.setTimeout( function() { 
-				jQuery( '.menuwrapper' ).hide();
-			 }, 500 );
-
-			menuContainer.hide( "slide", { direction: "right" }, 500 );
-			
-			$( 'li', '.menu-mobile' ).removeClass( 'active' );
-			
-			menuContainer = false;
-		 }
-	
+	$( '.menuwrapper' ).click( function( e ) {
+		if( $( 'menu.open' ).length ) {
+			$( 'button.menu.active' ).removeClass( 'active' );
+			var currentMenu = $( 'menu.open' );
+			currentMenu.hide( "slide", { direction: "right" }, 500, function( e ) {	
+				$( '.menuwrapper' ).hide();
+				currentMenu.removeClass( 'open' );
+				currentMenu.find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
+		}
 	} );
 	
-
 	/** 
-	 * Code for the collapsed menu view.
-	 * Removed for now, will add back in later
+	 * Code for the collapsed Hamburger Menu
+	 * Refactored - 11/3
 	 */
-	$( 'a', '#menu-hamburger' ).click( function( e ) { 
+	$( '#menu-hamburger' ).click( function( e ) { 
 		e.preventDefault();
 		$( '.show-search' ).hide();
 
 		if( !$( this ).hasClass( 'active' ) ) { 
 			$( this ).addClass( 'active' );
-			$( '.menuwrapper' ).css( { 'marginTop': $( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) } );
+			$( '.menuwrapper' ).css( { 'marginTop': $( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) - 1 } );
 			$( '.menuwrapper' ).show();
 
 			jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
 			
 			$( 'menu' ).show( "slide", { direction: "right" }, 500 );
 			window.setTimeout( function() { 
-				jQuery( '.menuwrapper' ).css( { 'backgroundColor': '#1c1c1c' } );
 				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
 			 }, 500 );
 			
-			thisClick = true;
-			menuContainer = jQuery( '.menuwrapper' );
-		 }
-	} );
-	
-	var hideMenuMobile = function() { 
-		$( 'a', '#menu-hamburger' ).removeClass( 'active' );
-		$( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
-		$( 'menu' ).hide( "slide", { direction: "right" }, 500 );
-		
-		jQuery( '.menuwrapper' ).css( { 'background': 'transparent' } );
+			$( 'body' ).addClass( 'noscroll' );
 
-		window.setTimeout( function() { 
-			jQuery( '.menuwrapper' ).hide();
-			jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
-		 }, 500 );
-	};
+		} else {
+			$( '#menu-hamburger' ).removeClass( 'active' );
+			$( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
+			$( 'menu' ).hide( "slide", { direction: "right" }, 500 );
+			
+			jQuery( '.menuwrapper' ).css( { 'background': 'transparent' } );
+
+			window.setTimeout( function() { 
+				jQuery( '.menuwrapper' ).hide();
+				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
+			}, 500 );
+
+			$( 'body' ).removeClass( 'noscroll' );
+		}
+	} );
 	
 	$( '.poll_excerpt', '.poll_wrapper' ).css( 'top', ( $( '.pds-question' ).outerHeight() + 2 ) + 'px' );
 
@@ -220,6 +210,4 @@ jQuery( document ).ready( function( $ ) {
 			 }
 		 }   
 	};
-
-	
 } );

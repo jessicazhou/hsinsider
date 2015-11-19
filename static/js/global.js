@@ -2106,6 +2106,221 @@
 }(jQuery);
 
 
+/**
+ * eu_gallery.js
+ * Script to handle gallery 'Popout' transition
+ * Author: James Perez
+ * Created On: 08/19/15
+ */	    
+
+jQuery( document ).ready( function( $ ) { 
+
+	/**
+	 * If a gallery doesn't exist on this page, then don't do anything
+	 */
+	if( $( '.eu_gallery_container' ).length ) {
+		/**
+		 * Use javascript to compile parameters for gigya
+		 */
+		$( '.eu_gallery li figure' ).each( function () {
+			featured_img = $( this ).find( 'img' ).attr( 'src' );
+			permalink = window.location.href;
+			the_title = document.title;
+			target = $( this ).find( '.gigya-post > div' ).attr( 'id' );
+			icon_path = $( this ).closest( '.eu_gallery' ).data( 'icon-path' );
+
+			var share_args = { 
+				featured_img: featured_img, 
+				permalink: permalink, 
+				the_title: the_title, 
+				target: target, 
+				icon_path: icon_path 
+			};
+
+			emergingusShowShareUI( share_args );
+		});
+
+		/**
+		 * Use javascript to handle control responsive control positioning
+		 * Necessary due to dynamic container heights making css percentages impossible
+		 */
+		$(window).on( 'load resize', euGalleryAdjust );
+
+		/**
+		 * Append the expansion button to the slider
+		 */
+		$( '.eu_gallery_container .orbit-container' ).append( $( '<button class="eu_expand_gallery"><i class="fa fa-expand"></i></button>' ) );
+		
+		/**
+		 * Remove extra whitespace in eu_slide_number for formatting
+		 */
+		slide_number = $( '.eu_slide_number' ).html();
+		slide_number = slide_number.replace(/\s+/g, '');
+
+		$( '.eu_slide_number' ).html( slide_number );
+
+		$( 'button.eu_expand_gallery' ).click( function( e ) {
+			e.stopPropagation();
+
+			container = '.eu_gallery_container';
+			
+			if( !$(container).hasClass( 'expand' ) ) {
+
+				/**
+				 * stop the main page from scrolling and disable resize listener
+				 */
+				$('body').css( {'overflow': 'hidden' } );
+				$(document).bind('scroll',function () { 
+					window.scrollTo( 0, 0 ); 
+				});
+				 $(window).off( 'load resize' );
+
+				$( '.eu_expand_gallery' ).html( '<i class="fa fa-close"></i>' );
+
+				/**
+				 * get the gallery container's current width and position
+				 */
+				start_pos = $( container ).offset();
+				start_width = $( container ).width();
+
+				/** 
+				 * make the gallery container fixed so it can become an overlay 
+				 */
+				$( container ).css( 'position', 'fixed');
+				$( container ).css( 'z-index', 999 );
+				
+				/**
+				 * offset incase the user has scrolled
+				 */
+				y_offset = window.pageYOffset;
+				
+				/**
+				 * move the container to the top left of the viewport
+				 * and toggle the 'exapnd' class
+				 */
+				$( container ).offset( { top: 0 + y_offset, left: 0 } );
+				$( container ).toggleClass( 'expand' );
+					
+				/**
+				 * fix the gallery height to show the larger images
+				 */
+				figure_height = $( container ).find( 'ul.eu_gallery li figure' ).height();
+				$( container ).find( 'ul.eu_gallery' ).height( figure_height );
+				$( container ).find( '.orbit-container' ).height( figure_height );
+			} else {
+				$( '.eu_expand_gallery' ).html( '<i class="fa fa-expand"></i>' );
+				
+				/**
+				 * make the gallery container static again to reinsert it into the page
+				 */
+				$( container ).css( 'position', 'relative');
+				$( container ).toggleClass( 'expand' );
+				
+				/**
+				 * squish the gallery height back to what it was
+				 */
+				figure_height = $( container ).find( 'ul.eu_gallery li figure' ).height();
+				$( container ).find( 'ul.eu_gallery' ).removeAttr( 'style' );
+				$( container ).find( '.orbit-container' ).removeAttr( 'style' );
+				$( container ).css( 'width', '100%' );
+				
+				/**
+				 * re-enable scrolling and control adjustments
+				 */
+				$(document).unbind('scroll'); 
+				$('body').css( { 'overflow': 'visible' } );
+
+				$(window).on( 'load resize', euGalleryAdjust );
+			}
+		});
+		
+		/**
+		 * Adjust the position of the controls based on the image height
+		 */
+		function euGalleryAdjust() {
+			img_height = $( 'ul.eu_gallery li figure .img_container' ).height();
+
+			/**
+			 * Resize img_container
+			 */
+			img_cont_w = $( '.img_container' ).width();
+			img_cont_h = ( 387*img_cont_w ) / 582;
+			$( '.img_container' ).height( img_cont_h );
+			$( '.eu_gallery' ).height( $( '.eu_gallery li' ).height() );
+
+			/**
+			 * Reposition the gallery controls
+			 */
+			y_pos = img_height - 45;
+			$( '.eu_expand_gallery' ).css( 'top', y_pos );
+			$( '.eu_slide_number' ).css( 'top', y_pos - 45 );
+			$( '.eu_prev, .eu_next' ).css('top', y_pos/2 );
+			if( 720 >= $(window).width() ) {
+				$( '.eu_slide_number' ).css( 'top', y_pos );
+			}
+		}
+	}
+	/**
+ 	 * If its a video gallery, we need the YouTube IFrame API
+	 */
+	else if( $( '.eu_video_gallery_container' ).length ) {
+		/**
+ 		 * Import YouTube IFrame API
+		 */
+		var tag = document.createElement( 'script' );
+		tag.src = "http://www.youtube.com/iframe_api";
+		var firstScriptTag = document.getElementsByTagName( 'script' )[ 0 ];
+		firstScriptTag.parentNode.insertBefore( tag, firstScriptTag );
+
+		/**
+ 		 * Switch video when a thumbnail is clicked
+		 */
+		$( '.eu_video_gallery figure' ).click( function( e ) {
+			youtube_id = $( this ).data( 'youtube_id' );
+			description = $( this ).data( 'video_desc' );
+			video_title = $( this ).data( 'video_title' );
+			permalink = $( this ).data( 'permalink' );
+			author = $( this ).data( 'video_author' );
+
+			player.cueVideoById( youtube_id );
+
+			facebookLink = 'https://www.facebook.com/sharer/sharer.php?u=' + permalink;
+			twitterLink = 'https://twitter.com/home?status=' + video_title + '+' + permalink;
+
+			console.log( $( 'a.trb_socalize_item.facebook' ) );
+
+			$( '.video_info h2' ).html( '<a href="' + permalink + '" >' + video_title + '</a>' );
+			$( '.video_info .post-excerpt' ).html( description );
+			$( '.video_info .post-byline' ).html( author );
+			$( '.video_info .trb_socialize_item.facebook' ).attr( 'href', facebookLink );
+			$( '.video_info .trb_socialize_item.twitter' ).attr( 'href', twitterLink );
+
+			$( '.video_thumb' ).removeClass( 'active' );
+			$( this ).addClass( 'active ');
+		} );
+	}
+} );
+
+/**
+ * If a gallery exists, run the YouTube Iframe API
+ */
+if( document.getElementById( "video-carousel" ) ) {
+	var player;
+	function onYouTubeIframeAPIReady() {
+		console.log( 'player ready' );
+		player = new YT.Player('player', {} );
+	}
+
+	function stopVideo() {
+		player.stopVideo();
+	}
+
+	function cueVideoById( youtube_id ) {
+		player.cueVideoById( youtube_id );
+	}
+}
+
+
 
 /**
  * LA Times HS Insider Maps
@@ -2116,6 +2331,9 @@
 /**
  * Callback function to initialize the map once the Google Maps API is loaded
  */
+
+var map;
+
 function initMap() {
 
 	var styles = [
@@ -2165,50 +2383,53 @@ function initMap() {
 		name: "Styled Map"
 	});
 
-	var mapOptions = {
-        center: { lat: 34.052235, lng: -118.243683 },
-        zoom: 10,
-        scrollwheel: false,
-        zoomControlOptions: {
-            style: google.maps.ZoomControlStyle.SMALL
-        }
-    };
+	school_marker = $( '#gmap' ).data( 'marker' );
 
-    map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+	if( school_marker !== '' ) {
 
-    // apply the styles
-    map.mapTypes.set( 'map_style', styledMap );
-    map.setMapTypeId( 'map_style' );
+		var mapOptions = {
+			center: { lat: 34.052235, lng: -118.243683 },
+			zoom: 10,
+			scrollwheel: false,
+			zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL
+			}
+		};
 
-	codeAddress();
+		map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+		google.maps.event.trigger( map, 'resize' );
+
+		// apply the styles
+		map.mapTypes.set( 'map_style', styledMap );
+		map.setMapTypeId( 'map_style' );
+
+		codeAddress( school_marker );
+	}
 }
 
-function codeAddress() {
+function codeAddress( school_marker ) {
 	/**
 	 * Create geocoder object
 	 */
 	var geocoder;
 	geocoder = new google.maps.Geocoder();
 
-	markers = $( '#gmap' ).data( 'markers' );
-
-	$.each( markers, function() {
-		var school_name = String( this.school );
-		/**
-		 * Use geocoder to convert address into longitude and latitude
-		 * and drop a pin on the map
-		 */
-		geocoder.geocode( { 'address': this.address }, function( results, status ) {
-			if ( status == google.maps.GeocoderStatus.OK ) {
-				var marker = new google.maps.Marker( {
-					map: map,
-					position: results[0].geometry.location,
-					title: school_name
-				} );
-			} else {
-				alert( "Geocode was not successful for the following reason: " + status );
-			}
-		} );
+	var school_name = String( school_marker.school );
+	/**
+	 * Use geocoder to convert address into longitude and latitude
+	 * and drop a pin on the map
+	 */
+	geocoder.geocode( { 'address': school_marker.address }, function( results, status ) {
+		if ( status == google.maps.GeocoderStatus.OK ) {
+			var marker = new google.maps.Marker( {
+				map: map,
+				position: results[0].geometry.location,
+				title: school_name
+			} );
+			map.setCenter( marker.getPosition() );
+		} else {
+			alert( "Geocode was not successful for the following reason: " + status );
+		}
 	} );
 }
 
@@ -2218,8 +2439,6 @@ function codeAddress() {
  * TODO: refactor if time allows
  */
 
-var menuContainer = false;
-var thisClick = false;
 var backLinkTop = false;
 jQuery( document ).ready( function( $ ) { 
 
@@ -2237,57 +2456,77 @@ jQuery( document ).ready( function( $ ) {
 	$( '#top-search' ).on( 'click', function ( e ) { 
 		e.preventDefault();
 
+		if( $( 'menu.open' ).length ) {
+			$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function( e ) {
+				$( '.active' ).removeClass( 'active' );
+				$( 'menu.open' ).removeClass( 'open' );
+				$( '.menuwrapper' ).hide();
+				$( '.menuwrapper' ).find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
+		}
+
     	$( '.show-search' ).slideToggle( 'fast' );
     	$( 'button.menu-mobile' ).removeClass( 'active' );
 	} );
 	
 	/**
 	 * Show/Hide Menus
-	 * Refactored: 10/15
+	 * Refactored (again) : 11/2
 	 */
-	$( 'button.menu-mobile' ).click( function( e ) { 
+	$( 'button.menu-mobile' ).click( function( e ) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		/**
-		 * If this is the active menu, close it
-		 */
-		if( $( this ).hasClass( 'active' ) ) { 
-			menuContainer.hide( "slide", { direction: "right" }, 500 );
-			menuContainer = false;
+		var currentMenu;
 
+		if( $( this ).hasClass( 'active' ) ) {
+			// find currently open menu and remove the open class
+			currentMenu = $( 'menu.open' );
+			currentMenu.removeClass( 'open' );
+
+			//remove active class from button
 			$( this ).removeClass( 'active' );
-		}
-
-		else {
 			
-			/** 
-			 * Make sure search bar is closed
-			 */
-			$( '.show-search' ).hide();
+			//hide the menu
+			currentMenu.hide( "slide", { direction: "right" }, 500, function( e ) {	
+				$( '.menuwrapper' ).hide();
+				currentMenu.find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
 
-			/**
-			 * If another menu is open, close it
-			 */
-			if( menuContainer ) { 
-				menuContainer.hide( "slide", { direction: "right" }, 500 );
-				menuContainer = false;
-			}
+		} else {
+			// hide search bar
+			$( '.show-search' ).hide( 'slide' );
 
-			/** 
-			 * Make this the active button/menu
-			 */
-			$( 'button.menu-mobile' ).removeClass( 'active' );
+			// remove active class from buttons
+			$( '.active' ).removeClass( 'active' );
 			$( this ).addClass( 'active' );
+			currentMenu = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
+			
+			// close any open menus
+			if( $( 'menu.open' ).length ) {
+				$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function ( e ) {
+					
+					// add open class to selected menu
+					$( 'menu.open' ).removeClass( 'open' );
+					currentMenu.addClass( 'open' );
+					currentMenu.show( "slide", { direction: "right" }, 500, function ( e ) {
+						currentMenu.find( '.menu-overlay' ).hide();
+					} );
+				} );
+			
+			} else {
+				// add open class to selected menu
+				currentMenu.addClass( 'open' );
 
-			menuContainer = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
+				$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) - 1 } );
+				$( '.menuwrapper' ).show();
 
-			$( '.menuwrapper' ).css( { 'marginTop':$( 'nav#navigation' ).position().top+$( 'nav#navigation' ).outerHeight( true )+1 } );
-			$( '.menuwrapper' ).show();
+				currentMenu.show( "slide", { direction: "right" }, 500 );
 
-			menuContainer.show( "slide", { direction: "right" }, 500 );
-
-			$( 'html' ).click( 'menuOffClick' );
+				$( 'body' ).addClass( 'noscroll' );
+			}
 		}
 	} );
 
@@ -2295,6 +2534,7 @@ jQuery( document ).ready( function( $ ) {
 	 * Show/Hide School Lists
 	 */
 	$( 'a', 'menu[data-menu="menu-schools"]' ).click( function( e ) { 
+		e.stopPropagation();
 		if( $( this ).attr( 'href' ) == '#' && !jQuery( this ).hasClass( 'backLink' ) ) { 
 			e.preventDefault();
 			
@@ -2304,7 +2544,6 @@ jQuery( document ).ready( function( $ ) {
 				jQuery( '.back', 'menu[data-menu="menu-schools"]' ).show();
 			 } ).css( 'overflow', 'scroll' );
 			jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
-			
 		 }
 	 } );
 	
@@ -2315,87 +2554,59 @@ jQuery( document ).ready( function( $ ) {
 	 } );
 	
 	/** 
-	 * I think this hides an open menu when the page is clicked
+	 * Hide menu when page is clicked
+	 * Refactored - 11/2
 	 */
-	$( 'html' ).click( function( e ) { 
-
-		/** 
-		 * I have no idea what thisClick is for
-		 * I suspect the original programmer didn't know
-		 * about the e.stopPropagation() function
-		 */
-		if( thisClick ) { 
-			thisClick = false;
-			return;
-		 }
-		
-		if( !menuContainer ) { 
-			return;
-		 }
-
-		if( !menuContainer.is( e.target ) && menuContainer.has( e.target ).length === 0 ) { 
-		
-			if( $( '.menu-overlay' ).is( ':visible' ) ) { 
-				$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).hide( "slide", { direction: "right" }, 500 );
-				$( '.back', 'menu[data-menu="menu-schools"]' ).hide();
-			 }
-		
-			if( $( 'a', '#menu-hamburger' ).hasClass( 'active' ) ) { 
-				return hideMenuMobile();
-			 }
-		
-			window.setTimeout( function() { 
-				jQuery( '.menuwrapper' ).hide();
-			 }, 500 );
-
-			menuContainer.hide( "slide", { direction: "right" }, 500 );
-			
-			$( 'li', '.menu-mobile' ).removeClass( 'active' );
-			
-			menuContainer = false;
-		 }
-	
+	$( '.menuwrapper' ).click( function( e ) {
+		if( $( 'menu.open' ).length ) {
+			$( 'button.menu.active' ).removeClass( 'active' );
+			var currentMenu = $( 'menu.open' );
+			currentMenu.hide( "slide", { direction: "right" }, 500, function( e ) {	
+				$( '.menuwrapper' ).hide();
+				currentMenu.removeClass( 'open' );
+				currentMenu.find( '.menu-overlay' ).hide();
+				$( 'body' ).removeClass( 'noscroll' );
+			} );
+		}
 	} );
 	
-
 	/** 
-	 * Code for the collapsed menu view.
-	 * Removed for now, will add back in later
+	 * Code for the collapsed Hamburger Menu
+	 * Refactored - 11/3
 	 */
-	$( 'a', '#menu-hamburger' ).click( function( e ) { 
+	$( '#menu-hamburger' ).click( function( e ) { 
 		e.preventDefault();
 		$( '.show-search' ).hide();
 
 		if( !$( this ).hasClass( 'active' ) ) { 
 			$( this ).addClass( 'active' );
-			$( '.menuwrapper' ).css( { 'marginTop': $( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) } );
+			$( '.menuwrapper' ).css( { 'marginTop': $( 'nav#navigation' ).position().top + $( 'nav#navigation' ).outerHeight( true ) - 1 } );
 			$( '.menuwrapper' ).show();
 
 			jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
 			
 			$( 'menu' ).show( "slide", { direction: "right" }, 500 );
 			window.setTimeout( function() { 
-				jQuery( '.menuwrapper' ).css( { 'backgroundColor': '#1c1c1c' } );
 				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
 			 }, 500 );
 			
-			thisClick = true;
-			menuContainer = jQuery( '.menuwrapper' );
-		 }
-	} );
-	
-	var hideMenuMobile = function() { 
-		$( 'a', '#menu-hamburger' ).removeClass( 'active' );
-		$( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
-		$( 'menu' ).hide( "slide", { direction: "right" }, 500 );
-		
-		jQuery( '.menuwrapper' ).css( { 'background': 'transparent' } );
+			$( 'body' ).addClass( 'noscroll' );
 
-		window.setTimeout( function() { 
-			jQuery( '.menuwrapper' ).hide();
-			jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
-		 }, 500 );
-	};
+		} else {
+			$( '#menu-hamburger' ).removeClass( 'active' );
+			$( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 10000 } );
+			$( 'menu' ).hide( "slide", { direction: "right" }, 500 );
+			
+			jQuery( '.menuwrapper' ).css( { 'background': 'transparent' } );
+
+			window.setTimeout( function() { 
+				jQuery( '.menuwrapper' ).hide();
+				jQuery( 'menu[data-menu="menu-activities"]' ).css( { 'paddingBottom': 0 } );
+			}, 500 );
+
+			$( 'body' ).removeClass( 'noscroll' );
+		}
+	} );
 	
 	$( '.poll_excerpt', '.poll_wrapper' ).css( 'top', ( $( '.pds-question' ).outerHeight() + 2 ) + 'px' );
 
@@ -2434,8 +2645,6 @@ jQuery( document ).ready( function( $ ) {
 			 }
 		 }   
 	};
-
-	
 } );
 
 /**
@@ -2472,42 +2681,113 @@ googletag.cmd = googletag.cmd || [];
 var mappingHorizontal = null;
 googletag.cmd.push( function() {
 
-	mappingHorizontal = googletag.sizeMapping().addSize( [1024, 300], [[970, 300], [970, 250], [970, 90], [768, 90]] ).addSize( [0, 0], [[320, 50]] ).build();
-
+	/*
+	 * Section Front Desktop
+	 */
 	//Adslot 1 declaration
-	gptadslots[1] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[728, 90]], 'lat-hs-728x90' ).defineSizeMapping( mappingHorizontal ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[1] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-354595391948526756-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 2 declaration
-	gptadslots[2] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[300, 250]], 'lat-hs-300x250-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[2] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-354595391948526756-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
 	//Adslot 3 declaration
-	gptadslots[3] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[300, 250]], 'lat-hs-300x250-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[3] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-354595391948526756-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 4 declaration
-	gptadslots[4] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[970, 90], [728, 90]], 'div-gpt-ad-536534220936805316-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[4] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-354595391948526756-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
+	/*
+	 * Section Front Mobile
+	 */
 	//Adslot 5 declaration
-	gptadslots[5] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 600], [300, 250]], 'div-gpt-ad-536534220936805316-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[5] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-345050247239781093-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 6 declaration
-	gptadslots[6] = googletag.defineOutOfPageSlot( '/4011/trb.latimes/hsinsider', 'div-gpt-ad-536534220936805316-oop' ).addService( googletag.pubads() );
+	gptadslots[6] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-345050247239781093-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
 	//Adslot 7 declaration
-	gptadslots[7] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[970, 90], [728, 90]], 'div-gpt-ad-783778988016615787-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[7] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-345050247239781093-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 8 declaration
-	gptadslots[8] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 600], [300, 250]], 'div-gpt-ad-783778988016615787-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[8] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-345050247239781093-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
+	/*
+	 * Story Desktop
+	 */
+	//Adslot 13 declaration
+	gptadslots[9] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-597875899873789138-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 14 declaration
+	gptadslots[10] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-597875899873789138-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	//Adslot 15 declaration
+	gptadslots[11] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-597875899873789138-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 16 declaration
+	gptadslots[12] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-597875899873789138-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	/*
+	 * Story Mobile
+	 */
 	//Adslot 9 declaration
-	gptadslots[9] = googletag.defineOutOfPageSlot( '/4011/trb.latimes/hsinsider', 'div-gpt-ad-783778988016615787-oop' ).addService( googletag.pubads() );
+	gptadslots[13] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-283030070724299354-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
-	googletag.pubads().setTargeting( 'ptype', ['sf'] );
+	//Adslot 10 declaration
+	gptadslots[14] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-283030070724299354-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	//Adslot 11 declaration
+	gptadslots[15] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 12 declaration
+	gptadslots[16] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	
+
+	//googletag.pubads().setTargeting( 'ptype', ['sf'] );
 	googletag.pubads().enableAsyncRendering();
 	googletag.pubads().collapseEmptyDivs();
 	googletag.enableServices();
 
+	googletag.cmd.push( function() { 
+		//googletag.pubads().setTargeting( 'ptype',['s'] );
+
+		/*
+		 * Section Front Desktop
+		 */
+		googletag.display( 'div-gpt-ad-354595391948526756-1' );
+		googletag.display( 'div-gpt-ad-354595391948526756-2' );
+		googletag.display( 'div-gpt-ad-354595391948526756-3' );
+		googletag.display( 'div-gpt-ad-354595391948526756-4' );
+
+		/*
+		 * Section Front Mobile
+		 */
+		googletag.display( 'div-gpt-ad-345050247239781093-1' );
+		googletag.display( 'div-gpt-ad-345050247239781093-2' );
+		googletag.display( 'div-gpt-ad-345050247239781093-3' );
+		googletag.display( 'div-gpt-ad-345050247239781093-4' );
+
+		/*
+		 * Story Desktop
+		 */
+		googletag.display( 'div-gpt-ad-283030070724299354-1' );
+		googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
+		googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
+		googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
+
+		/*
+		 * Story Mobile
+		 */
+		googletag.display( 'div-gpt-ad-597875899873789138-1' );
+		googletag.display( 'div-gpt-ad-597875899873789138-2' );
+		googletag.display( 'div-gpt-ad-597875899873789138-3' );
+		googletag.display( 'div-gpt-ad-597875899873789138-4' );
+	} );
+
 	// Show the Ads
-	googletag.display( 'div-gpt-ad-783778988016615787-1' );
+	/*googletag.display( 'div-gpt-ad-783778988016615787-1' );
 	googletag.display( 'div-gpt-ad-783778988016615787-2' ); 
+	googletag.display( 'lat-hs-728x90' );
+	googletag.display( 'lat-hs-300x250-1' );
+	googletag.display( 'lat-hs-300x250-2' );*/
 } );
 

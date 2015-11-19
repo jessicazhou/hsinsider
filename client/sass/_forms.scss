@@ -22,12 +22,16 @@
 
 .show-search {
 	position:absolute;
+	top: 60px;
 	right:0;
 	left: 0;
 	display:none;
 	z-index:10000;
 	background-color: #363636;
 	padding: 10px 20px;
+	@media( max-width: $screen-sm-max ) {
+		top: 45px;
+	}
 	#searchform {
 		span {
 			border: 0;
@@ -38,16 +42,7 @@
 			line-height: 43px;
 		}
 		input {
-			background:#FFF;
-			width: 100%;
-			webkit-box-shadow: 0 8px 6px -6px rgba(206,206,206,.2);
-			-moz-box-shadow:  0 8px 6px -6px rgba(206,206,206,.2);
-			box-shadow:  0 8px 6px -6px rgba(206,206,206,.2);
-			border: 1px solid #e5e5e5;
-			padding:14px 14px;
-			font-size:11px;
-			color:#999;
-			letter-spacing:1px;
+			@include hsinsider-form-button();
 			&#s:focus {
 				border:1px solid #d5d5d5;
 			}

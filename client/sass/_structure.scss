@@ -19,15 +19,13 @@
 
 html {
 	body{
-
 		.site-content {
-			
+			padding-top: 60px;
+			@media( max-width: $screen-sm-max ) {
+				padding-top: 40px;
+			}
 			.content-area {
-				@include make-row();
-
 				main.site-main {
-					@include make-md-column( 8 );
-					
 					.col-nested:first-of-type {
 						padding-left: 0px;
 					}
@@ -36,15 +34,25 @@ html {
 					}
 				}
 				#sidebar-main.widget-area {
-					@include make-md-column( 4 );
 				}
-
 			}
 		}
-
 		footer.site-footer {
+			background: $gray-dark;
+			color: $white;
 			.site-info {
 				@include make-md-column( 12 );
+				color: $white;
+				padding: 25px 10px;
+				a {
+					display: block;
+					color: $white;
+					img {
+						height: 20px;
+						width: auto;
+						margin: 0px 10px;
+					}
+				}
 			}
 		}
 	}

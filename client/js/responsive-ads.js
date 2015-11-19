@@ -15,42 +15,113 @@ googletag.cmd = googletag.cmd || [];
 var mappingHorizontal = null;
 googletag.cmd.push( function() {
 
-	mappingHorizontal = googletag.sizeMapping().addSize( [1024, 300], [[970, 300], [970, 250], [970, 90], [768, 90]] ).addSize( [0, 0], [[320, 50]] ).build();
-
+	/*
+	 * Section Front Desktop
+	 */
 	//Adslot 1 declaration
-	gptadslots[1] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[728, 90]], 'lat-hs-728x90' ).defineSizeMapping( mappingHorizontal ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[1] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-354595391948526756-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 2 declaration
-	gptadslots[2] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[300, 250]], 'lat-hs-300x250-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[2] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-354595391948526756-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
 	//Adslot 3 declaration
-	gptadslots[3] = googletag.defineSlot( '/4011/trb.latimes/hsinsider/test', [[300, 250]], 'lat-hs-300x250-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[3] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-354595391948526756-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 4 declaration
-	gptadslots[4] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[970, 90], [728, 90]], 'div-gpt-ad-536534220936805316-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[4] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-354595391948526756-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
+	/*
+	 * Section Front Mobile
+	 */
 	//Adslot 5 declaration
-	gptadslots[5] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 600], [300, 250]], 'div-gpt-ad-536534220936805316-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[5] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-345050247239781093-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 6 declaration
-	gptadslots[6] = googletag.defineOutOfPageSlot( '/4011/trb.latimes/hsinsider', 'div-gpt-ad-536534220936805316-oop' ).addService( googletag.pubads() );
+	gptadslots[6] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-345050247239781093-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
 	//Adslot 7 declaration
-	gptadslots[7] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[970, 90], [728, 90]], 'div-gpt-ad-783778988016615787-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+	gptadslots[7] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-345050247239781093-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
 	//Adslot 8 declaration
-	gptadslots[8] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 600], [300, 250]], 'div-gpt-ad-783778988016615787-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	gptadslots[8] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-345050247239781093-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 
+	/*
+	 * Story Desktop
+	 */
+	//Adslot 13 declaration
+	gptadslots[9] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-597875899873789138-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 14 declaration
+	gptadslots[10] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-597875899873789138-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	//Adslot 15 declaration
+	gptadslots[11] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-597875899873789138-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 16 declaration
+	gptadslots[12] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[728, 90]], 'div-gpt-ad-597875899873789138-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	/*
+	 * Story Mobile
+	 */
 	//Adslot 9 declaration
-	gptadslots[9] = googletag.defineOutOfPageSlot( '/4011/trb.latimes/hsinsider', 'div-gpt-ad-783778988016615787-oop' ).addService( googletag.pubads() );
+	gptadslots[13] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-283030070724299354-1' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
 
-	googletag.pubads().setTargeting( 'ptype', ['sf'] );
+	//Adslot 10 declaration
+	gptadslots[14] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[300, 250]], 'div-gpt-ad-283030070724299354-2' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+
+	//Adslot 11 declaration
+	gptadslots[15] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-3' ).setTargeting( 'pos', ['1'] ).addService( googletag.pubads() );
+
+	//Adslot 12 declaration
+	gptadslots[16] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
+	
+
+	//googletag.pubads().setTargeting( 'ptype', ['sf'] );
 	googletag.pubads().enableAsyncRendering();
 	googletag.pubads().collapseEmptyDivs();
 	googletag.enableServices();
 
+	googletag.cmd.push( function() { 
+		//googletag.pubads().setTargeting( 'ptype',['s'] );
+
+		/*
+		 * Section Front Desktop
+		 */
+		googletag.display( 'div-gpt-ad-354595391948526756-1' );
+		googletag.display( 'div-gpt-ad-354595391948526756-2' );
+		googletag.display( 'div-gpt-ad-354595391948526756-3' );
+		googletag.display( 'div-gpt-ad-354595391948526756-4' );
+
+		/*
+		 * Section Front Mobile
+		 */
+		googletag.display( 'div-gpt-ad-345050247239781093-1' );
+		googletag.display( 'div-gpt-ad-345050247239781093-2' );
+		googletag.display( 'div-gpt-ad-345050247239781093-3' );
+		googletag.display( 'div-gpt-ad-345050247239781093-4' );
+
+		/*
+		 * Story Desktop
+		 */
+		googletag.display( 'div-gpt-ad-283030070724299354-1' );
+		googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
+		googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
+		googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
+
+		/*
+		 * Story Mobile
+		 */
+		googletag.display( 'div-gpt-ad-597875899873789138-1' );
+		googletag.display( 'div-gpt-ad-597875899873789138-2' );
+		googletag.display( 'div-gpt-ad-597875899873789138-3' );
+		googletag.display( 'div-gpt-ad-597875899873789138-4' );
+	} );
+
 	// Show the Ads
-	googletag.display( 'div-gpt-ad-783778988016615787-1' );
+	/*googletag.display( 'div-gpt-ad-783778988016615787-1' );
 	googletag.display( 'div-gpt-ad-783778988016615787-2' ); 
+	googletag.display( 'lat-hs-728x90' );
+	googletag.display( 'lat-hs-300x250-1' );
+	googletag.display( 'lat-hs-300x250-2' );*/
 } );
 

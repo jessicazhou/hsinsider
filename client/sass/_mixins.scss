@@ -43,10 +43,10 @@
 }
 
 @mixin hsinsider-border-radius( $radius ) {
-	border-radius: $radius;
-	-moz-border-radius: $radius;
-	-webkit-border-radius: $radius;
-	-o-border-radius: $radius;
+	border-radius: $radius !important;
+	-moz-border-radius: $radius !important;
+	-webkit-border-radius: $radius !important;
+	-o-border-radius: $radius !important;
 }
 
 @mixin hsinsider-box-shadow( $h, $v, $blur, $spread, $color, $inset ) {
@@ -69,6 +69,16 @@
 	line-height: 17px;
 }
 
+@mixin hsinsider-form-button() {
+	@include button-variant( #999999, $white, #e5e5e5 );
+	@include hsinsider-box-shadow( 0, 8px, 6px, -6px, rgba( 206,206,206,.2 ), inset );
+	width: 100%;
+	border-width: 1px;
+	border-style: solid;
+	padding:14px 14px;
+	font-size:11px;
+	letter-spacing:1px;
+}
 .vertical-align {
 	display: flex;
 	align-items: center;

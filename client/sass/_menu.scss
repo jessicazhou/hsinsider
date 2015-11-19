@@ -2,8 +2,51 @@
 -------------------------------------------------------------- */
 header.site-header {
 	background: $gray-dark;
-	.hsinsider-logo {
-		max-height: 60px;
+	a.hsinsider-logo {
+		overflow: auto;
+		display: block;
+		float: left;
+		img {
+			max-height: 60px;
+			float: left;
+			padding-right: 20px;
+			&.hidden-md {
+				max-height: 45px;
+			}
+		}
+	}
+	.school-header {
+		display: block;
+		float: left;
+		a {
+			display: block;
+			float: left;
+			&.school {
+				display: block;
+				padding: 6% 6px;
+				font-family: $font-family-serif;
+				font-size: 16px;
+				i {
+					display: none;
+				}
+			}
+			img {
+				height: 60px;
+				width: auto;
+			}
+			@media( max-width: $screen-md-min ) {
+
+				img {
+					height: 45px;
+				}
+				&.school {
+					width: 180px;
+					height: 100%;
+					padding: 4px 7px;
+					font-size: 14px;
+				}
+			}
+		}
 	}
 }
 
@@ -14,26 +57,40 @@ header.site-header {
 	bottom: 0;
 	z-index: 99999;
 	overflow: scroll;
-	margin-top: 97px;
-	width: 300px;
+	margin-top: 90px;
+	width: 100%;
 	display: none;
 	list-style: none;
 	menu {
-		background-color: #363636;
-		height: 100%;
 		display: none;
-		color: #fff;
-		margin-top: 0px !important;
-		padding: 15px 0 0 0;
+		float: right;
+		width: 320px;
+		height: 100%;
+		margin: 0px !important;
+		padding: 0px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
 		font-weight: 300;
+		color: #fff;
+		background-color: #363636;
+		.title {
+			padding-top: 15px;
+		}
 		&[data-menu="menu-activities"] {
 			background-color: #1c1c1c;
 			padding-top: 0;
+		}
+		@media( max-width: $screen-xs-max ) {
+			height: auto;
+			position: relative;
 		}
 		ul {
 			list-style: none;
 			padding-left: 0px;
 			li {
+				width: 100%;
 				border-bottom: 1px solid #636363;
 				&:last-of-type {
 					border-bottom: 0;
@@ -59,8 +116,14 @@ header.site-header {
 			}
 		}
 		.menu-container {
-			position: relative;
+			position: absolute;
 			height: 100%;
+			width: 100%;
+			@media( max-width: $screen-xs-max ) {
+				display: block;
+				position: relative;
+				overflow: auto;
+			}
 		}
 		div.sections {
 			background-color: #2a2a2a;
@@ -68,9 +131,11 @@ header.site-header {
 			padding-top: 15px;
 			padding-bottom: 15px;
 			li {
+				overflow: auto;
 				display: inline-block;
 				border-bottom: 0;
 				margin: 5px;
+				width: auto;
 				a {
 					display: inline-block;
 					background-color: #505050;
@@ -108,7 +173,9 @@ header.site-header {
 		}
 		.menu-overlay {
 			display: none;
-			position: absolute;
+			position: relative;
+			float: right;
+			width: 320px;
 			top: 0;
 			right: 0;
 			left: 0;
@@ -116,9 +183,6 @@ header.site-header {
 			overflow: scroll;
 			background-color: #363636;
 			z-index: 9;
-			li:nth-of-type(2) {
-				margin-top: 36px;
-			} 
 		}
 	}
 }

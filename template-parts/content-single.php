@@ -4,12 +4,13 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( array(  'col-md-8', 'single' ) ); ?>>
 	<header class="entry-header">
+		<?php echo get_the_post_thumbnail(); ?>
+		<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-
 		<div class="entry-meta">
-			<?php hsinsider_posted_on(); ?>
+			<?php hsinsider_get_post_byline(); ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
