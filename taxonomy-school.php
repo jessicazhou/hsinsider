@@ -87,7 +87,7 @@ if( is_object( $term ) ) : ?>
 				<?php endwhile; ?>
 			</section>
 
-			<?php the_posts_navigation(); ?>
+			<?php hsinsider_the_posts_navigation(); ?>
 
 			<?php else : ?>
 

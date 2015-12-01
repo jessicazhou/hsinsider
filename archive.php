@@ -11,13 +11,21 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main container-fluid" role="main">
-			<section class="hero jumbotron school-archive-header row">
-				<div class="col-md-5">
-					<?php
-						the_archive_title( '<h1 class="entry-title">', '</h1>' );
-						the_archive_description( '<div class="taxonomy-description">', '</div>' );
-					?>
-				</div><!-- .page-header -->
+			<section class="hero jumbotron archive-header tag-category row">
+				<div class="col-md-12">
+					<h1 class="entry-title"><?php single_cat_title( '', true ); ?></h1>
+					<p class="search-order">
+						<?php $tag_id = get_query_var( 'tag_id' ); ?>
+						<?php esc_html_e( 'Order by ', 'hsinsider'); ?>
+						<?php if ( $order == 'ASC' ) : ?>
+							<a href="<?php echo esc_url( get_tag_link( $tag_id ) . '?order=DESC' ); ?>"><?php esc_html_e( 'Newest', 'hsinsider' ); ?></a> |
+							<span class="active-order"><?php esc_html_e( 'Oldest', 'hsinsider' ); ?></span>
+						<?php else : ?>
+							<span class="active-order"><?php esc_html_e( 'Newest', 'hsinsider' ); ?></span> |
+							<a href="<?php echo esc_url( get_tag_link( $tag_id ) . '?order=ASC' ); ?>"><?php esc_html_e( 'Oldest', 'hsinsider' ); ?></a>
+						<?php endif; ?>
+					</p>
+				</div>
 			</section>
 
 			<?php if ( have_posts() ) : ?>
@@ -25,11 +33,6 @@ get_header(); ?>
 			<section class="blogroll row">
 				<?php while ( have_posts() ) : the_post(); //the Loop ?>
 					<?php
-						/**
-						 * Include the Post-Format-specific template for the content.
-						 * Remove the $curated post from the blogroll
-						 * TODO: Move jumbotron div into featured template
-						 */
 						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$post_count ++;
 						
@@ -40,7 +43,7 @@ get_header(); ?>
 				<?php endwhile; ?>
 			</section>
 
-			<?php the_posts_navigation(); ?>
+			<?php hsinsider_the_posts_navigation(); ?>
 
 			<?php else : ?>
 

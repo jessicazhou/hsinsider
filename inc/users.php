@@ -52,7 +52,6 @@ class HSInsider_Special_Users {
 	
 	/*
 	 * Adds the student role
-	 * Hey VIP can we talk about changing the perfectly fine core role management functions?
 	 *
 	 */
 	public function add_role() {

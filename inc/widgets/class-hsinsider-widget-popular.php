@@ -24,6 +24,7 @@ class HSInsider_Widget_Latest_Popular extends HSInsider_Widget {
 
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
+		echo '<h2 style="text-align: center;">' . esc_html__( 'Featured on HS Insider', 'hsinsider' ) . '</h2>';
 		$this->popular();
 		echo $args['after_widget'];
 	}
@@ -33,14 +34,18 @@ class HSInsider_Widget_Latest_Popular extends HSInsider_Widget {
 		$today = getdate();
 		$args = array(
 			'posts_per_page' => 4,
-			'meta_query' => array('key' => 'post_views_count'),
-			'orderby' => 'meta-value',
+			'meta_query' => array( 
+				array(
+					'key' => '_thumbnail_id'
+				) 
+			),
+			'orderby' => 'post_views',
 			'date_query' => array( 
-					'after' => array(
-						'year' => $today['year'],
-						'day' => $today['mday'] - 3,
-						'month' => $today['month']
-					)
+				'after' => array(
+					'year' => $today['year'],
+					'day' => $today['mday'] - 3,
+					'month' => $today['month']
+				)
 			)
 		);
 

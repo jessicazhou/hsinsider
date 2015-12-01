@@ -1,9 +1,3 @@
-<?php
-/**
- * The template used for displaying page content in page.php
- */
-?>
-
 <header id="masthead" class="site-header" role="banner">
 	<nav id="navigation" <?php if( hsinsider_get_school() || is_category() ) { ?>class="has-school <?php if( hsinsider_has_school_image() ) { ?>has-school-image<?php } ?>"<?php } ?>>
 		<div class="container">
@@ -13,17 +7,13 @@
 						<img class="img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
 						<img class="img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
 					</a>
-
-					<?php if( hsinsider_get_school() ) : ?>
+					<?php if( !is_category() && !is_tag() && hsinsider_get_school() ) : ?>
 						<span class="school-header">
 						<?php if( hsinsider_has_school_image() ) : ?>
 							<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
 						<?php endif; ?>
 						<?php hsinsider_school_link(); ?>
 						</span>
-					<?php elseif( is_category() ) :
-						$category = get_queried_object(); ?>
-						<a href="<?php echo esc_url( wpcom_vip_get_term_link( $category, $category->taxonomy ) ); ?>" class="school topic"><?php echo esc_html( $category->name ); ?></a>
 					<?php endif; ?>
 					
 					<div class="menus">

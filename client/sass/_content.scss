@@ -1,4 +1,5 @@
 body {
+	width: 100%;
 	font-weight: 200;
 	&.noscroll {
 		position: fixed; 
@@ -94,7 +95,8 @@ a:focus, button:focus {
 	}
 }
 
-/* =Post --*/
+/* =Post
+-------------------------------------------------------------- */
 article.post {
 	overflow: auto;
 	&.single {
@@ -159,6 +161,8 @@ a.school {
 	}
 }
 
+/* =Hero
+-------------------------------------------------------------- */
 .hero {
 	display: block;
 	overflow: auto;
@@ -191,6 +195,8 @@ a.school {
 	}
 }
 
+/* =Archive Header
+-------------------------------------------------------------- */
 .archive-header {
 	border-bottom: 1px solid #e4e4e4;
 	.map {
@@ -239,6 +245,28 @@ a.school {
 			}
 		}
 	}
+	&.tag-category {
+		text-align: center;
+		span.active-order {
+			font-weight: bold;
+		}
+	}
+}
+
+/* =Tags
+-------------------------------------------------------------- */
+.cat-links, .tags-links {
+	a {
+		display: inline-block;
+		padding: 10px 5px;
+		margin: 2px 1px;
+		background: #505050;
+		color: $white;
+		&:hover {
+			background: $highlight-color;
+			color: #333;
+		}
+	}
 }
 
 /* =Ads
@@ -253,7 +281,6 @@ a.school {
 
 /* =Images
 -------------------------------------------------------------- */
-
 .image-attachment {
 	div.entry-meta {
 		float: left;
@@ -323,7 +350,6 @@ img.alignright {
 
 /* =Widgets
 -------------------------------------------------------------- */
-
 .widget {
 	display: block;
 }

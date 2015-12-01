@@ -16,11 +16,13 @@ get_header(); ?>
 
 			<?php get_template_part( 'template-parts/content', 'single' ); ?>
 
-			<?php //the_post_navigation(); ?>
-
 		<?php endwhile; // End of the loop. ?>
-		<?php get_sidebar( 'post' ); ?>
-		</main><!-- #main -->
+		<?php get_sidebar(); ?>
+		</main>
+
+		<!-- Pagination -->
+		<?php hsinsider_the_posts_navigation(); ?>
+
 		<section class="comments">
 		<?php
 			// If comments are open or we have at least one comment, load up the comment template.

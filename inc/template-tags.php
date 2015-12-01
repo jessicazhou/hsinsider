@@ -1,6 +1,7 @@
 <?php
 /**
  * Helper functions
+ * Refactor if time allows
  */
 
 if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
@@ -11,15 +12,15 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 		// Hide category and tag text for pages.
 		if ( 'post' == get_post_type() ) {
 			/* translators: used between list items, there is a space after the comma */
-			$categories_list = get_the_category_list( __( ', ', 'hsinsider' ) );
+			$categories_list = get_the_category_list( __( ' ', 'hsinsider' ) );
 			if ( $categories_list && hsinsider_categorized_blog() ) {
-				printf( '<span class="cat-links">' . __( 'Posted in %1$s', 'hsinsider' ) . '</span>', $categories_list );
+				printf( '<div class="cat-links">' . __( '<h3>Posted in</h3> %1$s', 'hsinsider' ) . '</div>', $categories_list );
 			}
 
 			/* translators: used between list items, there is a space after the comma */
-			$tags_list = get_the_tag_list( '', __( ', ', 'hsinsider' ) );
+			$tags_list = get_the_tag_list( '', __( ' ', 'hsinsider' ) );
 			if ( $tags_list ) {
-				printf( '<span class="tags-links">' . __( 'Tagged %1$s', 'hsinsider' ) . '</span>', $tags_list );
+				printf( '<div class="tags-links">' . __( '<h3>Tagged</h3> %1$s', 'hsinsider' ) . '</div>', $tags_list );
 			}
 		}
 
@@ -50,7 +51,8 @@ function hsinsider_get_post_byline() {
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];
 
-	$avatar = get_avatar( $author->ID, null, '', '', array( 'class' => 'img-circle' ) );
+	$default_avatar = esc_url( home_url() . wpcom_vip_home_template_uri( '/static/images/hsinsider-logo-circle.png' ) );
+	$avatar = get_avatar( $author->ID, 96, $default_avatar, '', array( 'class' => 'img-circle' ) );
 
 	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }

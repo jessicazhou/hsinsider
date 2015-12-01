@@ -13,6 +13,11 @@ function hsinsider_video_gallery() {
 		'post_type' => 'video',
 		'posts_per_page' => 8,
 		'orderby' => 'date',
+		'meta_query' => array( 
+			array(
+				'key' => '_thumbnail_id'
+			) 
+		),
 	);
 
 	$the_query = new WP_Query( $args );

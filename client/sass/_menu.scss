@@ -35,7 +35,6 @@ header.site-header {
 				width: auto;
 			}
 			@media( max-width: $screen-md-min ) {
-
 				img {
 					height: 45px;
 				}
@@ -199,23 +198,50 @@ header.site-header {
 }
 
 .site-main .comment-navigation,
-.site-main .posts-navigation,
-.site-main .post-navigation {
-	margin: 0 0 1.5em;
-	overflow: hidden;
+.site-main .posts-navigation, 
+.post-navigation {
+	overflow: auto;
+	width: 100%;
+	max-width: 1170px;
+
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	.nav-links {
+		@include make-row();
+	}
+}
+
+.comment-navigation .nav-previous,
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous, 
+.comment-navigation .nav-next,
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	@include make-xs-column( 6 );
+	padding-top: 35px;
+	padding-bottom: 35px;
+	a{
+		font-size: 16px;
+		i {
+			margin: 0px 5px;
+			font-size: 20px;
+			position: relative;
+			top: 3px;
+		}
+	}
 }
 
 .comment-navigation .nav-previous,
 .posts-navigation .nav-previous,
 .post-navigation .nav-previous {
-	float: left;
-	width: 50%;
+	text-align: right;
 }
 
 .comment-navigation .nav-next,
 .posts-navigation .nav-next,
 .post-navigation .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
+	text-align: left;
 }

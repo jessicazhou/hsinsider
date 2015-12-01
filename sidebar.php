@@ -12,8 +12,7 @@ else : ?>
 	<div class="block-ad ad hidden-xs" id='div-gpt-ad-597875899873789138-1'></div>
 	<!-- Mobile Ad -->
 	<div class="block-ad ad visible-xs-block" id='div-gpt-ad-283030070724299354-1'></div>
-
-	<h3 style="text-align: center;"><?php esc_html_e( 'Featured on HS Insider', 'hsinsider' ); ?></h3>
+	<!-- Sidebar Widgets -->
 	<?php dynamic_sidebar( 'single-post' ); ?>
 </div>
 <?php endif; ?>
