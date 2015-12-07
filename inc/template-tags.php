@@ -51,8 +51,7 @@ function hsinsider_get_post_byline() {
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];
 
-	$default_avatar = esc_url( home_url() . wpcom_vip_home_template_uri( '/static/images/hsinsider-logo-circle.png' ) );
-	$avatar = get_avatar( $author->ID, 96, $default_avatar, '', array( 'class' => 'img-circle' ) );
+	$avatar = get_avatar( $author->ID, 96, '', '', array( 'class' => 'img-circle' ) );
 
 	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }
