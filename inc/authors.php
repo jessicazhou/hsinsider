@@ -6,7 +6,7 @@
 * This file holds configuration settings and functions for author related content including changes to Co-Authors Plus
 */
 function hsinsider_default_avatar( $avatar_defaults ) {
-	$default_avatar = wpcom_vip_home_template_uri( '/static/images/hsinsider-logo-circle.gif' );
+	$default_avatar = wpcom_vip_home_template_uri( '/static/images/hsinsider-logo-circle.png' );
 	$avatar_defaults[$default_avatar] = "HS Insider";
 	return $avatar_defaults;
 }
