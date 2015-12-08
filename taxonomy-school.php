@@ -34,17 +34,12 @@ if( is_object( $term ) ) : ?>
 						);
 
 						$school_marker = json_encode( $school_marker ); 
-						$column = 'col-md-5' ?>
-						
-						<div class="map col-md-7">
-							<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
-						</div>
-
-				<?php } ?>
-				<section class="col-xs-12 col-sm-12 <?php echo $column; ?>">
+						$column = 'col-md-5 col-md-push-7';
+					}
+				?>
+				<section class="col-xs-12 <?php echo $column; ?>">
 					<!-- Social Share -->
-					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
-
+					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_term_link( $term ) ) ); ?>
 					<!-- title -->
 					<h1 class="entry-title"><?php esc_html_e( $school->name, 'hsinsider' ); ?></h1>
 
@@ -61,9 +56,15 @@ if( is_object( $term ) ) : ?>
 						</div>
 						<?php endif; ?>
 					</div>
-
 				</section><!-- .page-header -->
+				
+				<?php if( ! empty( $school_address ) ) : ?>
+				<div class="map col-xs-12 col-md-7 col-md-pull-5">
+					<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
+				</div>
+				<?php endif; ?>
 			</header>
+
 			<?php if ( have_posts() ) : ?>
 			<?php $post_count = 0; ?>
 			<section class="blogroll row">

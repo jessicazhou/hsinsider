@@ -34,6 +34,24 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 	}
 endif;
 
+function hsinsider_get_lead_art( $post = null ) {
+	if( empty( $post ) ) {
+		global $post;
+	}
+
+	if( has_post_thumbnail() ) {
+		$featured_id = get_post_thumbnail_id( $post->ID );
+		$featured_obj = get_posts( array( 'p' => $featured_id, 'post_type' => 'attachment' ) );
+		$featured_url = wp_get_attachment_url( $featured_id );
+
+		if ( !empty( $featured_obj ) ) {
+			$featured_caption = $featured_obj[0]->post_excerpt;
+		}
+		$featured_html = '<figure><img src="' . $featured_url . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . $featured_caption . '</figcaption></figure>';
+		echo $featured_html;
+	}
+}
+
 /**
  * Retrieve and compile Post Byline Information
  */
@@ -51,7 +69,10 @@ function hsinsider_get_post_byline() {
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];
 
-	$avatar = get_avatar( $author->ID, 96, '', '', array( 'class' => 'img-circle' ) );
+	$avatar = '';
+	if( !is_author() ) {
+		$avatar = get_avatar( $author->ID, 96, '', '', array( 'class' => 'img-circle' ) );
+	}
 
 	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
 }

@@ -19,7 +19,7 @@ get_header(); ?>
 			<header class="hero jumbotron blogroll">
 				<?php 
 					$args = array(
-						'post_type' => 'any',
+						'post_type' => array( 'post', 'video' ),
 						'post_status' => 'publish',
 						'category_name' => 'featured',
 						'posts_per_page' => 1

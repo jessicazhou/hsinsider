@@ -34,6 +34,7 @@ class HSInsider_Widget_Latest_Popular extends HSInsider_Widget {
 		$today = getdate();
 		$args = array(
 			'posts_per_page' => 4,
+			'post_status' => 'publish',
 			'meta_query' => array( 
 				array(
 					'key' => '_thumbnail_id'

@@ -1,6 +1,7 @@
 body {
 	width: 100%;
 	font-weight: 200;
+	font-size: 16px;
 	&.noscroll {
 		position: fixed; 
 		overflow-y: none;
@@ -38,7 +39,7 @@ a:focus, button:focus {
 /* =Blogroll --*/
 .blogroll {
 	@include make-row();
-	article.post {
+	article.post, article.video {
 		padding: 15px 0px;
 		border-bottom: 1px solid #e4e4e4;
 		figure.featured-image {
@@ -56,7 +57,7 @@ a:focus, button:focus {
 		} 
 	}
 	section {
-		padding-top: 6%;
+		padding-top: 4%;
 		&.no-post-image {
 			padding: 50px 15px;
 			text-align: center;
@@ -97,7 +98,7 @@ a:focus, button:focus {
 
 /* =Post
 -------------------------------------------------------------- */
-article.post {
+article.post, article.video {
 	overflow: auto;
 	&.single {
 		h1.entry-title {
@@ -106,7 +107,6 @@ article.post {
 		.wp-post-image {
 			width: 100%;
 			height: auto;
-			padding-bottom: 40px;
 		}
 		.entry-meta {
 			margin-bottom: 20px;
@@ -116,6 +116,9 @@ article.post {
 			line-height: 1.8em;
 		}
 	}
+	.trb_socialize_bar {
+		margin-top: 25px;
+	}
 	figure.byline {
 		padding: 15px 0px 0px;
 		margin: 0;
@@ -124,6 +127,8 @@ article.post {
 		overflow: auto;
 		img {
 			float: left;
+			width: 70px;
+			height: 70px;
 			@media( max-width: $screen-sm-max ) {
 				width: 60px;
 				height: auto;
@@ -131,7 +136,7 @@ article.post {
 		}
 		figcaption {
 			float: left;
-			padding: 28px 22px;
+			padding: 18px 22px;
 			a {
 				display: block;
 				text-transform: uppercase;
@@ -172,7 +177,7 @@ a.school {
 	@include hsinsider-border-radius( 0px );
 	@include make-row();
 
-	article.post {
+	article.post, article.video {
 		padding: 0px;
 		figure.featured-image {
 			padding-left: 0px;
@@ -253,12 +258,16 @@ a.school {
 	}
 }
 
+.author figure.byline figcaption{
+	padding-left: 0px !important;
+}
+
 /* =Tags
 -------------------------------------------------------------- */
 .cat-links, .tags-links {
 	a {
 		display: inline-block;
-		padding: 10px 5px;
+		padding: 7px 14px;
 		margin: 2px 1px;
 		background: #505050;
 		color: $white;
@@ -311,6 +320,19 @@ a img {
 p img {
 	margin-bottom: 0.5em; /* a small bottom margin prevents content floating under images */
 }
+
+.wp-caption {
+	padding: .5em;
+	text-align: center;
+}
+.wp-caption img {
+	margin: .25em;
+}
+.wp-caption-text {
+	margin: .5em;
+	text-align: center;
+}
+
 /*
 Resize images to fit the main content area.
 - Applies only to images uploaded via WordPress by targeting size-* classes.
@@ -326,22 +348,18 @@ img.size-medium,
 	max-width: 100%; /* When images are too wide for containing element, force them to fit. */
 	height: auto; /* Override height to match resized width for correct aspect ratio. */
 }
-img.alignleft {
+img.alignleft, figure.alignleft {
 	margin-right: 1em;
 }
-img.alignright {
+img.alignright, figure.alignright {
 	margin-left: 1em;
 }
-.wp-caption {
-	padding: .5em;
-	text-align: center;
+
+img.alignnone, figure.alignnone {
+	margin-left: 0px;
+	margin-right: 0px;
 }
-.wp-caption img {
-	margin: .25em;
-}
-.wp-caption .wp-caption-text {
-	margin: .5em;
-}
+
 .gallery-caption {
 }
 .wp-smiley {

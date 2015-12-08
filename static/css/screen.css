@@ -8359,7 +8359,8 @@ menu ul ul a:hover {
 
 body {
   width: 100%;
-  font-weight: 200; }
+  font-weight: 200;
+  font-size: 16px; }
   body.noscroll {
     position: fixed;
     overflow-y: none; }
@@ -8395,22 +8396,22 @@ a:focus, button:focus {
     display: table; }
   .blogroll:after {
     clear: both; }
-  .blogroll article.post {
+  .blogroll article.post, .blogroll article.video {
     padding: 15px 0px;
     border-bottom: 1px solid #e4e4e4; }
-    .blogroll article.post figure.featured-image {
+    .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image {
       display: inline-block;
       float: left;
       max-height: 430px;
       overflow-y: hidden; }
       @media (max-width: 991px) {
-        .blogroll article.post figure.featured-image {
+        .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image {
           padding-right: 0px; } }
-      .blogroll article.post figure.featured-image img.wp-post-image {
+      .blogroll article.post figure.featured-image img.wp-post-image, .blogroll article.video figure.featured-image img.wp-post-image {
         width: 100%;
         height: auto; }
   .blogroll section {
-    padding-top: 6%; }
+    padding-top: 4%; }
     .blogroll section.no-post-image {
       padding: 50px 15px;
       text-align: center; }
@@ -8438,46 +8439,49 @@ a:focus, button:focus {
 
 /* =Post
 -------------------------------------------------------------- */
-article.post {
+article.post, article.video {
   overflow: auto; }
-  article.post.single h1.entry-title {
+  article.post.single h1.entry-title, article.video.single h1.entry-title {
     font-size: 32px; }
-  article.post.single .wp-post-image {
+  article.post.single .wp-post-image, article.video.single .wp-post-image {
     width: 100%;
-    height: auto;
-    padding-bottom: 40px; }
-  article.post.single .entry-meta {
+    height: auto; }
+  article.post.single .entry-meta, article.video.single .entry-meta {
     margin-bottom: 20px; }
-  article.post.single p {
+  article.post.single p, article.video.single p {
     color: #000000;
     line-height: 1.8em; }
-  article.post figure.byline {
+  article.post .trb_socialize_bar, article.video .trb_socialize_bar {
+    margin-top: 25px; }
+  article.post figure.byline, article.video figure.byline {
     padding: 15px 0px 0px;
     margin: 0;
     display: inline-block;
     text-align: left;
     overflow: auto; }
-    article.post figure.byline img {
-      float: left; }
+    article.post figure.byline img, article.video figure.byline img {
+      float: left;
+      width: 70px;
+      height: 70px; }
       @media (max-width: 991px) {
-        article.post figure.byline img {
+        article.post figure.byline img, article.video figure.byline img {
           width: 60px;
           height: auto; } }
-    article.post figure.byline figcaption {
+    article.post figure.byline figcaption, article.video figure.byline figcaption {
       float: left;
-      padding: 28px 22px; }
-      article.post figure.byline figcaption a {
+      padding: 18px 22px; }
+      article.post figure.byline figcaption a, article.video figure.byline figcaption a {
         display: block;
         text-transform: uppercase;
         font-weight: 300;
         font-size: 13px; }
       @media (max-width: 991px) {
-        article.post figure.byline figcaption {
+        article.post figure.byline figcaption, article.video figure.byline figcaption {
           padding-top: 12px; } }
     @media (max-width: 991px) {
-      article.post figure.byline {
+      article.post figure.byline, article.video figure.byline {
         padding-top: 0px; } }
-  article.post .brief {
+  article.post .brief, article.video .brief {
     margin-top: 25px;
     font-size: 16px;
     line-height: 26px; }
@@ -8508,9 +8512,9 @@ a.school {
     display: table; }
   .hero:after {
     clear: both; }
-  .hero article.post {
+  .hero article.post, .hero article.video {
     padding: 0px; }
-    .hero article.post figure.featured-image {
+    .hero article.post figure.featured-image, .hero article.video figure.featured-image {
       padding-left: 0px; }
   .hero h1 {
     margin-top: 16px;
@@ -8593,11 +8597,14 @@ a.school {
     .archive-header.tag-category span.active-order {
       font-weight: bold; }
 
+.author figure.byline figcaption {
+  padding-left: 0px !important; }
+
 /* =Tags
 -------------------------------------------------------------- */
 .cat-links a, .tags-links a {
   display: inline-block;
-  padding: 10px 5px;
+  padding: 7px 14px;
   margin: 2px 1px;
   background: #505050;
   color: #ffffff; }
@@ -8641,6 +8648,17 @@ p img {
   margin-bottom: 0.5em;
   /* a small bottom margin prevents content floating under images */ }
 
+.wp-caption {
+  padding: .5em;
+  text-align: center; }
+
+.wp-caption img {
+  margin: .25em; }
+
+.wp-caption-text {
+  margin: .5em;
+  text-align: center; }
+
 /*
 Resize images to fit the main content area.
 - Applies only to images uploaded via WordPress by targeting size-* classes.
@@ -8658,21 +8676,15 @@ img.size-medium,
   height: auto;
   /* Override height to match resized width for correct aspect ratio. */ }
 
-img.alignleft {
+img.alignleft, figure.alignleft {
   margin-right: 1em; }
 
-img.alignright {
+img.alignright, figure.alignright {
   margin-left: 1em; }
 
-.wp-caption {
-  padding: .5em;
-  text-align: center; }
-
-.wp-caption img {
-  margin: .25em; }
-
-.wp-caption .wp-caption-text {
-  margin: .5em; }
+img.alignnone, figure.alignnone {
+  margin-left: 0px;
+  margin-right: 0px; }
 
 .wp-smiley {
   margin: 0; }

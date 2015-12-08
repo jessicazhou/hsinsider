@@ -12,11 +12,18 @@ get_header(); ?>
 	<div id="primary" class="content-area container">
 		<main id="main" class="site-main row" role="main">
 
-		<?php while ( have_posts() ) : the_post(); ?>
-
-			<?php get_template_part( 'template-parts/content', 'single' ); ?>
-
-		<?php endwhile; // End of the loop. ?>
+		<?php 
+			while ( have_posts() ) { 
+				the_post();
+				
+				if( 'video' == get_post_type() ) {
+					get_template_part( 'template-parts/content', 'video' );
+				}
+				else {
+					get_template_part( 'template-parts/content', 'single' );
+				}
+			}
+		?>
 		<?php get_sidebar(); ?>
 		</main>
 

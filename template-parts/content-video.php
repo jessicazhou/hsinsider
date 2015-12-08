@@ -4,9 +4,12 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( array(  'col-md-8', 'single' ) ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( array(  'col-md-8', ' post video' ) ); ?>>
 	<header class="entry-header">
-		<?php hsinsider_get_lead_art(); ?>
+		<div class="iframe-wrapper">
+		<?php $youtube_id = get_post_meta( $post->ID, 'video_info', TRUE )[ 'youtube_id' ]; ?>
+			<iframe src="https://www.youtube.com/embed/<?php esc_html_e( $youtube_id ); ?>" frameborder="0" allowfullscreen></iframe>
+		</div>
 		<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		<div class="entry-meta">
