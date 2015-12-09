@@ -9,81 +9,96 @@
  */
 
 var map;
+var bounds;
 
 function initMap() {
-
-	var styles = [
-		{
-			"featureType": "landscape.man_made",
-			"stylers": [
-				{ "color": "#fbfbfb" }
-			]
-		},{
-			"featureType": "landscape.natural",
-			"stylers": [
-				{ "color": "#f1f1f1" }
-			]
-		},{
-			"featureType": "water",
-			"stylers": [
-				{ "color": "#a3ddf4" }
-			]
-		},{
-			"featureType": "road.highway",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{ "color": "#ffffba" }
-			]
-		},{
-			"featureType": "road.highway",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{ "color": "#ffd8b5" }
-			]
-		},{
-			"featureType": "poi.park",
-			"stylers": [
-				{ "color": "#ccf1ba" }
-			]
-		},{
-			"featureType": "poi.business",
-			"elementType": "geometry",
-			"stylers": [
-				{ "color": "#edece6" }
-			]
-		},{
-		}
-	];
-
-	var styledMap = new google.maps.StyledMapType( styles, {
-		name: "Styled Map"
-	});
-
-	school_marker = $( '#gmap' ).data( 'marker' );
-
-	if( school_marker !== '' ) {
-
-		var mapOptions = {
-			center: { lat: 34.052235, lng: -118.243683 },
-			zoom: 10,
-			scrollwheel: false,
-			zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL
+	if( $( '#gmap' ).length ) {
+		var styles = [
+			{
+				"featureType": "landscape.man_made",
+				"stylers": [
+					{ "color": "#fbfbfb" }
+				]
+			},{
+				"featureType": "landscape.natural",
+				"stylers": [
+					{ "color": "#f1f1f1" }
+				]
+			},{
+				"featureType": "water",
+				"stylers": [
+					{ "color": "#a3ddf4" }
+				]
+			},{
+				"featureType": "road.highway",
+				"elementType": "geometry.fill",
+				"stylers": [
+					{ "color": "#ffffba" }
+				]
+			},{
+				"featureType": "road.highway",
+				"elementType": "geometry.stroke",
+				"stylers": [
+					{ "color": "#ffd8b5" }
+				]
+			},{
+				"featureType": "poi.park",
+				"stylers": [
+					{ "color": "#ccf1ba" }
+				]
+			},{
+				"featureType": "poi.business",
+				"elementType": "geometry",
+				"stylers": [
+					{ "color": "#edece6" }
+				]
 			}
-		};
+		];
 
-		map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
-		google.maps.event.trigger( map, 'resize' );
+		var styledMap = new google.maps.StyledMapType( styles, {
+			name: "Styled Map"
+		});
 
-		// apply the styles
-		map.mapTypes.set( 'map_style', styledMap );
-		map.setMapTypeId( 'map_style' );
+		school_marker = $( '#gmap' ).data( 'marker' );
 
-		codeAddress( school_marker );
+		if( school_marker !== '' ) {
+
+			var mapOptions = {
+				center: { lat: 34.052235, lng: -118.243683 },
+				zoom: 10,
+				scrollwheel: false,
+				zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+				}
+			};
+
+			map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+			google.maps.event.trigger( map, 'resize' );
+
+			// apply the styles
+			map.mapTypes.set( 'map_style', styledMap );
+			map.setMapTypeId( 'map_style' );
+
+			bounds = new google.maps.LatLngBounds();
+
+			if( $.isArray( school_marker ) ) {
+				$.each( school_marker, function( index, marker ) { 
+					geocodeAddress( marker );
+				} );
+			}
+			else {
+				geocodeAddress( school_marker );
+
+				var fixBoundsZoom = google.maps.event.addListener( map, 'bounds_changed', function( event ) {
+						map.setZoom( 9 );
+						setTimeout( function() { google.maps.event.removeListener( fixBoundsZoom ) }, 2000 );
+				} );
+			}
+		}
 	}
 }
 
-function codeAddress( school_marker ) {
+function geocodeAddress( school_marker ) {
 	/**
 	 * Create geocoder object
 	 */
@@ -102,7 +117,23 @@ function codeAddress( school_marker ) {
 				position: results[0].geometry.location,
 				title: school_name
 			} );
-			map.setCenter( marker.getPosition() );
+
+			var infowindow = new google.maps.InfoWindow({
+				content: school_name
+			});
+
+			marker.addListener( 'mouseover', function() {
+				infowindow.open( map, marker );
+			} );
+
+			marker.addListener( 'mouseout', function() {
+				infowindow.close();
+			} );
+
+			var LatLng = marker.getPosition();
+			bounds.extend( LatLng );
+			map.fitBounds( bounds );
+
 		} else {
 			alert( "Geocode was not successful for the following reason: " + status );
 		}

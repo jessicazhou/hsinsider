@@ -127,6 +127,7 @@
 }
 
 .widget_hsinsider_newsletter {
+	background: #efefef;
 	input[type=email] {
 		width: 100%;
 		padding: 0px 14px;
@@ -136,6 +137,16 @@
 	input[type=submit] {
 		@include hsinsider-form-button();
 		padding: 7px 14px;
+	}
+}
+
+.page_widget {
+	.widget_hsinsider_newsletter {
+		padding: 10px 20px 30px 20px;
+		margin: 30px auto 45px;
+		form {
+			overflow: auto;
+		}
 	}
 }
 
@@ -149,10 +160,12 @@
 		border-bottom: 1px solid $highlight-color;
 	}
 	
-	.widget_hsinsider_newsletter form{
-		@include make-row();
+	.widget_hsinsider_newsletter {
+		background: transparent;
+		form{
+			@include make-row();
+		}
 	}
-	
 	.widget_nav_menu {
 		ul.menu {
 			list-style: none;

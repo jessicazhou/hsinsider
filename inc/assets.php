@@ -31,7 +31,7 @@ function hsinsider_enqueue_assets() {
 	wp_enqueue_script( 'jquery-effects-slide' );
 	wp_enqueue_script( 'hsinsider-global-js' );
 
-	if( is_tax( 'school' ) ) {
+	if( is_tax( 'school' ) || is_page_template( 'page-about.php' ) ) {
 		// Google Maps Script
 		wp_enqueue_script( 'google-maps' );
 	}

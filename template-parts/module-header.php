@@ -21,9 +21,9 @@
 							<span class="hidden-xs">
 								<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
 							</span>
-							<a id="menu-about" class="menu hidden-xs" href="/about/">
+							<button id="menu-about" class="menu menu-mobile hidden-xs">
 								<?php esc_html_e( 'About', 'hsinsider' ); ?>
-							</a>
+							</button>
 							<button id="menu-schools" class="menu menu-mobile hidden-xs">
 								<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?>
 							</button>
@@ -97,6 +97,16 @@
 					</div>
 				<?php endif; ?>		
 				<?php wp_nav_menu( array( 'theme_location' => 'topics_menu' ) ); ?>
+			</div>
+		</menu>
+		<menu data-menu="menu-about">
+			<div class="about">
+				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'about_menu' ) ) ) : ?>
+					<div class="title">
+						<i class="fa fa-question-circle"></i> <?php esc_html_e( $menu_name, 'hsinsider' ); ?>
+					</div>
+				<?php endif; ?>
+				<?php wp_nav_menu( array( 'theme_location' => 'about_menu' ) ); ?>
 			</div>
 		</menu>
 	</div>

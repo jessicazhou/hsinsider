@@ -278,6 +278,32 @@ a.school {
 	}
 }
 
+.page-template-page-about-php {
+	#primary > header {
+		padding: 30px 0px;
+		p.lead {
+			margin: 10px 0px;
+		}
+	}
+	.map {
+		padding: 0px;
+	}
+
+	article footer {
+		.widget_hsinsider_newsletter {
+			overflow: auto;
+			padding: 0px 30px 30px;
+			margin: 40px 0px 30px;
+		}
+	}
+}
+
+.page-template-default {
+	article {
+		@include make-md-column( 8 );
+	}
+}
+
 /* =Ads
 -------------------------------------------------------------- */
 .ad {
