@@ -119,7 +119,7 @@ require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy-school.
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget.php' );
 
 //Custom Widgets
-require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-popular.php' );
+require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-featured-items.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-polls.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.php' );
 /* End Data Structures */

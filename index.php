@@ -44,7 +44,7 @@ get_header(); ?>
 			</header>
 		<?php endif; ?>
 		
-		<?php get_sidebar( 'popular' ); ?>
+		<?php get_sidebar( 'featured' ); ?>
 		<div class="row widget-area">
 			<div class="container">
 				<?php echo hsinsider_video_gallery(); ?>
@@ -59,7 +59,6 @@ get_header(); ?>
 						/**
 						 * Include the Post-Format-specific template for the content.
 						 * Remove the $curated post from the blogroll
-						 * TODO: Move jumbotron div into featured template
 						 */
 						if( $curated != get_the_ID() ) {
 							ai_get_template_part( 'template-parts/content', 'blogroll' );

@@ -12,7 +12,6 @@ function hsinsider_video_gallery() {
 	$args = array(
 		'post_type' => 'video',
 		'posts_per_page' => 8,
-		'post_status' => 'publish',
 		'orderby' => 'date',
 		'meta_query' => array( 
 			array(

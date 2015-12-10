@@ -7894,6 +7894,8 @@ header.site-header {
     .menuwrapper menu[data-menu="menu-activities"] {
       background-color: #1c1c1c;
       padding-top: 0; }
+    .menuwrapper menu[data-menu="menu-schools"] {
+      /*margin-right: -15px !important;*/ }
     @media (max-width: 767px) {
       .menuwrapper menu {
         height: auto;
@@ -8249,7 +8251,8 @@ menu ul ul a:hover {
 #navigation .menu li.back, menu li.back {
   font-size: .8em;
   text-transform: uppercase;
-  display: block; }
+  display: block;
+  position: fixed; }
 
 #navigation .menu li.back a, menu li.back a {
   position: relative;
@@ -8365,7 +8368,7 @@ body {
   font-size: 16px; }
   body.noscroll {
     position: fixed;
-    overflow-y: none; }
+    overflow-y: hidden; }
 
 /* =Headings
 -------------------------------------------------------------- */
@@ -8398,18 +8401,19 @@ a:focus, button:focus {
     display: table; }
   .blogroll:after {
     clear: both; }
-  .blogroll article.post, .blogroll article.video {
+  .blogroll article.post, .blogroll article.video, .blogroll article.page {
+    overflow: auto;
     padding: 15px 0px;
     border-bottom: 1px solid #e4e4e4; }
-    .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image {
+    .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image, .blogroll article.page figure.featured-image {
       display: inline-block;
       float: left;
       max-height: 430px;
       overflow-y: hidden; }
       @media (max-width: 991px) {
-        .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image {
+        .blogroll article.post figure.featured-image, .blogroll article.video figure.featured-image, .blogroll article.page figure.featured-image {
           padding-right: 0px; } }
-      .blogroll article.post figure.featured-image img.wp-post-image, .blogroll article.video figure.featured-image img.wp-post-image {
+      .blogroll article.post figure.featured-image img.wp-post-image, .blogroll article.video figure.featured-image img.wp-post-image, .blogroll article.page figure.featured-image img.wp-post-image {
         width: 100%;
         height: auto; }
   .blogroll section {
@@ -8441,49 +8445,49 @@ a:focus, button:focus {
 
 /* =Post
 -------------------------------------------------------------- */
-article.post, article.video {
+article.post, article.video, article.page {
   overflow: auto; }
-  article.post.single h1.entry-title, article.video.single h1.entry-title {
+  article.post.single h1.entry-title, article.video.single h1.entry-title, article.page.single h1.entry-title {
     font-size: 32px; }
-  article.post.single .wp-post-image, article.video.single .wp-post-image {
+  article.post.single .wp-post-image, article.video.single .wp-post-image, article.page.single .wp-post-image {
     width: 100%;
     height: auto; }
-  article.post.single .entry-meta, article.video.single .entry-meta {
+  article.post.single .entry-meta, article.video.single .entry-meta, article.page.single .entry-meta {
     margin-bottom: 20px; }
-  article.post.single p, article.video.single p {
+  article.post.single p, article.video.single p, article.page.single p {
     color: #000000;
     line-height: 1.8em; }
-  article.post .trb_socialize_bar, article.video .trb_socialize_bar {
+  article.post .trb_socialize_bar, article.video .trb_socialize_bar, article.page .trb_socialize_bar {
     margin-top: 25px; }
-  article.post figure.byline, article.video figure.byline {
+  article.post figure.byline, article.video figure.byline, article.page figure.byline {
     padding: 15px 0px 0px;
     margin: 0;
     display: inline-block;
     text-align: left;
     overflow: auto; }
-    article.post figure.byline img, article.video figure.byline img {
+    article.post figure.byline img, article.video figure.byline img, article.page figure.byline img {
       float: left;
       width: 70px;
       height: 70px; }
       @media (max-width: 991px) {
-        article.post figure.byline img, article.video figure.byline img {
+        article.post figure.byline img, article.video figure.byline img, article.page figure.byline img {
           width: 60px;
           height: auto; } }
-    article.post figure.byline figcaption, article.video figure.byline figcaption {
+    article.post figure.byline figcaption, article.video figure.byline figcaption, article.page figure.byline figcaption {
       float: left;
-      padding: 18px 22px; }
-      article.post figure.byline figcaption a, article.video figure.byline figcaption a {
+      padding: 16px 22px; }
+      article.post figure.byline figcaption a, article.video figure.byline figcaption a, article.page figure.byline figcaption a {
         display: block;
         text-transform: uppercase;
         font-weight: 300;
         font-size: 13px; }
       @media (max-width: 991px) {
-        article.post figure.byline figcaption, article.video figure.byline figcaption {
+        article.post figure.byline figcaption, article.video figure.byline figcaption, article.page figure.byline figcaption {
           padding-top: 12px; } }
     @media (max-width: 991px) {
-      article.post figure.byline, article.video figure.byline {
+      article.post figure.byline, article.video figure.byline, article.page figure.byline {
         padding-top: 0px; } }
-  article.post .brief, article.video .brief {
+  article.post .brief, article.video .brief, article.page .brief {
     margin-top: 25px;
     font-size: 16px;
     line-height: 26px; }
@@ -8636,6 +8640,27 @@ a.school {
     .page-template-default article {
       float: left;
       width: 66.6666666667%; } }
+
+.page-header {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 0px;
+  text-align: center; }
+  .page-header:before,
+  .page-header:after {
+    content: " ";
+    display: table; }
+  .page-header:after {
+    clear: both; }
+  .page-header .page-title {
+    margin: 0px 0px 30px; }
+
+.not-found {
+  margin: 100px auto;
+  text-align: center; }
+  .not-found .icon .fa-stack-1x {
+    top: -3px;
+    left: -7px; }
 
 /* =Ads
 -------------------------------------------------------------- */
@@ -8802,27 +8827,27 @@ article.comment {
   #sidebar-single-post .block-ad:after {
     clear: both; }
 
-#sidebar-single-post .widget_hsinsider_latest_popular {
+#sidebar-single-post .widget_hsinsider_featured_items {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px; }
   @media (min-width: 992px) {
-    #sidebar-single-post .widget_hsinsider_latest_popular {
+    #sidebar-single-post .widget_hsinsider_featured_items {
       float: left;
       width: 100%; } }
-  #sidebar-single-post .widget_hsinsider_latest_popular article {
+  #sidebar-single-post .widget_hsinsider_featured_items article {
     margin-left: -15px;
     margin-right: -15px;
     width: initial;
     float: none; }
-    #sidebar-single-post .widget_hsinsider_latest_popular article:before,
-    #sidebar-single-post .widget_hsinsider_latest_popular article:after {
+    #sidebar-single-post .widget_hsinsider_featured_items article:before,
+    #sidebar-single-post .widget_hsinsider_featured_items article:after {
       content: " ";
       display: table; }
-    #sidebar-single-post .widget_hsinsider_latest_popular article:after {
+    #sidebar-single-post .widget_hsinsider_featured_items article:after {
       clear: both; }
-    #sidebar-single-post .widget_hsinsider_latest_popular article figure {
+    #sidebar-single-post .widget_hsinsider_featured_items article figure {
       position: relative;
       float: left;
       width: 33.3333333333%;
@@ -8830,7 +8855,7 @@ article.comment {
       padding-left: 15px;
       padding-right: 15px;
       padding: initial; }
-    #sidebar-single-post .widget_hsinsider_latest_popular article .post-info {
+    #sidebar-single-post .widget_hsinsider_featured_items article .post-info {
       position: relative;
       float: left;
       width: 66.6666666667%;
@@ -8839,20 +8864,24 @@ article.comment {
       padding-right: 15px;
       padding-right: 0px; }
     @media (max-width: 992px) {
-      #sidebar-single-post .widget_hsinsider_latest_popular article {
+      #sidebar-single-post .widget_hsinsider_featured_items article {
         margin-bottom: 25px; } }
-  #sidebar-single-post .widget_hsinsider_latest_popular h4 {
+  #sidebar-single-post .widget_hsinsider_featured_items h4 {
     display: block;
     margin: 0px;
     padding: 5px 0px;
     font-size: 16px;
     text-align: center; }
 
-.widget_hsinsider_latest_popular {
-  overflow: auto; }
-  .widget_hsinsider_latest_popular h2 {
-    margin-bottom: 30px; }
-  .widget_hsinsider_latest_popular article {
+.widget_hsinsider_featured_items {
+  overflow: auto;
+  padding: 33px 0px 30px; }
+  .widget_hsinsider_featured_items h3 {
+    margin: 0px 0px 15px 15px;
+    font-weight: 300;
+    font-size: 22px;
+    text-transform: uppercase; }
+  .widget_hsinsider_featured_items article {
     position: relative;
     float: left;
     width: 50%;
@@ -8863,22 +8892,22 @@ article.comment {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-    text-align: center; }
+    text-align: left; }
     @media (min-width: 992px) {
-      .widget_hsinsider_latest_popular article {
+      .widget_hsinsider_featured_items article {
         float: left;
         width: 25%; } }
-    .widget_hsinsider_latest_popular article figure.post-image {
+    .widget_hsinsider_featured_items article figure.post-image {
       display: inline-block;
       position: relative;
       overflow: hidden;
       width: 100%; }
-      .widget_hsinsider_latest_popular article figure.post-image:after {
+      .widget_hsinsider_featured_items article figure.post-image:after {
         padding-top: 56.25%;
         /* 16:9 ratio */
         display: block;
         content: ''; }
-      .widget_hsinsider_latest_popular article figure.post-image img {
+      .widget_hsinsider_featured_items article figure.post-image img {
         display: block;
         width: 100%;
         height: auto;
@@ -8887,13 +8916,13 @@ article.comment {
         bottom: 0;
         right: 0;
         left: 0; }
-  .widget_hsinsider_latest_popular h4 {
+  .widget_hsinsider_featured_items h4 {
     display: block;
     margin: 5px 0px 0px;
     padding: 10px 0px;
     font-size: 16px;
-    text-align: center; }
-  .widget_hsinsider_latest_popular .date {
+    text-align: left; }
+  .widget_hsinsider_featured_items .date {
     text-align: center;
     padding-bottom: 20px; }
 

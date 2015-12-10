@@ -2470,7 +2470,6 @@ function geocodeAddress( school_marker ) {
  * TODO: refactor if time allows
  */
 
-var backLinkTop = false;
 jQuery( document ).ready( function( $ ) { 
 
 	"use strict";
@@ -2489,7 +2488,7 @@ jQuery( document ).ready( function( $ ) {
 
 		if( $( 'menu.open' ).length ) {
 			$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function( e ) {
-				$( '.active' ).removeClass( 'active' );
+				$( 'button.menu-mobile.active' ).removeClass( 'active' );
 				$( 'menu.open' ).removeClass( 'open' );
 				$( '.menuwrapper' ).hide();
 				$( '.menuwrapper' ).find( '.menu-overlay' ).hide();
@@ -2531,7 +2530,7 @@ jQuery( document ).ready( function( $ ) {
 			$( '.show-search' ).hide( 'slide' );
 
 			// remove active class from buttons
-			$( '.active' ).removeClass( 'active' );
+			$( 'button.menu-mobile.active' ).removeClass( 'active' );
 			$( this ).addClass( 'active' );
 			currentMenu = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
 			
@@ -2569,9 +2568,10 @@ jQuery( document ).ready( function( $ ) {
 		if( $( this ).attr( 'href' ) == '#' && !jQuery( this ).hasClass( 'backLink' ) ) { 
 			e.preventDefault();
 			
-			backLinkTop = jQuery( this ).text().substr( 0, 1 );
+			var backLinkTop = jQuery( this ).text().substr( 0, 1 );
 			$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).show( "slide", { direction: "right" }, 490, function() { 
-				jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
+				var position = jQuery( 'li.school #' + backLinkTop ).position();
+				jQuery( '.menuwrapper' ).scrollTop( position.top );
 				jQuery( '.back', 'menu[data-menu="menu-schools"]' ).show();
 			 } ).css( 'overflow', 'scroll' );
 			jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
@@ -2580,6 +2580,7 @@ jQuery( document ).ready( function( $ ) {
 	
 	$( '.back a', 'menu[data-menu="menu-schools"]' ).click( function( e ) { 
 		e.preventDefault();
+		$( '.menuwrapper' ).scrollTop( 0 );
 		$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).hide( "slide", { direction: "right" }, 500 ).css( 'overflow', 'scroll' );
 		$( '.back', 'menu[data-menu="menu-schools"]' ).hide();
 	 } );
@@ -2677,6 +2678,7 @@ jQuery( document ).ready( function( $ ) {
 		 }   
 	};
 } );
+
 
 /**
  * LA Times HS Insider Recent & Popular Posts Widget Script

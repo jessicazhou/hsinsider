@@ -19,13 +19,21 @@
 					<div class="menus">
 						<div class="menus-wrapper">
 							<span class="hidden-xs">
-								<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
+								<span class="trb_socialize_bar">
+									<a target="_blank" class="trb_socialize_item" href="https://www.facebook.com/hsinsider" style="padding-left: 0px;">
+										<i class="LATFacebook"></i>
+									</a>
+									<a target="_blank" class="trb_socialize_item" href=" https://twitter.com/hsinsider">
+										<i class="LATTwitter"></i>
+									</a>
+									<a class="trb_socialize_item" href="mailto:kyle.finck@latimes.com"><i class="LATEmail"></i></a>		
+								</span>
 							</span>
 							<button id="menu-about" class="menu menu-mobile hidden-xs">
 								<?php esc_html_e( 'About', 'hsinsider' ); ?>
 							</button>
 							<button id="menu-schools" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?>
+								<?php esc_html_e( 'Schools', 'hsinsider' ); ?>
 							</button>
 							<button id="menu-activities" class="menu menu-mobile hidden-xs">
 								<?php esc_html_e( 'Topics', 'hsinsider' ); ?>

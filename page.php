@@ -9,7 +9,7 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package Blankstrap
+ * @package HSInsider
  */
 
 get_header(); ?>

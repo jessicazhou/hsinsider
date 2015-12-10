@@ -4,7 +4,7 @@ body {
 	font-size: 16px;
 	&.noscroll {
 		position: fixed; 
-		overflow-y: none;
+		overflow-y: hidden;
 	}
 }
 
@@ -39,7 +39,8 @@ a:focus, button:focus {
 /* =Blogroll --*/
 .blogroll {
 	@include make-row();
-	article.post, article.video {
+	article.post, article.video, article.page {
+		overflow: auto;
 		padding: 15px 0px;
 		border-bottom: 1px solid #e4e4e4;
 		figure.featured-image {
@@ -98,7 +99,7 @@ a:focus, button:focus {
 
 /* =Post
 -------------------------------------------------------------- */
-article.post, article.video {
+article.post, article.video, article.page {
 	overflow: auto;
 	&.single {
 		h1.entry-title {
@@ -136,7 +137,7 @@ article.post, article.video {
 		}
 		figcaption {
 			float: left;
-			padding: 18px 22px;
+			padding: 16px 22px;
 			a {
 				display: block;
 				text-transform: uppercase;
@@ -301,6 +302,26 @@ a.school {
 .page-template-default {
 	article {
 		@include make-md-column( 8 );
+	}
+}
+
+.page-header {
+	@include make-row();
+	margin-bottom: 0px;
+	text-align: center;
+	.page-title {
+		margin: 0px 0px 30px;
+	}
+}
+
+.not-found {
+	margin: 100px auto;
+	text-align: center;
+	.icon {
+		.fa-stack-1x {
+			top: -3px;
+    		left: -7px;
+    	}
 	}
 }
 

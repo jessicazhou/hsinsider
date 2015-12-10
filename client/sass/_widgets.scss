@@ -50,7 +50,7 @@
 	.block-ad {
 		@include make-row();
 	}
-	.widget_hsinsider_latest_popular {
+	.widget_hsinsider_featured_items {
 		@include make-md-column( 12 );
 		article {
 			@include make-row();
@@ -78,15 +78,19 @@
 	}
 }
 
-.widget_hsinsider_latest_popular {
+.widget_hsinsider_featured_items {
 	overflow: auto;
-	h2 {
-		margin-bottom: 30px;
+	padding: 33px 0px 30px;
+	h3 {
+		margin: 0px 0px 15px 15px;
+		font-weight: 300;
+		font-size: 22px;
+		text-transform: uppercase;
 	}
 	article {
 		@include make-xs-column( 6 );
 		@include make-md-column( 3 );
-		text-align: center;
+		text-align: left;
 		figure.post-image {
 			display: inline-block;
 			position: relative;
@@ -117,7 +121,7 @@
 		margin: 5px 0px 0px;
 		padding: 10px 0px;
 		font-size: 16px;
-		text-align: center;
+		text-align: left;
 	}
 	
 	.date{
