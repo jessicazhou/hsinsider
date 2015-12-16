@@ -7,6 +7,10 @@
 		<?php endif; ?>
 		<div class="post-info">
 			<h4><?php the_title(); ?></h4>
+			<?php if ( is_single() ) : ?>
+				<!-- byline -->
+				<?php echo esc_html( 'By ') . hsinsider_get_coauthors(); ?>
+			<?php endif; ?>
 		</div>
 	</a>
 	<?php if( is_author() ) : ?>

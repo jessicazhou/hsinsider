@@ -2502,7 +2502,6 @@ jQuery( document ).ready( function( $ ) {
 	
 	/**
 	 * Show/Hide Menus
-	 * Refactored (again) : 11/2
 	 */
 	$( 'button.menu-mobile' ).click( function( e ) {
 		e.preventDefault();
@@ -2587,7 +2586,6 @@ jQuery( document ).ready( function( $ ) {
 	
 	/** 
 	 * Hide menu when page is clicked
-	 * Refactored - 11/2
 	 */
 	$( '.menuwrapper' ).click( function( e ) {
 		if( $( 'menu.open' ).length ) {
@@ -2604,7 +2602,6 @@ jQuery( document ).ready( function( $ ) {
 	
 	/** 
 	 * Code for the collapsed Hamburger Menu
-	 * Refactored - 11/3
 	 */
 	$( '#menu-hamburger' ).click( function( e ) { 
 		e.preventDefault();

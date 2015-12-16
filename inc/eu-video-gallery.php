@@ -83,9 +83,6 @@ function hsinsider_video_gallery() {
 			$gallery .= '	<div class="active_video row">';
 			$gallery .=	'		<div class="video col-md-9"><div class="iframe-wrapper"><iframe id="player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/' . $videos[0]['youtube_id'] . '?enablejsapi=1" frameborder="0"></iframe></div></div>';
 			$gallery .= '		<div class="video_info col-md-3">';
-			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . __( $videos[0]['title'] ) .'</a></h2>';
-			$gallery .=	'			<p class="post-excerpt">' . __( $videos[0]['description'] ) .'</p>';
-			$gallery .= '			<p class="post-byline">' . __( $videos[0]['author'] ) . '</p>';
 			$gallery .= '			<span class="trb_socialize_bar">
 										<a target="_blank" class="trb_socialize_item facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . esc_attr( $videos[0]['link'] ) . '" style="padding-left: 0px;">
 											<i class="LATFacebook"></i>
@@ -95,6 +92,9 @@ function hsinsider_video_gallery() {
 										</a>
 										<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
 									</span>';
+			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . __( $videos[0]['title'] ) .'</a></h2>';
+			$gallery .=	'			<p class="post-excerpt">' . __( $videos[0]['description'] ) .'</p>';
+			$gallery .= '			<p class="post-byline">' . __( $videos[0]['author'] ) . '</p>';
 			$gallery .= '		</div>';
 			$gallery .= '	</div>';
 			$gallery .= '	<div class="row">';

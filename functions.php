@@ -122,6 +122,7 @@ require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-featured-items.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-polls.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.php' );
+require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-ad-block.php' );
 /* End Data Structures */
 
 // Video Gallery

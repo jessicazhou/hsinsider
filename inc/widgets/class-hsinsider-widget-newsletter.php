@@ -25,7 +25,7 @@ class HSInsider_Widget_Newsletter extends HSInsider_Widget {
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		
-		if ( ! empty( $instance['title'] ) ) {
+		if ( !empty( $instance['title'] ) ) {
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
 		}
 		?>
@@ -43,13 +43,23 @@ class HSInsider_Widget_Newsletter extends HSInsider_Widget {
 	}
 
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
+		$title = !empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<?php 
+	}
+
+	/**
+	 * Sanitize widget form values as they are saved.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( !empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+
+		return $instance;
 	}
 }
 

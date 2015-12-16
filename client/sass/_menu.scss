@@ -208,19 +208,29 @@ header.site-header {
 	}
 }
 
-.site-main .comment-navigation,
-.site-main .posts-navigation, 
-.post-navigation {
-	overflow: auto;
-	width: 100%;
-	max-width: 1170px;
+.home {
+	.site-main .comment-navigation,
+	.site-main .posts-navigation, 
+	.post-navigation {
+		overflow: auto;
+		width: 100%;
+		max-width: 1170px;
 
-	margin-right: auto;
-	margin-left: auto;
-	padding-left: 15px;
-	padding-right: 15px;
+		margin-right: auto;
+		margin-left: auto;
+		padding-left: 15px;
+		padding-right: 15px;
 
-	.nav-links {
+		.nav-links {
+			@include make-row();
+		}
+	}
+}
+
+.single {
+	.site-main .comment-navigation,
+	.site-main .posts-navigation, 
+	.post-navigation {
 		@include make-row();
 	}
 }

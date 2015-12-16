@@ -26,7 +26,7 @@ get_header(); ?>
 		?>
 		<?php get_sidebar(); ?>
 		</main>
-
+		
 		<!-- Pagination -->
 		<?php hsinsider_the_posts_navigation(); ?>
 

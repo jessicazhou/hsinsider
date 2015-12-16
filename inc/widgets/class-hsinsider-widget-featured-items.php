@@ -24,7 +24,7 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo '<h3>' . esc_html__( $instance['title'] ) . '</h3>';
+		echo '<h2>' . esc_html__( $instance['title'] ) . '</h2>';
 		$this->get_featured();
 		echo $args['after_widget'];
 	}
