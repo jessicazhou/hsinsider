@@ -21,7 +21,7 @@ if ( post_password_required() ) {
 	<?php 
 		if ( comments_open() ) :
 			echo '<div class="post-box"><h4 class="post-box-title">';
-			comments_number(__('No Comments','solopine'), __('1 Comment','solopine'), '% ' . __('Comments','solopine') );
+			comments_number( __( 'No Comments', 'hsinsider' ), __( '1 Comment', 'hsinsider' ), '% ' . __( 'Comments', 'hsinsider' ) );
 			echo '</h4></div>';
 		endif;
 
@@ -48,9 +48,9 @@ if ( post_password_required() ) {
 			'comment_notes_after'	=> '',
 			'logged_in_as' 			=> '',
 			'comment_notes_before' 	=> '',
-			'title_reply'			=> __('Leave a Reply', 'solopine'),
-			'cancel_reply_link'		=> __('Cancel Reply', 'solopine'),
-			'label_submit'			=> __('Post Comment', 'solopine')
+			'title_reply'			=> __('Leave a Reply', 'hsinsider'),
+			'cancel_reply_link'		=> __('Cancel Reply', 'hsinsider'),
+			'label_submit'			=> __('Post Comment', 'hsinsider')
 		));
 	 ?>
 

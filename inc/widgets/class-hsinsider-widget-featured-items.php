@@ -48,7 +48,7 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 
 		$the_query = new WP_Query( $args );
 		if ( $the_query->have_posts() ) {
-			ai_loop_template_part( $the_query, 'template-parts/content', 'recent' );
+			ai_loop_template_part( $the_query, 'template-parts/content', 'featured' );
 		}
 		wp_reset_query();
 	}

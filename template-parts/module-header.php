@@ -7,15 +7,7 @@
 						<img class="img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
 						<img class="img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
 					</a>
-					<?php if( !is_category() && !is_tag() && hsinsider_get_school() ) : ?>
-						<span class="school-header">
-						<?php if( hsinsider_has_school_image() ) : ?>
-							<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
-						<?php endif; ?>
-						<?php hsinsider_school_link(); ?>
-						</span>
-					<?php endif; ?>
-					
+					<span class="tagline"><?php esc_html_e( 'For Students, By Students', 'hsinsider' ); ?></span>				
 					<div class="menus">
 						<div class="menus-wrapper">
 							<span class="hidden-xs">
@@ -111,7 +103,7 @@
 			<div class="about">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'about_menu' ) ) ) : ?>
 					<div class="title">
-						<i class="fa fa-question-circle"></i> <?php esc_html_e( $menu_name, 'hsinsider' ); ?>
+						<?php esc_html_e( $menu_name, 'hsinsider' ); ?>
 					</div>
 				<?php endif; ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'about_menu' ) ); ?>

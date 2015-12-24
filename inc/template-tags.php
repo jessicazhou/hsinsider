@@ -64,7 +64,7 @@ function hsinsider_get_post_byline() {
 		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
 	}
 
-	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
+	$posted_on = '<span class="posted_on">' . _( $time_string ) . '</span>';
 
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];
