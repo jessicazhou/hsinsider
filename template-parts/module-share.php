@@ -20,5 +20,5 @@ if( empty( $title ) || empty( $url ) ) {
 	<a target="_blank" class="trb_socialize_item" href="https://twitter.com/home?status=<?php echo esc_attr( $title ); ?>+<?php echo esc_attr( $url ); ?>">
 		<i class="LATTwitter"></i>
 	</a>
-	<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
+	<a class="trb_socialize_item" href="mailto:?subject=<?php esc_attr_e( $title ); ?>&body=<?php echo esc_url( $url ); ?>"><i class="LATEmail"></i></a>		
 </span>

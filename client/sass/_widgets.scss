@@ -184,7 +184,7 @@
 	overflow: auto;
 	border: 0px none;
 	h4, h4.widget-title {
-		padding: 10px 0px 15px;
+		padding: 15px 0px;
 		margin-bottom: 15px;
 		font-weight: 600;
 		border-bottom: 1px solid $highlight-color;
@@ -194,6 +194,9 @@
 		background: transparent;
 		form{
 			@include make-row();
+		}
+		input[type=email] {
+			color: #000000;
 		}
 	}
 	.widget_nav_menu {

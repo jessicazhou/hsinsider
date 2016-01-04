@@ -54,5 +54,4 @@ if ( post_password_required() ) {
 		));
 	 ?>
 
-
 </div> <!-- end comments div -->

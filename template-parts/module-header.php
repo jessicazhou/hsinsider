@@ -18,7 +18,7 @@
 									<a target="_blank" class="trb_socialize_item" href=" https://twitter.com/hsinsider">
 										<i class="LATTwitter"></i>
 									</a>
-									<a class="trb_socialize_item" href="mailto:kyle.finck@latimes.com"><i class="LATEmail"></i></a>		
+									<a class="trb_socialize_item" href="mailto:<?php echo get_option( 'admin_email' ); ?>"><i class="LATEmail"></i></a>		
 								</span>
 							</span>
 							<button id="menu-about" class="menu menu-mobile hidden-xs">
@@ -92,9 +92,7 @@
 			</div>
 			<div class="topics">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'topics_menu' ) ) ) : ?>
-					<div class="title">
-						<i class="fa fa-flash"></i> <?php esc_html_e( $menu_name, 'hsinsider' ); ?>
-					</div>
+					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
 				<?php endif; ?>		
 				<?php wp_nav_menu( array( 'theme_location' => 'topics_menu' ) ); ?>
 			</div>
@@ -102,9 +100,7 @@
 		<menu data-menu="menu-about">
 			<div class="about">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'about_menu' ) ) ) : ?>
-					<div class="title">
-						<?php esc_html_e( $menu_name, 'hsinsider' ); ?>
-					</div>
+					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
 				<?php endif; ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'about_menu' ) ); ?>
 			</div>

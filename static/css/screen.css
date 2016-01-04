@@ -7819,6 +7819,7 @@ html body footer.site-footer {
       clear: both; }
     html body footer.site-footer .site-info a {
       display: inline-block;
+      padding: 5px 0px;
       color: #ffffff; }
       html body footer.site-footer .site-info a img {
         height: 20px;
@@ -9186,7 +9187,7 @@ ul.children li.thecomment {
   overflow: auto;
   border: 0px none; }
   #footer-widgets h4, #footer-widgets h4.widget-title {
-    padding: 10px 0px 15px;
+    padding: 15px 0px;
     margin-bottom: 15px;
     font-weight: 600;
     border-bottom: 1px solid #4eec89; }
@@ -9201,6 +9202,8 @@ ul.children li.thecomment {
         display: table; }
       #footer-widgets .widget_hsinsider_newsletter form:after {
         clear: both; }
+    #footer-widgets .widget_hsinsider_newsletter input[type=email] {
+      color: #000000; }
   #footer-widgets .widget_nav_menu ul.menu {
     list-style: none;
     padding: 0px; }
