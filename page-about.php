@@ -45,8 +45,9 @@ get_header(); ?>
 		?>
 		<?php if( !empty( $markers ) ) : ?>
 		<section class="row">
-			<div class="map col-xs-12">
+			<div class="map col-sm-12 hidden-xs">
 				<div id="gmap" data-marker='<?php echo $markers; ?>'></div>
+				<h3><?php esc_html_e( 'Participating Schools' ); ?></h3>
 			</div>
 		</section>
 		<?php endif; ?>

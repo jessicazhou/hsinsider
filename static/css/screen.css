@@ -8505,6 +8505,7 @@ article.post, article.video, article.page {
           height: auto; } }
     article.post figure.byline figcaption, article.video figure.byline figcaption, article.page figure.byline figcaption {
       float: left;
+      width: calc(100% - 60px);
       padding: 16px 22px; }
       article.post figure.byline figcaption a, article.post figure.byline figcaption .posted_on, article.video figure.byline figcaption a, article.video figure.byline figcaption .posted_on, article.page figure.byline figcaption a, article.page figure.byline figcaption .posted_on {
         display: block;
@@ -9258,6 +9259,14 @@ ul.children li.thecomment {
     background: #202020; }
     .trb_socialize_item[data-role=socialshare_parent]:hover > .trb_socialize_submenu {
       display: block; }
+
+.map h3 {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-weight: 300;
+  text-shadow: 0px 1px 3px white; }
 
 #gmap {
   width: 100%;

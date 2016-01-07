@@ -2321,6 +2321,35 @@ if( document.getElementById( "video-carousel" ) ) {
 }
 
 
+/**
+ * LA Times HS Insider Recent & Popular Posts Widget Script
+ *
+ */
+jQuery( document ).ready( function( $ ) {
+	$(window).on( 'load resize', adjustFeaturedItems );
+	function adjustFeaturedItems() {
+		newHeight = 0;
+		$( '.reduced' ).each( function( e ) {
+			// Make sure each element is at it's deal height
+			idealHeight = $( 'figure', $( this ) ).height() +  $( '.post-info', $( this ) ).height();
+			if( $( this ).height() != idealHeight ) {
+				$( this ).height( idealHeight );
+			}
+
+			// Find the tallest element
+			thisHeight = $( this ).height();
+			if( thisHeight > newHeight ) {
+				newHeight = thisHeight;
+			}
+		} );
+
+		// Set all elements heights to the tallest one
+		$( '.reduced' ).each( function( e ) {
+			$( this ).height( newHeight );
+		} );
+	}
+} );
+
 
 /**
  * LA Times HS Insider Maps
@@ -2676,23 +2705,6 @@ jQuery( document ).ready( function( $ ) {
 	};
 } );
 
-
-/**
- * LA Times HS Insider Recent & Popular Posts Widget Script
- *
- */
-jQuery( document ).ready( function( $ ) {
-	$( '#recent-widget-tabs .toggle a.btn' ).click( function( e ) {
-		e.preventDefault();
-		
-		$( '#recent-widget-tabs .toggle a.btn' ).removeClass( 'active' );
-		$( this ).addClass( 'active' );
-
-		tab = $( this ).data( 'tab' );
-		$( '#recent-widget .panel' ).removeClass( 'active' );		
-		$( '#recent-widget #' + tab ).addClass( 'active' );
-	} );
-} );
 
 // HS Insider Responsive Ads
 

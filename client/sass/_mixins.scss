@@ -6,40 +6,40 @@
  */
 
 @mixin button-variant-dark( $color, $background, $border ) {
-  color: $color;
-  background-color: $background;
-  border: 1px outset $border;
+	color: $color;
+	background-color: $background;
+	border: 1px outset $border;
 
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  .open > &.dropdown-toggle {
-    color: $color;
-    background-color: lighten( $background, 10% );
-  }
-  &:active,
-  &.active,
-  .open > &.dropdown-toggle {
-    background-image: none;
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &,
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
-      background-color: $background;
-          border-color: $border;
-    }
-  }
+	&:hover,
+	&:focus,
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		color: $color;
+		background-color: lighten( $background, 10% );
+	}
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		background-image: none;
+	}
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&:active,
+		&.active {
+			background-color: $background;
+					border-color: $border;
+		}
+	}
 
-  .badge {
-    color: $background;
-    background-color: $color;
-  }
+	.badge {
+		color: $background;
+		background-color: $color;
+	}
 }
 
 @mixin hsinsider-border-radius( $radius ) {
@@ -79,6 +79,14 @@
 	font-size:11px;
 	letter-spacing:1px;
 }
+
+@mixin eq-height() {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display:         flex;
+}
+
 .vertical-align {
 	display: flex;
 	align-items: center;
