@@ -6,7 +6,7 @@ jQuery( document ).ready( function( $ ) {
 	$(window).on( 'load resize', adjustFeaturedItems );
 	function adjustFeaturedItems() {
 		newHeight = 0;
-		$( '.reduced' ).each( function( e ) {
+		$( '#featured .reduced' ).each( function( e ) {
 			// Make sure each element is at it's deal height
 			idealHeight = $( 'figure', $( this ) ).height() +  $( '.post-info', $( this ) ).height();
 			if( $( this ).height() != idealHeight ) {
@@ -21,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
 		} );
 
 		// Set all elements heights to the tallest one
-		$( '.reduced' ).each( function( e ) {
+		$( '#featured .reduced' ).each( function( e ) {
 			$( this ).height( newHeight );
 		} );
 	}
