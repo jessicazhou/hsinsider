@@ -8505,7 +8505,7 @@ article.post, article.video, article.page {
           height: auto; } }
     article.post figure.byline figcaption, article.video figure.byline figcaption, article.page figure.byline figcaption {
       float: left;
-      width: calc(100% - 60px);
+      width: calc(100% - 70px);
       padding: 16px 22px; }
       article.post figure.byline figcaption a, article.post figure.byline figcaption .posted_on, article.video figure.byline figcaption a, article.video figure.byline figcaption .posted_on, article.page figure.byline figcaption a, article.page figure.byline figcaption .posted_on {
         display: block;
