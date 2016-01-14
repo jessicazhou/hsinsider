@@ -86,10 +86,9 @@ class HSInsider_Special_Users {
 	 * user_has_cap request and see which function is requesting the cap.
 	 */
 	public function hsinsider_polldaddy_fake_editor( $allcaps, $caps, $args ) {
-			
-		if( array( 0 => 'edit_others_posts' ) == $caps && ( $backtrace = debug_backtrace() ) && $backtrace[ 6 ][ 'class' ] == 'WPORG_Polldaddy' && $backtrace[ 6 ][ 'function' ] == '__construct' )
+		if( array( 0 => 'edit_others_posts' ) == $caps && ( $backtrace = debug_backtrace() ) && $backtrace[ 6 ][ 'class' ] == 'WPORG_Polldaddy' && $backtrace[ 6 ][ 'function' ] == '__construct' ) {
 			$allcaps[ 'edit_others_posts' ] = 1;
-
+		}
 		return $allcaps;
 	}
 	

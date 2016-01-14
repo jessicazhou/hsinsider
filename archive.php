@@ -17,7 +17,7 @@ get_header(); ?>
 					<p class="search-order">
 						<?php $tag_id = get_query_var( 'tag_id' ); ?>
 						<?php esc_html_e( 'Order by ', 'hsinsider'); ?>
-						<?php if ( $order == 'ASC' ) : ?>
+						<?php if ( 'ASC' == $order ) : ?>
 							<a href="<?php echo esc_url( get_tag_link( $tag_id ) . '?order=DESC' ); ?>"><?php esc_html_e( 'Newest', 'hsinsider' ); ?></a> |
 							<span class="active-order"><?php esc_html_e( 'Oldest', 'hsinsider' ); ?></span>
 						<?php else : ?>

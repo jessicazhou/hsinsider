@@ -7,9 +7,7 @@
 $post_count = ai_get_var( 'post_count' );
 
 if( !empty( $post_count ) ) :
-
 	$sidebar = $post_count / 2;
-
 	if ( ! is_active_sidebar( 'mid-roll-' . $sidebar ) ) :
 		return;
 	else : ?>
@@ -18,6 +16,5 @@ if( !empty( $post_count ) ) :
 		<?php dynamic_sidebar( 'mid-roll-' . $sidebar ); ?>
 		</div>
 	</div>
-	<?php endif; ?>
-
-<?php endif; ?>
+	<?php endif;
+endif;

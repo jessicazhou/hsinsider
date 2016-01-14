@@ -157,4 +157,3 @@ function hsinsider_video_gallery() {
 	
 	return $gallery;
 }
-?>

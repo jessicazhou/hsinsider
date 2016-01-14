@@ -1,6 +1,5 @@
 <?php
 /**
- * TODO: THIS CODE IS HACKED TOGETHER.  CLEAN IT UP
  * The sidebar containing the main widget area.
  */
 

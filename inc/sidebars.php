@@ -74,12 +74,10 @@ function hsinsider_count_sidebar_widgets( $sidebar_id, $echo = false ) {
 //adjusts widget classes for horizonal sidebars based on the number of widgets the sidebar contains
 function hsinsider_horizontal_sidebar_classes( $params ) {
 	$sidebar_id = $params[0]['id'];
-	if ( $sidebar_id == 'footer-widgets' ) {
+	if ( 'footer-widgets' == $sidebar_id ) {
 		$widget_count = hsinsider_count_sidebar_widgets( $sidebar_id );
 		$params[0]['before_widget'] = str_replace( 'class="', 'class="col-md-' . floor( 12 / $widget_count ) . ' ', $params[0]['before_widget'] );
 	}
 	return $params;
 }
 add_filter( 'dynamic_sidebar_params','hsinsider_horizontal_sidebar_classes' );
-
-?>

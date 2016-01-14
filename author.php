@@ -45,7 +45,6 @@ get_header(); ?>
 					<?php
 						/**
 						 * Include the Post-Format-specific template for the content.
-						 * Remove the $curated post from the blogroll
 						 */
 						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$post_count ++;
