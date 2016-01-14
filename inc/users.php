@@ -11,50 +11,52 @@ class HSInsider_Special_Users {
 		
 		//Unlike core add_role functions, which should only be run once,
 		//The wpcom_vip_add_role function should be run every load
-		add_action( 'init', array( $this, 'add_role' ), 1 );
+		add_action( 'init', array( $this, 'hsinsider_add_role' ), 1 );
 		
 		//Modify the user capabilities to give students the edit_others_posts cap under _very_ strict circumstances
-		add_filter( 'user_has_cap', array( $this, 'polldaddy_fake_editor' ), 10, 3 );
+		add_filter( 'user_has_cap', array( $this, 'hsinsider_polldaddy_fake_editor' ), 10, 3 );
+
+		//Modify the user capabilities to prevent students form editing their posts once they have been saved
+		add_filter( 'user_has_cap', array( $this, 'hsinsider_lock_submitted_posts' ), 10, 3 );
 	
 		if( !is_admin() )
 			return;
 			
 		//Add a column to the users page to manage schools
-		add_filter( 'manage_users_columns', array( &$this, 'add_user_column_schools' ) );
-		add_action( 'manage_users_custom_column', array( &$this, 'show_user_column_schools' ), 10, 3 );
+		add_filter( 'manage_users_columns', array( &$this, 'hsinsider_add_user_column_schools' ) );
+		add_action( 'manage_users_custom_column', array( &$this, 'hsinsider_show_user_column_schools' ), 10, 3 );
 		
 		//Print the JS to make the ajax request
-		add_action( 'admin_head', array( &$this, 'print_user_school_js' ) );
+		add_action( 'admin_head', array( &$this, 'hsinsider_print_user_school_js' ) );
 		
 		//Save changes to user school
-		add_action( 'wp_ajax_user_school', array( &$this, 'ajax' ) );
+		add_action( 'wp_ajax_user_school', array( &$this, 'hsinsider_school_ajax' ) );
 		
 		//Show the school dropdown on the add user form in the admin and check the form before it's submitted
-		add_action( 'user_new_form', array( &$this, 'user_form_school_dropdown' ) );
-		add_action( 'admin_head', array( &$this, 'user_form_school_check' ) );
-		add_action( 'user_register', array( &$this, 'user_form_school_save' ) );
+		add_action( 'user_new_form', array( &$this, 'hsinsider_user_form_school_dropdown' ) );
+		add_action( 'admin_head', array( &$this, 'hsinsider_user_form_school_check' ) );
+		add_action( 'user_register', array( &$this, 'hsinsider_user_form_school_save' ) );
 	
 		//If the user is a student, remove the school meta box, show a meta
 		//box that instead gives them instructions or whatever, and automatically
 		//set the user's school as the story term
-		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-		add_action( 'add_meta_boxes', array( &$this, 'remove_meta_boxes' ), 99 );
-		add_action( 'save_post', array( &$this, 'save_school' ) );
-		add_action( 'save_post', array( &$this, 'save_poll' ) );
+		add_action( 'add_meta_boxes', array( &$this, 'hsinsider_add_student_meta_boxes' ) );
+		add_action( 'add_meta_boxes', array( &$this, 'hsinsider_remove_student_meta_boxes' ), 99 );
+		add_action( 'save_post', array( &$this, 'hsinsider_save_school' ) );
+		add_action( 'save_post', array( &$this, 'hsinsider_save_poll' ) );
 		
 		//User settings to associate a user with a school
-		add_action( 'show_user_profile', array( &$this, 'profile_role_edit' ) );
-		add_action( 'edit_user_profile', array( &$this, 'profile_role_edit' ) );
-		add_action( 'personal_options_update', array( &$this, 'profile_role_save' ) );
-		add_action( 'edit_user_profile_update', array( &$this, 'profile_role_save' ) );
+		add_action( 'show_user_profile', array( &$this, 'hsinsider_profile_role_edit' ) );
+		add_action( 'edit_user_profile', array( &$this, 'hsinsider_profile_role_edit' ) );
+		add_action( 'personal_options_update', array( &$this, 'hsinsider_profile_role_save' ) );
+		add_action( 'edit_user_profile_update', array( &$this, 'hsinsider_profile_role_save' ) );
 	}
 
 	
-	/*
+	/**
 	 * Adds the student role
-	 *
 	 */
-	public function add_role() {
+	public function hsinsider_add_role() {
 		wpcom_vip_add_role( $this->role,
 			__( 'Student' ),
 			array(
@@ -66,34 +68,36 @@ class HSInsider_Special_Users {
 			)
 		);
 	}
+
+	/**
+	 * Prevents students from editing posts after they are sent for editing or published on the site
+	 */
+	public function hsinsider_lock_submitted_posts( $allcaps, $caps, $args ) {
+		$post_status = get_post_status();
+		if( 'pending' == $post_status || 'ready-for-edit' == $post_status || 'published' == $post_status ) {
+			$allcaps[ 'edit_posts' ] = 0;
+		}
+		return $allcaps;
+	}
 	
-	/*
-	 * Oh my hack batman
-	 *
+	/**
 	 * Basically, we want students to be able to edit add polls, which requires the edit_others_posts
 	 * cap, but we don't want them to actually be able to edit others posts. So we intercept the 
-	 * user_has_cap request and see which function is requesting the cap. 
-	 * 
-	 * I anticipate this breaking around 10,000 times.
-	 * 
-	 * It would be super swell if the Polldaddy plugin used custom caps instead of hooking
-	 * on to WordPress defaults. Just sayin'.
-	 *
+	 * user_has_cap request and see which function is requesting the cap.
 	 */
-	/*public function polldaddy_fake_editor( $allcaps, $caps, $args ) {
+	public function hsinsider_polldaddy_fake_editor( $allcaps, $caps, $args ) {
 			
 		if( array( 0 => 'edit_others_posts' ) == $caps && ( $backtrace = debug_backtrace() ) && $backtrace[ 6 ][ 'class' ] == 'WPORG_Polldaddy' && $backtrace[ 6 ][ 'function' ] == '__construct' )
 			$allcaps[ 'edit_others_posts' ] = 1;
 
 		return $allcaps;
-	}*/
-	
+	}
 	
 	/*
 	 * Adds a dropdown to select a school to associate with a user on the new user page
 	 * Hurrah static variables!
 	 */
-	function user_form_school_dropdown() { ?>
+	function hsinsider_user_form_school_dropdown() { ?>
 	
 		<table class="form-table">
 			<th scope="row">
@@ -112,7 +116,7 @@ class HSInsider_Special_Users {
 	 * Form checking!
 	 *
 	 */
-	function user_form_school_check() { ?>
+	function hsinsider_user_form_school_check() { ?>
 		
 		<script>
 			jQuery( document ).ready( function() {
@@ -133,7 +137,7 @@ class HSInsider_Special_Users {
 	 *
 	 *
 	 */
-	function user_form_school_save( $user_id ) {
+	function hsinsider_user_form_school_save( $user_id ) {
 		//Here lie the 8000000000 possible variations of how to save the user's school to their meta. Kill me now.
 	}
 	
@@ -141,7 +145,7 @@ class HSInsider_Special_Users {
 	 * Adds the instructional meta box if the user is a student
 	 *
 	 */
-	function add_meta_boxes() {
+	function hsinsider_add_student_meta_boxes() {
 	
 		if( current_user_can( 'edit_others_posts' ) ) {
 			add_meta_box( 'hsinsiderpoll', 'Poll', array( &$this, 'poll_meta_box' ), 'post', 'side', 'high' );
@@ -155,7 +159,7 @@ class HSInsider_Special_Users {
 	 * Removes the school meta box if the user is a student
 	 *
 	 */
-	function remove_meta_boxes() {
+	function hsinsider_remove_student_meta_boxes() {
 	
 		remove_meta_box( 'dfcg_desc', 'post', 'normal' );
 		remove_meta_box( 'dfcg_image', 'post', 'normal' );
@@ -177,7 +181,7 @@ class HSInsider_Special_Users {
 	 * Display the instructional meta box to students
 	 *
 	 */	
-	function poll_meta_box( $post ) {
+	function hsinsider_poll_meta_box( $post ) {
 	
 		$poll = get_post_meta( $post->ID, '_poll', true );
 		wp_nonce_field( $post->ID . '_poll', 'poll_meta_nonce' ); ?>
@@ -190,7 +194,7 @@ class HSInsider_Special_Users {
 	 * Set the school term for posts submitted by students
 	 *
 	 */
-	function save_poll( $post_id ) {
+	function hsinsider_save_poll( $post_id ) {
 		
 		if ( wp_is_post_revision( $post_id ) )
 			return;
@@ -217,7 +221,7 @@ class HSInsider_Special_Users {
 	 * Display the instructional meta box to students
 	 *
 	 */	
-	function school_meta_box( $post ) {
+	function hsinsider_school_meta_box( $post ) {
 	
 		$school = (int) get_user_attribute( get_current_user_id(), '_hsinsider_school', true );
 		$school = get_term( $school, 'school' );
@@ -236,7 +240,7 @@ class HSInsider_Special_Users {
 	 * Set the school term for posts submitted by students
 	 *
 	 */
-	function save_school( $post_id ) {
+	function hsinsider_save_school( $post_id ) {
 		
 		if ( wp_is_post_revision( $post_id ) )
 			return;
@@ -265,15 +269,23 @@ class HSInsider_Special_Users {
 	 * Add the school select option to the user's profile page
 	 *
 	 */
-	public function profile_role_edit( $user ) {
+	public function hsinsider_profile_role_edit( $user ) {
 	
 		if( user_can( $user, 'edit_others_posts' ) )
 			return;
 	
-		$dropdown = wp_dropdown_categories( array( 'name' => 'school', 'taxonomy' => 'school', 'hide_empty' => false, 'echo' => false, 'selected' => ( $school = get_user_attribute( $user->ID, '_hsinsider_school', true ) ) ? $school : false ) );
+		$args = array( 
+			'name' => 'school', 
+			'taxonomy' => 'school', 
+			'hide_empty' => false, 
+			'echo' => false, 
+			'selected' => ( $school = get_user_attribute( $user->ID, '_hsinsider_school', true ) ) ? $school : false 
+		);
+
+		$dropdown = wp_dropdown_categories( $args );
 	
 		if( !current_user_can( 'edit_others_posts' ) ) {
-			$dropdown = str_replace( '<select', '<select disabled="disabled"', $dropdown );
+			$dropdown = str_replace( '<select', '<select ' . disabled( true, true, false ) . ' ', $dropdown );
 		}
 	
 		?>
@@ -291,7 +303,7 @@ class HSInsider_Special_Users {
 	 * Save the school to a user
 	 *
 	 */
-	public function profile_role_save( $user_id ) {
+	public function hsinsider_profile_role_save( $user_id ) {
 
 		//Can the current user edit this user?
 		if ( !current_user_can( 'edit_user', $user_id ) )
@@ -322,7 +334,7 @@ class HSInsider_Special_Users {
 	 * Add a column to the user page to allow admins to select user school
 	 *
 	 */
-	public function add_user_column_schools( $columns ) {
+	public function hsinsider_add_user_column_schools( $columns ) {
 
 		$columns[ 'school' ] = 'School';
 		return $columns;
@@ -332,7 +344,7 @@ class HSInsider_Special_Users {
 	 * Display a column on the user page to allow admins to select user school
 	 *
 	 */
-	public function show_user_column_schools( $value, $column_slug, $user_id ) {
+	public function hsinsider_show_user_column_schools( $value, $column_slug, $user_id ) {
 
 		if( $column_slug != 'school' )
 			return $value;
@@ -358,7 +370,7 @@ class HSInsider_Special_Users {
 
 	}
 	
-	public function print_user_school_js() { ?>
+	public function hsinsider_print_user_school_js() { ?>
 	
 		<script type="text/javascript">
 			jQuery(function( $ ) {
@@ -379,7 +391,7 @@ class HSInsider_Special_Users {
 	 * Save the school
 	 *
 	 */
-	public function ajax() {
+	public function hsinsider_school_ajax() {
 	
 		if( !current_user_can( 'edit_others_posts' ) )
 			wp_send_json_error( 'unauthorized' );

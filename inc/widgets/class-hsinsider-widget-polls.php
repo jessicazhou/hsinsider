@@ -75,19 +75,6 @@ class HSInsider_Widget_Latest_Polls extends HSInsider_Widget {
 			add_filter( 'the_excerpt', 'wpautop' );
 		}
 	}
-	
-	private function get_latest_poll() {
-	
-		$cache_key = 'widget-lat-poll';
-		$cache = wp_cache_get( $cache_key, 'widget' );
-		
-		$polls = get_posts( array( 'browse' => 'polls', 'numberposts' => 1 ) );
-		$poll = reset( $polls );
-		
-		wp_cache_set( $cache_key, $poll, 'widget' );
-		
-		return $poll;
-	}
 }
 
 $latest_polls_widget = new HSInsider_Widget_Latest_Polls(); 

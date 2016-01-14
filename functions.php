@@ -12,7 +12,7 @@ define( 'HSINSIDER_URL', get_template_directory_uri() );
 // Config Loader
 require_once( HSINSIDER_PATH . '/inc/site-config.php' );
 
-// Switch certain resources based on whether this is in the WordPress VIP environment
+// Switch certain resources based on whether this is in the WordPress.com VIP environment
 if ( defined( 'WPCOM_IS_VIP_ENV' ) && true === WPCOM_IS_VIP_ENV ) {
 	/**
 	 * Disable global terms on WordPress.com.

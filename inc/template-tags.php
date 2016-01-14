@@ -41,12 +41,24 @@ function hsinsider_get_lead_art( $post = null ) {
 
 	if( has_post_thumbnail() ) {
 		$featured_id = get_post_thumbnail_id( $post->ID );
-		$featured_obj = get_posts( array( 'p' => $featured_id, 'post_type' => 'attachment' ) );
+	
+		// Query for the Featured Image Caption
+		$args = array(
+			'p' => $featured_id,
+			'post_type' => 'attachment',
+		);
+
+		$the_query = new WP_Query( $args );
+
+		if ( $the_query->have_posts() ) :
+			while ( $the_query->have_posts() ) : $the_query->the_post();
+				$featured_caption = get_the_excerpt();
+			endwhile;
+		endif;
+		wp_reset_postdata();
+		
 		$featured_url = wp_get_attachment_url( $featured_id );
 
-		if ( !empty( $featured_obj ) ) {
-			$featured_caption = $featured_obj[0]->post_excerpt;
-		}
 		$featured_html = '<figure><img src="' . $featured_url . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . $featured_caption . '</figcaption></figure>';
 		echo $featured_html;
 	}
