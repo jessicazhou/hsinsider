@@ -6,49 +6,38 @@
  */
 
 function hsinsider_video_gallery() {
-	/**
-	 * build the args array for wp_query
-	 */
-	$args = array(
-		'post_type' => 'video',
-		'posts_per_page' => 8,
-		'orderby' => 'date',
-		'meta_query' => array( 
-			array(
-				'key' => '_thumbnail_id'
-			) 
-		),
-	);
 
-	$the_query = new WP_Query( $args );
+	$the_query = wp_cache_get( 'video_query' );	 
+	if( $the_query == false ) {
+	    /**
+		 * build the args array for wp_query
+		 */
+		$args = array(
+			'post_type' => 'video',
+			'posts_per_page' => 8,
+			'orderby' => 'date',
+			'meta_query' => array( 
+				array(
+					'key' => '_thumbnail_id'
+				) 
+			),
+		);
+	    $the_query = new WP_Query( $args );
+	 
+	    // Set the cache to expire the data after 300 seconds
+	    wp_cache_set( 'video_query', $the_query, '', 600 );
+	}
 
 	if ( $the_query->have_posts() ) :
 		/**
-		 * Orbit isn't setup to show more than one slide at a time
-		 * So, we have group the thumbnails into groups of 4
+		 * Group the thumbnails into groups of 4
 		 * and show each group as a slide.
 		 */
 		$video_count = $the_query->post_count;
 		$num_slides = ceil( $video_count / 4 );
 		$videos = array();
 		$marker = 0;
-
-		/**
-		 * create a list of options for orbit slider to use
-		 */
-		$options_array = array(
-			"animation: slide",
-			"pause_on_hover: true",
-			"variable_height: false",
-			"next_class: eu_next",
-			"prev_class: eu_prev",
-			"slide_number_class: eu_slide_number",
-			'slide_number_text: /',
-			"bullets: false",
-			"timer: false"
-		);
-		$options = implode( '; ', $options_array ) . ';';
-
+		$gallery = '';
 		/**
 		 * loop through the posts and create a list item for each one
 		 */
@@ -79,22 +68,22 @@ function hsinsider_video_gallery() {
 			/** 
 			 * store all html output to $gallery
 			 */
-			$gallery = '<div id="video_gallery" class="eu_video_gallery_container" data-icon-path="' . esc_url( get_template_directory_uri() . '/assets/img/icons/' ) . '">';
+			$gallery .= '<div id="video_gallery" class="eu_video_gallery_container" data-icon-path="' . esc_url( get_template_directory_uri() . '/assets/img/icons/' ) . '">';
 			$gallery .= '	<div class="active_video row">';
-			$gallery .=	'		<div class="video col-md-9"><div class="iframe-wrapper"><iframe id="player" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/' . $videos[0]['youtube_id'] . '?enablejsapi=1" frameborder="0"></iframe></div></div>';
+			$gallery .=	'		<div class="video col-md-9"><div class="iframe-wrapper"><iframe id="player" type="text/html" width="640" height="390" src="'. esc_url( 'http://www.youtube.com/embed/' . $videos[0]['youtube_id'] ) . '?enablejsapi=1" frameborder="0"></iframe></div></div>';
 			$gallery .= '		<div class="video_info col-md-3">';
 			$gallery .= '			<span class="trb_socialize_bar">
-										<a target="_blank" class="trb_socialize_item facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . esc_attr( $videos[0]['link'] ) . '" style="padding-left: 0px;">
+										<a target="_blank" class="trb_socialize_item facebook" href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $videos[0]['link'] ) . '" style="padding-left: 0px;">
 											<i class="LATFacebook"></i>
 										</a>
-										<a target="_blank" class="trb_socialize_item twitter" href="https://twitter.com/home?status=' . esc_attr__( $videos[0]['title'], 'hsinsider' ) . '+' . esc_attr( $videos[0]['link'] ) .'">
+										<a target="_blank" class="trb_socialize_item twitter" href="https://twitter.com/home?status=' . urlencode( $videos[0]['title'] ) . '+' . urlencode( $videos[0]['link'] ) .'">
 											<i class="LATTwitter"></i>
 										</a>
 										<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
 									</span>';
-			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . __( $videos[0]['title'] ) .'</a></h2>';
-			$gallery .=	'			<p class="post-excerpt">' . __( $videos[0]['description'] ) .'</p>';
-			$gallery .= '			<p class="post-byline">' . __( $videos[0]['author'] ) . '</p>';
+			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . esc_html( $videos[0]['title'] ) .'</a></h2>';
+			$gallery .=	'			<p class="post-excerpt">' . esc_html( $videos[0]['description'] ) .'</p>';
+			$gallery .= '			<p class="post-byline">' . $videos[0]['author'] . '</p>';
 			$gallery .= '		</div>';
 			$gallery .= '	</div>';
 			$gallery .= '	<div class="row">';
@@ -111,7 +100,7 @@ function hsinsider_video_gallery() {
 					
 			for( $slide = 0; $slide < $num_slides; $slide++ ) :
 				$count = 0;
-				$gallery .= '<li id="group-' . $slide . '" class="item' . ( ( 0 == $slide ) ? ' active' : '' )  . '">';
+				$gallery .= '<li id="'. esc_attr( 'group-' . $slide ). '" class="' . esc_attr( 'item' . ( ( 0 == $slide ) ? ' active' : '' ) ) . '">';
 						
 				for( $key = $marker; $key < $video_count; $key++ ) :
 					if ( 4 == $count ) :
@@ -121,9 +110,9 @@ function hsinsider_video_gallery() {
 						$video = $videos[ $key ];
 						$active = ( 0 == $key ) ? 'active' : '';
 						$gallery .= '		<figure class="' . esc_attr( 'video_thumb ' . $active ) . '" data-youtube_id="' . esc_attr( $video['youtube_id'] ) . '" data-video_title="' . esc_attr( $video['title'] ) . '" data-video_author="' . esc_attr( $video['author'] ) . '" data-video_desc="' . esc_attr( $video['description'] ) . '" data-permalink="' . esc_url( $video['link'] ) . '" >';
-						$gallery .= '			<div class="video_thumb_container"><img src="' . $video['thumb'] . '" /><span class="camera"><i class="fa fa-video-camera"></i></span></div>';
+						$gallery .= '			<div class="video_thumb_container"><img src="' . esc_attr( $video['thumb'] ) . '" /><span class="camera"><i class="fa fa-video-camera"></i></span></div>';
 						$gallery .= '			<figcaption>';
-						$gallery .= '				<h3 class="post-headline">' . __( $video['title'] ) . '</h3>';
+						$gallery .= '				<h3 class="post-headline">' . esc_html( $video['title'] ) . '</h3>';
 						$gallery .= '			</figcaption>';
 						$gallery .= '		</figure>';
 					endif;
@@ -147,12 +136,11 @@ function hsinsider_video_gallery() {
 			$gallery .= '</div>';
 			$gallery .= '</div>';
 		else :
-			$gallery .= esc_html( __( 'No Videos Found', 'hsinsider' ) );
+			$gallery .= esc_html__( 'No Videos Found', 'hsinsider' );
 		endif;
 		
 	endif;        
 
-	wp_enqueue_script( 'gigya-api' );
 	wp_reset_query();
 	
 	return $gallery;

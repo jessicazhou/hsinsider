@@ -11,7 +11,7 @@ if( !empty( $post_count ) ) :
 	if ( ! is_active_sidebar( 'mid-roll-' . $sidebar ) ) :
 		return;
 	else : ?>
-	<div class="widget-area mid-roll <?php echo 'mid-roll-' . $sidebar; ?>" role="complementary">
+	<div class="widget-area mid-roll <?php echo esc_attr( 'mid-roll-' . $sidebar ); ?>" role="complementary">
 		<div class="container">
 		<?php dynamic_sidebar( 'mid-roll-' . $sidebar ); ?>
 		</div>

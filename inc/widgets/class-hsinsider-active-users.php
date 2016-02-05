@@ -19,18 +19,38 @@ class HSInsider_Active_Users{
 	
 	function widget() {
 		
-		$users = get_users( array( 'role' => 'student' ) );
+		// Check if obj exists in cache
+		$users = wp_cache_get( 'active_users' );
+		 
+		if( $users == false ) {
+		    // Generate the query
+		    $users = get_users( array( 'role' => 'student' ) );
+		 
+		    // Cache the results
+		    wp_cache_set( 'active_users', $users, '', 300 );
+		}
+
+		//$users = get_users( array( 'role' => 'student' ) );
 		$users_for_counts = array();
 		foreach( $users as $user ) {
 			$users_for_counts[] = $user->ID;
 		}
-		$counts = count_many_users_posts( $users_for_counts );
+
+		// Check if obj exists in cache
+		$counts = wp_cache_get( 'user_count' );
+		 
+		if( $counts == false ) {
+		    // Generate the obj
+		    $counts = count_many_users_posts( $users_for_counts );
+		 
+		    // Cache the results
+		    wp_cache_set( 'user_count', $counts, '', 300 );
+		}
+
 		arsort( $counts );
-		
 		$counts = array_slice( $counts, 0, 5, true );
 		
 		echo 'There are currently <strong>' . intval( count( $users ) ) . '</strong> students with HS Insider accounts.';
-		
 		echo '<p><strong>Most-active students:</strong></p><ul>';
 		
 		foreach( $counts as $user_id => $count ) {

@@ -8,7 +8,7 @@
 	<header class="entry-header">
 		<div class="iframe-wrapper">
 		<?php $youtube_id = get_post_meta( $post->ID, 'video_info', TRUE )[ 'youtube_id' ]; ?>
-			<iframe src="https://www.youtube.com/embed/<?php esc_html_e( $youtube_id ); ?>" frameborder="0" allowfullscreen></iframe>
+			<iframe src="https://www.youtube.com/embed/<?php echo urlencode( $youtube_id ); ?>" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>

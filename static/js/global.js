@@ -2720,9 +2720,7 @@ googletag.cmd = googletag.cmd || [];
 	node.parentNode.insertBefore( gads, node );
 } )();
 
-var mappingHorizontal = null;
 googletag.cmd.push( function() {
-
 	/*
 	 * Section Front Desktop
 	 */
@@ -2783,53 +2781,40 @@ googletag.cmd.push( function() {
 	//Adslot 12 declaration
 	gptadslots[16] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 	
-
-	//googletag.pubads().setTargeting( 'ptype', ['sf'] );
 	googletag.pubads().enableAsyncRendering();
 	googletag.pubads().collapseEmptyDivs();
 	googletag.enableServices();
 
-	googletag.cmd.push( function() { 
-		//googletag.pubads().setTargeting( 'ptype',['s'] );
+	/*
+	 * Section Front Desktop
+	 */
+	googletag.display( 'div-gpt-ad-354595391948526756-1' );
+	googletag.display( 'div-gpt-ad-354595391948526756-2' );
+	googletag.display( 'div-gpt-ad-354595391948526756-3' );
+	googletag.display( 'div-gpt-ad-354595391948526756-4' );
 
-		/*
-		 * Section Front Desktop
-		 */
-		googletag.display( 'div-gpt-ad-354595391948526756-1' );
-		googletag.display( 'div-gpt-ad-354595391948526756-2' );
-		googletag.display( 'div-gpt-ad-354595391948526756-3' );
-		googletag.display( 'div-gpt-ad-354595391948526756-4' );
+	/*
+	 * Section Front Mobile
+	 */
+	googletag.display( 'div-gpt-ad-345050247239781093-1' );
+	googletag.display( 'div-gpt-ad-345050247239781093-2' );
+	googletag.display( 'div-gpt-ad-345050247239781093-3' );
+	googletag.display( 'div-gpt-ad-345050247239781093-4' );
 
-		/*
-		 * Section Front Mobile
-		 */
-		googletag.display( 'div-gpt-ad-345050247239781093-1' );
-		googletag.display( 'div-gpt-ad-345050247239781093-2' );
-		googletag.display( 'div-gpt-ad-345050247239781093-3' );
-		googletag.display( 'div-gpt-ad-345050247239781093-4' );
+	/*
+	 * Story Desktop
+	 */
+	googletag.display( 'div-gpt-ad-283030070724299354-1' );
+	googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
+	googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
+	googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
 
-		/*
-		 * Story Desktop
-		 */
-		googletag.display( 'div-gpt-ad-283030070724299354-1' );
-		googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
-		googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
-		googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
-
-		/*
-		 * Story Mobile
-		 */
-		googletag.display( 'div-gpt-ad-597875899873789138-1' );
-		googletag.display( 'div-gpt-ad-597875899873789138-2' );
-		googletag.display( 'div-gpt-ad-597875899873789138-3' );
-		googletag.display( 'div-gpt-ad-597875899873789138-4' );
-	} );
-
-	// Show the Ads
-	/*googletag.display( 'div-gpt-ad-783778988016615787-1' );
-	googletag.display( 'div-gpt-ad-783778988016615787-2' ); 
-	googletag.display( 'lat-hs-728x90' );
-	googletag.display( 'lat-hs-300x250-1' );
-	googletag.display( 'lat-hs-300x250-2' );*/
+	/*
+	 * Story Mobile
+	 */
+	googletag.display( 'div-gpt-ad-597875899873789138-1' );
+	googletag.display( 'div-gpt-ad-597875899873789138-2' );
+	googletag.display( 'div-gpt-ad-597875899873789138-3' );
+	googletag.display( 'div-gpt-ad-597875899873789138-4' );
 } );
 

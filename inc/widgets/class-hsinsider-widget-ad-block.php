@@ -24,8 +24,8 @@ class HSInsider_Widget_Ad_Block extends HSInsider_Widget {
 
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo '<div class="ad hidden-xs" id="' . $instance['ad_tag'] . '"></div>';
-		echo '<div class="ad visible-xs-block" id="' . $instance['ad_tag_m'] . '"></div>';
+		echo '<div class="ad hidden-xs" id="' . esc_attr( $instance['ad_tag'] ) . '"></div>';
+		echo '<div class="ad visible-xs-block" id="' . esc_attr( $instance['ad_tag_m'] ) . '"></div>';
 		echo $args['after_widget'];
 	}
 
@@ -33,17 +33,15 @@ class HSInsider_Widget_Ad_Block extends HSInsider_Widget {
 		$tag= !empty( $instance['ad_tag'] ) ? $instance['ad_tag'] : __( 'Ad Tag', 'hsinsider' );
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'ad_tag' ); ?>"><?php _e( 'Desktop Ad Tag:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'ad_tag' ); ?>" name="<?php echo $this->get_field_name( 'ad_tag' ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'ad_tag' ) ); ?>"><?php _e( 'Desktop Ad Tag:', 'hsinsider' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'ad_tag' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_tag' ) ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
 		</p>
 
-		<?php
-		$tag= !empty( $instance['ad_tag_m'] ) ? $instance['ad_tag_m'] : __( 'Ad Tag', 'hsinsider' );
-		?>
+		<?php $tag= !empty( $instance['ad_tag_m'] ) ? $instance['ad_tag_m'] : __( 'Ad Tag', 'hsinsider' ); ?>
 		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'ad_tag_m' ); ?>"><?php _e( 'Mobile Ad Tag:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'ad_tag_m' ); ?>" name="<?php echo $this->get_field_name( 'ad_tag_m' ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'ad_tag_m' ) ); ?>"><?php _e( 'Mobile Ad Tag:' ); ?></label> 
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'ad_tag_m' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_tag_m' ) ); ?>" type="text" value="<?php echo esc_attr( $tag ); ?>">
 		</p>
 		<?php
 	}

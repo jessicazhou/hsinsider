@@ -18,13 +18,22 @@ get_header(); ?>
 		<?php if( is_home() || is_category() ) : ?>
 			<header class="hero jumbotron blogroll">
 				<?php 
-					$args = array(
-						'post_type' => array( 'post', 'video' ),
-						'post_status' => 'publish',
-						'category_name' => 'featured',
-						'posts_per_page' => 1
-					);
-					$the_query = new WP_Query( $args );
+					// Check if obj exists in cache
+					$the_query = wp_cache_get( 'index_blogroll' );
+					 
+					if( $the_query == false ) {
+						// Create the query
+					    $args = array(
+							'post_type' => array( 'post', 'video' ),
+							'post_status' => 'publish',
+							'category_name' => 'featured',
+							'posts_per_page' => 1
+						);
+						$the_query = new WP_Query( $args );
+					 
+					    // Cache the results
+					    wp_cache_set( 'index_blogroll', $the_query, '', 300 );
+					}
 
 					if ( $the_query->have_posts() ) {
 						$the_query->the_post();

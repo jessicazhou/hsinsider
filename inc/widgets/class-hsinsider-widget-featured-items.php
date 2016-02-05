@@ -24,7 +24,7 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo '<h2>' . esc_html__( $instance['title'] ) . '</h2>';
+		echo '<h2>' . esc_html( $instance['title'] ) . '</h2>';
 		$this->get_featured();
 		echo $args['after_widget'];
 	}
@@ -57,8 +57,8 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'hsinsider' ); ?></label> 
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<?php 
 	}

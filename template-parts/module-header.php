@@ -18,17 +18,17 @@
 									<a target="_blank" class="trb_socialize_item" href=" https://twitter.com/hsinsider">
 										<i class="LATTwitter"></i>
 									</a>
-									<a class="trb_socialize_item" href="mailto:<?php echo get_option( 'admin_email' ); ?>"><i class="LATEmail"></i></a>		
+									<a class="trb_socialize_item" href="mailto:<?php echo urlencode( get_option( 'admin_email' ) ); ?>"><i class="LATEmail"></i></a>		
 								</span>
 							</span>
 							<button id="menu-about" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'About', 'hsinsider' ); ?>
+								<?php echo esc_html( 'About' ); ?>
 							</button>
 							<button id="menu-schools" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'Schools', 'hsinsider' ); ?>
+								<?php echo esc_html( 'Schools' ); ?>
 							</button>
 							<button id="menu-activities" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'Topics', 'hsinsider' ); ?>
+								<?php echo esc_html( 'Topics' ); ?>
 							</button>
 							<button id="menu-hamburger" class="menu visible-xs-block">
 								<i class="LATMenu"></i>
@@ -86,13 +86,13 @@
 		<menu data-menu="menu-activities">
 			<div class="sections">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'sections_menu' ) ) ) : ?>
-					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
 				<?php endif; ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'sections_menu' ) ); ?>
 			</div>
 			<div class="topics">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'topics_menu' ) ) ) : ?>
-					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
 				<?php endif; ?>		
 				<?php wp_nav_menu( array( 'theme_location' => 'topics_menu' ) ); ?>
 			</div>
@@ -100,7 +100,7 @@
 		<menu data-menu="menu-about">
 			<div class="about">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'about_menu' ) ) ) : ?>
-					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
 				<?php endif; ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'about_menu' ) ); ?>
 			</div>

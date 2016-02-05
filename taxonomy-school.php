@@ -52,7 +52,7 @@ if( is_object( $term ) ) : ?>
 
 						<?php if( '' != $school->description ): ?>
 						<div class="col-sm-12 col-md-8 school-description-column">
-							<p><?php esc_html_e( $school->description, 'hsinsider' ); ?></p>
+							<p><?php echo $school->description; ?></p>
 						</div>
 						<?php endif; ?>
 					</div>
@@ -60,7 +60,7 @@ if( is_object( $term ) ) : ?>
 				
 				<?php if( ! empty( $school_address ) ) : ?>
 				<div class="map col-xs-12 col-md-7 col-md-pull-5">
-					<div id="gmap" data-marker='<?php echo $school_marker; ?>'></div>
+					<div id="gmap" data-marker='<?php esc_attr_e( $school_marker, 'hsinsider' ); ?>'></div>
 				</div>
 				<?php endif; ?>
 			</header>

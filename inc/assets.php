@@ -16,11 +16,11 @@ function hsinsider_enqueue_assets() {
 	// Enqueue Main Stylesheet
 	wp_enqueue_style( 'hsinsider-screen', get_template_directory_uri() . '/static/css/screen.css', array( 'google-fonts' ), '1.1' );
 
-	// Deregister the jquery version bundled with wordpress
+	// Deregister JQuery and Reregister in the footer
 	wp_deregister_script( 'jquery' );
 
 	// Register aJQuery and place in the footer
-	wp_register_script( 'jquery', get_template_directory_uri() . '/static/js/jquery.min.js', array(), '2.1.4', true );
+	wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), array(), NULL, true );
 
 	// Global Script placed in the footer
 	wp_register_script( 'hsinsider-global-js', get_template_directory_uri() . '/static/js/global.js', 'jquery', '1.2', true );

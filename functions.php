@@ -37,7 +37,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once HSINSIDER_PATH . '/inc/cli.php';
 }
 
-
 // Ad integrations
 require_once( HSINSIDER_PATH . '/inc/ads.php' );
 

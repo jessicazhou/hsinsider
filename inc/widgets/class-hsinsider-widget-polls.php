@@ -36,11 +36,19 @@ class HSInsider_Widget_Latest_Polls extends HSInsider_Widget {
 			}
 		}
 	
-		$args = array(
-			'browse' => 'polls',
-			'numberposts' => 1
-		);
-		$poll = new WP_Query( $args );
+		$poll = wp_cache_get( 'poll_query' );
+		 
+		if( $poll == false ) {
+		    // Generate the query
+		    $args = array(
+				'browse' => 'polls',
+				'numberposts' => 1
+			);
+		    $poll = new WP_Query( $args );
+		 
+		    // Set the cache to expire the data after 300 seconds
+		    wp_cache_set( 'poll_query', $poll, '', 300 );
+		}
 
 		if( ! empty( $poll ) ) {
 
@@ -64,7 +72,7 @@ class HSInsider_Widget_Latest_Polls extends HSInsider_Widget {
 							<div class="poll_wrapper">
 								<div class="poll_excerpt"><p>' . the_excerpt() . '</p></div>
 								' . do_shortcode( '[polldaddy poll=' . intval( $polldaddy_poll ) . ']' ) . '
-								<a href="' . the_permalink() . '" class="poll_link purple-light">' . esc_html( 'Read more', 'hsinsider' ) . '<span class="fa fa-angle-right"></a>
+								<a href="' . the_permalink() . '" class="poll_link purple-light">' . esc_html__( 'Read more', 'hsinsider' ) . '<span class="fa fa-angle-right"></a>
 							</div>
 						</div>';
 					}

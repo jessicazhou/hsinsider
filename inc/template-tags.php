@@ -14,13 +14,13 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 			/* translators: used between list items, there is a space after the comma */
 			$categories_list = get_the_category_list( __( ' ', 'hsinsider' ) );
 			if ( $categories_list && hsinsider_categorized_blog() ) {
-				printf( '<div class="cat-links">' . __( '<h3>Posted in</h3> %1$s', 'hsinsider' ) . '</div>', $categories_list );
+				echo '<div class="cat-links"><h3>' . esc_html__( 'Posted in', 'hsinsider' ) . '</h3>' . $categories_list . '</div>';
 			}
 
 			/* translators: used between list items, there is a space after the comma */
 			$tags_list = get_the_tag_list( '', __( ' ', 'hsinsider' ) );
 			if ( $tags_list ) {
-				printf( '<div class="tags-links">' . __( '<h3>Tagged</h3> %1$s', 'hsinsider' ) . '</div>', $tags_list );
+				echo '<div class="tags-links"><h3>' . esc_html__( 'Tagged', 'hsinsider' ) . '</h3>' . $tags_list . '</div>';
 			}
 		}
 
@@ -41,14 +41,21 @@ function hsinsider_get_lead_art( $post = null ) {
 
 	if( has_post_thumbnail() ) {
 		$featured_id = get_post_thumbnail_id( $post->ID );
-	
-		// Query for the Featured Image Caption
-		$args = array(
-			'p' => $featured_id,
-			'post_type' => 'attachment',
-		);
 
-		$the_query = new WP_Query( $args );
+		$the_query = wp_cache_get( $featured_id . '_attachment' );		 
+		if( $the_query == false ) {
+			/**
+			 * Query for the Featured Image Caption
+			 */
+			$args = array(
+				'p' => $featured_id,
+				'post_type' => 'attachment',
+			);
+			$the_query = new WP_Query( $args );
+		 
+			// Set the cache to expire the data after 300 seconds
+			wp_cache_set( 'video_query', $the_query, '', 300 );
+		}
 
 		if ( $the_query->have_posts() ) :
 			while ( $the_query->have_posts() ) : $the_query->the_post();
@@ -58,8 +65,7 @@ function hsinsider_get_lead_art( $post = null ) {
 		wp_reset_postdata();
 		
 		$featured_url = wp_get_attachment_url( $featured_id );
-
-		$featured_html = '<figure><img src="' . $featured_url . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . $featured_caption . '</figcaption></figure>';
+		$featured_html = '<figure><img src="' . esc_attr( $featured_url ) . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . esc_html__( $featured_caption, 'hsinsider' ) . '</figcaption></figure>';
 		echo $featured_html;
 	}
 }
@@ -76,7 +82,7 @@ function hsinsider_get_post_byline() {
 		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
 	}
 
-	$posted_on = '<span class="posted_on">' . _( $time_string ) . '</span>';
+	$posted_on = '<span class="posted_on">' . $time_string . '</span>';
 
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];

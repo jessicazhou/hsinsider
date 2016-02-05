@@ -17,7 +17,6 @@ class HSInsider_Taxonomy_School extends HSInsider_Taxonomy {
 	public function create_taxonomy() {
 	
 		add_filter( 'pre_post_link', array( $this, 'permalink' ), 9, 2 );
-		//add_action( 'fm_term_' . $this->name, array( $this, 'school_meta' ) );
 		add_action( 'add_meta_boxes', array( $this, 'change_category_meta_box_name' ), 0 );
 		add_action( 'template_redirect', array( $this, 'reorder_posts' ) );
 

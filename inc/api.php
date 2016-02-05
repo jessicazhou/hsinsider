@@ -76,11 +76,11 @@ function hsinsider_do_omniture_footer() {
 	echo '
 	<script type="text/javascript">
 		((((window.trb || (window.trb = {})).data || (trb.data = {})).metrics || (trb.data.metrics = {})).thirdparty = {
-			pageName: "lat:highschool:hsinsider' . esc_attr( $pageName, 'hsinsider' ) . ':articleproject",
-			channel: "hsinsider' . esc_attr( $channel, 'hsinsider' ) . '",
+			pageName: "lat:highschool:hsinsider' . esc_attr( $pageName ) . ':articleproject",
+			channel: "hsinsider' . esc_attr( $channel ) . '",
 			server: "highschool.latimes.com",
-			hier1: "latimes:hsinsider' . esc_attr( $channel, 'hsinsider' ) . '",
-			hier2: "hsinsider' . esc_attr( $channel, 'hsinsider' ) . '",
+			hier1: "latimes:hsinsider' . esc_attr( $channel ) . '",
+			hier2: "hsinsider' . esc_attr( $channel ) . '",
 			prop1: "D=pageName",
 			prop2: "hsinsider",
 			prop38: "articleproject",
