@@ -41,7 +41,7 @@ if( is_object( $term ) ) : ?>
 					<!-- Social Share -->
 					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_term_link( $term ) ) ); ?>
 					<!-- title -->
-					<h1 class="entry-title"><?php esc_html_e( $school->name, 'hsinsider' ); ?></h1>
+					<h1 class="entry-title"><?php echo esc_html( $school->name ); ?></h1>
 
 					<div class="row">
 						<?php if( hsinsider_has_school_image() ): ?>
@@ -52,7 +52,7 @@ if( is_object( $term ) ) : ?>
 
 						<?php if( '' != $school->description ): ?>
 						<div class="col-sm-12 col-md-8 school-description-column">
-							<p><?php echo $school->description; ?></p>
+							<p><?php echo esc_html( $school->description ); ?></p>
 						</div>
 						<?php endif; ?>
 					</div>
@@ -60,7 +60,7 @@ if( is_object( $term ) ) : ?>
 				
 				<?php if( ! empty( $school_address ) ) : ?>
 				<div class="map col-xs-12 col-md-7 col-md-pull-5">
-					<div id="gmap" data-marker='<?php esc_attr_e( $school_marker, 'hsinsider' ); ?>'></div>
+					<div id="gmap" data-marker='<?php echo esc_attr( $school_marker ); ?>'></div>
 				</div>
 				<?php endif; ?>
 			</header>

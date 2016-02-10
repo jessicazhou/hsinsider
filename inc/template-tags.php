@@ -65,7 +65,7 @@ function hsinsider_get_lead_art( $post = null ) {
 		wp_reset_postdata();
 		
 		$featured_url = wp_get_attachment_url( $featured_id );
-		$featured_html = '<figure><img src="' . esc_attr( $featured_url ) . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . esc_html__( $featured_caption, 'hsinsider' ) . '</figcaption></figure>';
+		$featured_html = '<figure><img src="' . esc_url( $featured_url ) . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . esc_html( $featured_caption ) . '</figcaption></figure>';
 		echo $featured_html;
 	}
 }

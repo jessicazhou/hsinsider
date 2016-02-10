@@ -28,9 +28,6 @@ function hsinsider_fm_school_info() {
 					)
 				)
 			),
-			'website' => new Fieldmanager_Textfield( 'School URL' ),
-			'facebook' => new Fieldmanager_Textfield( 'Facebook URL' ),
-			'twitter' => new Fieldmanager_Textfield( 'Twitter URL' ),
 			'logo' => new Fieldmanager_Media( 'Logo' ),
 		)
 	) );

@@ -18,7 +18,7 @@
 									<a target="_blank" class="trb_socialize_item" href=" https://twitter.com/hsinsider">
 										<i class="LATTwitter"></i>
 									</a>
-									<a class="trb_socialize_item" href="mailto:<?php echo urlencode( get_option( 'admin_email' ) ); ?>"><i class="LATEmail"></i></a>		
+									<a class="trb_socialize_item" href="mailto:<?php echo is_email( get_option( 'admin_email' ) ); ?>"><i class="LATEmail"></i></a>		
 								</span>
 							</span>
 							<button id="menu-about" class="menu menu-mobile hidden-xs">

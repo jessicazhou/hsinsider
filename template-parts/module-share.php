@@ -20,5 +20,5 @@ if( empty( $title ) || empty( $url ) ) {
 	<a target="_blank" class="trb_socialize_item" href="https://twitter.com/home?status=<?php echo urlencode( $title ); ?>+<?php echo urlencode( $url ); ?>">
 		<i class="LATTwitter"></i>
 	</a>
-	<a class="trb_socialize_item" href="mailto:?subject=<?php echo urlencode( $title ); ?>&body=<?php echo esc_url( $url ); ?>"><i class="LATEmail"></i></a>		
+	<a class="trb_socialize_item" href="mailto:?subject=<?php echo urlencode( $title ); ?>&body=<?php echo esc_url( $url ); ?>"><i class="LATEmail"></i></a>
 </span>
