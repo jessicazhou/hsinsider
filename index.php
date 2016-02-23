@@ -71,12 +71,11 @@ get_header(); ?>
 						 */
 						if( $curated != get_the_ID() ) {
 							ai_get_template_part( 'template-parts/content', 'blogroll' );
-							$post_count ++;
 						}
-				
 						if( 0 == $post_count % 2 ) {
 							ai_get_template_part( 'template-parts/module', 'mid-roll', array( 'post_count' => $post_count ) );
 						}
+						$post_count ++;
 					?>
 				<?php endwhile; ?>
 			</section>

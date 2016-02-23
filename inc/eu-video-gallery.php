@@ -83,7 +83,7 @@ function hsinsider_video_gallery() {
 									</span>';
 			$gallery .=	'			<h2 class="post-headline"><a href="' . esc_url( $videos[0]['link'] ) . '">' . esc_html( $videos[0]['title'] ) .'</a></h2>';
 			$gallery .=	'			<p class="post-excerpt">' . esc_html( $videos[0]['description'] ) .'</p>';
-			$gallery .= '			<p class="post-byline">' . $videos[0]['author'] . '</p>';
+			$gallery .= '			<p class="post-byline">' . wp_kses_post( $videos[0]['author'] ) . '</p>';
 			$gallery .= '		</div>';
 			$gallery .= '	</div>';
 			$gallery .= '	<div class="row">';

@@ -54,7 +54,7 @@ function hsinsider_get_lead_art( $post = null ) {
 			$the_query = new WP_Query( $args );
 		 
 			// Set the cache to expire the data after 300 seconds
-			wp_cache_set( 'video_query', $the_query, '', 300 );
+			wp_cache_set( $featured_id . '_attachment', $the_query, '', 300 );
 		}
 
 		if ( $the_query->have_posts() ) :
@@ -92,7 +92,7 @@ function hsinsider_get_post_byline() {
 		$avatar = get_avatar( $author->ID, 96, '', '', array( 'class' => 'img-circle' ) );
 	}
 
-	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
+	echo '<figure class="byline">' . wp_kses_post( $avatar ) . '<figcaption>' . wp_kses_post( $byline ) . '</figcaption></figure>';
 }
 
 /**
