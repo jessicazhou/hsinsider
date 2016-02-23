@@ -17,22 +17,21 @@ get_header(); ?>
 		<main id="main" class="site-main container-fluid" role="main">
 		<?php if( is_home() || is_category() ) : ?>
 			<header class="hero jumbotron blogroll">
-				<?php 
+				<?php
 					// Check if obj exists in cache
 					$the_query = wp_cache_get( 'index_blogroll' );
-					 
+
 					if( $the_query == false ) {
 						// Create the query
-					    $args = array(
+					  $args = array(
 							'post_type' => array( 'post', 'video' ),
 							'post_status' => 'publish',
 							'category_name' => 'featured',
 							'posts_per_page' => 1
 						);
 						$the_query = new WP_Query( $args );
-					 
-					    // Cache the results
-					    wp_cache_set( 'index_blogroll', $the_query, '', 300 );
+				    // Cache the results
+				    wp_cache_set( 'index_blogroll', $the_query, '', 300 );
 					}
 
 					if ( $the_query->have_posts() ) {
@@ -43,7 +42,7 @@ get_header(); ?>
 						 */
 						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$curated = get_the_ID();
-						
+
 						/**
 						 * Always reset the post data after a wp_query
 						 */
@@ -52,7 +51,7 @@ get_header(); ?>
 				?>
 			</header>
 		<?php endif; ?>
-		
+
 		<?php get_sidebar( 'featured' ); ?>
 		<div class="row widget-area">
 			<div class="container">
@@ -63,7 +62,6 @@ get_header(); ?>
 			<?php $post_count = 0; ?>
 			<section class="blogroll row">
 				<?php while ( have_posts() ) : the_post(); //the Loop ?>
-
 					<?php
 						/**
 						 * Include the Post-Format-specific template for the content.
