@@ -8613,6 +8613,9 @@ img.alignnone, figure.alignnone {
   .widget-area .widget_search input {
     float: left; }
 
+#wpstats {
+  display: none; }
+
 /* =Comments
 -------------------------------------------------------------- */
 section.comments {

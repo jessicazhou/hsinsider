@@ -11,9 +11,8 @@
 var map;
 var bounds;
 
-$.noConflict();
 function initMap() {
-	if( $( '#gmap' ).length ) {
+	if( JQuery( '#gmap' ).length ) {
 		var styles = [
 			{
 				"featureType": "landscape.man_made",
@@ -60,7 +59,7 @@ function initMap() {
 			name: "Styled Map"
 		});
 
-		school_marker = $( '#gmap' ).data( 'marker' );
+		school_marker = JQuery( '#gmap' ).data( 'marker' );
 
 		if( school_marker !== '' ) {
 
@@ -82,8 +81,8 @@ function initMap() {
 
 			bounds = new google.maps.LatLngBounds();
 
-			if( $.isArray( school_marker ) ) {
-				$.each( school_marker, function( index, marker ) {
+			if( JQuery.isArray( school_marker ) ) {
+				JQuery.each( school_marker, function( index, marker ) {
 					geocodeAddress( marker );
 				} );
 			}
