@@ -3,7 +3,7 @@ body {
 	font-weight: 200;
 	font-size: 16px;
 	&.noscroll {
-		position: fixed; 
+		position: fixed;
 		overflow-y: hidden;
 	}
 }
@@ -55,7 +55,7 @@ a:focus, button:focus {
 				width: 100%;
 				height: auto;
 			}
-		} 
+		}
 	}
 
 	section {
@@ -82,7 +82,7 @@ a:focus, button:focus {
 			text-align: center;
 		}
 	}
-	
+
 	&:not( .hero ) {
 		@media( max-width: $screen-sm-max ) {
 			article.post {
@@ -109,7 +109,7 @@ article.post, article.video, article.page {
 		.entry-meta {
 			margin-bottom: 20px;
 		}
-		p { 
+		p {
 			color: #000000;
 			line-height: 1.8em;
 		}
@@ -124,10 +124,14 @@ article.post, article.video, article.page {
 		display: inline-block;
 		text-align: left;
 		overflow: auto;
+    img:first-of-type {
+      display: none;
+    }
 		img {
 			float: left;
 			width: 70px;
 			height: 70px;
+      border-radius: 50%;
 			@media( max-width: $screen-sm-max ) {
 				width: 60px;
 				height: auto;
@@ -143,7 +147,7 @@ article.post, article.video, article.page {
 				font-weight: 300;
 				font-size: 13px;
 			}
-			@media( max-width: $screen-sm-max ) { 
+			@media( max-width: $screen-sm-max ) {
 				padding-top: 12px;
 			}
 		}

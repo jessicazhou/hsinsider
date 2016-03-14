@@ -11,6 +11,7 @@
 var map;
 var bounds;
 
+$.noConflict();
 function initMap() {
 	if( $( '#gmap' ).length ) {
 		var styles = [
@@ -82,7 +83,7 @@ function initMap() {
 			bounds = new google.maps.LatLngBounds();
 
 			if( $.isArray( school_marker ) ) {
-				$.each( school_marker, function( index, marker ) { 
+				$.each( school_marker, function( index, marker ) {
 					geocodeAddress( marker );
 				} );
 			}
