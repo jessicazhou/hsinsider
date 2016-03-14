@@ -124,9 +124,6 @@ article.post, article.video, article.page {
 		display: inline-block;
 		text-align: left;
 		overflow: auto;
-    img:first-of-type {
-      display: none;
-    }
 		img {
 			float: left;
 			width: 70px;
@@ -142,11 +139,13 @@ article.post, article.video, article.page {
 			width: calc(100% - 70px);
 			padding: 16px 22px;
 			a, .posted_on {
-				display: block;
 				text-transform: uppercase;
 				font-weight: 300;
 				font-size: 13px;
 			}
+      .posted_on {
+        display: block;
+      }
 			@media( max-width: $screen-sm-max ) {
 				padding-top: 12px;
 			}

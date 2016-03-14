@@ -8334,8 +8334,6 @@ article.post, article.video, article.page {
     display: inline-block;
     text-align: left;
     overflow: auto; }
-    article.post figure.byline img:first-of-type, article.video figure.byline img:first-of-type, article.page figure.byline img:first-of-type {
-      display: none; }
     article.post figure.byline img, article.video figure.byline img, article.page figure.byline img {
       float: left;
       width: 70px;
@@ -8350,10 +8348,11 @@ article.post, article.video, article.page {
       width: calc(100% - 70px);
       padding: 16px 22px; }
       article.post figure.byline figcaption a, article.post figure.byline figcaption .posted_on, article.video figure.byline figcaption a, article.video figure.byline figcaption .posted_on, article.page figure.byline figcaption a, article.page figure.byline figcaption .posted_on {
-        display: block;
         text-transform: uppercase;
         font-weight: 300;
         font-size: 13px; }
+      article.post figure.byline figcaption .posted_on, article.video figure.byline figcaption .posted_on, article.page figure.byline figcaption .posted_on {
+        display: block; }
       @media (max-width: 991px) {
         article.post figure.byline figcaption, article.video figure.byline figcaption, article.page figure.byline figcaption {
           padding-top: 12px; } }
