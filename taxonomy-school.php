@@ -25,7 +25,6 @@ if( is_object( $term ) ) : ?>
 
 					//Defaults
 					$school_marker = 'none';
-					$column = '';
 
 					if( ! empty( $school_address ) ) {
 						$school_marker = array(
@@ -35,28 +34,30 @@ if( is_object( $term ) ) : ?>
 
 						$school_marker = json_encode( $school_marker );
 					}
-          else {
-            $column = 'no-post-image';
-          }
 				?>
-				<section class="col-xs-12 <?php echo $column; ?>">
+				<section class="col-xs-12">
 					<!-- Social Share -->
 					<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_term_link( $term ) ) ); ?>
 					<!-- title -->
-					<h1 class="entry-title"><?php echo esc_html( $school->name ); ?></h1>
+					<h1 class="entry-title school-title"><?php echo esc_html( $school->name ); ?></h1>
 
 					<div class="row">
-						<?php if( hsinsider_has_school_image() ): ?>
 						<div class="col-sm-12 col-md-4 col-md-offset-4 school-image-column">
-							<?php hsinsider_school_image(); ?>
+              <?php
+                $mapclass = 'map';
+                if( hsinsider_has_school_image() ) {
+							    hsinsider_school_image();
+                }
+                else {
+                  $mapclass = 'map no-logo';
+                }
+              ?>
               <?php if( ! empty( $school_address ) ) : ?>
-      				<div class="map">
+      				<div class="<?php echo $mapclass; ?>">
       					<div id="gmap" data-marker='<?php echo esc_attr( $school_marker ); ?>'></div>
       				</div>
       				<?php endif; ?>
 						</div>
-						<?php endif; ?>
-
 						<?php if( '' != $school->description ): ?>
 						<div class="col-sm-12 col-md-10 col-md-offset-1 school-description-column">
 							<p><?php echo esc_html( $school->description ); ?></p>

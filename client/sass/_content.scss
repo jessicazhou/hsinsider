@@ -1,7 +1,7 @@
 body {
 	width: 100%;
 	font-weight: 200;
-	font-size: 16px;
+	font-size: 17px;
 	&.noscroll {
 		position: fixed;
 		overflow-y: hidden;
@@ -208,14 +208,23 @@ a.school {
 /* =Archive Header
 -------------------------------------------------------------- */
 .archive-header {
-	border-bottom: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  section {
+    padding-top: 2%;
+    text-align: center;
+  }
 	.map {
 		padding-left: 0px;
     width: 50%;
-    max-width: 225px;
+    float:right;
+    &.no-logo {
+      float: none;
+      width: 100%;
+      margin: 0 auto 15px;
+    }
     #gmap {
-      height: 100%;
       max-height: 190px;
+      width: 100%;
     }
 		@media( max-width: $screen-md-min ) {
 			padding-right: 0px;
@@ -224,21 +233,23 @@ a.school {
 	h1.entry-title {
 		font-family: 'Belizio';
     text-align: center;
+    &.school-title {
+      margin-bottom: 15px;
+    }
 		@media( min-width: $screen-md-min ) {
 			font-size: 32px;
 		}
 	}
-
-	.no-post-image {
-		.school-image-column, .school-description-column {
-			@include make-md-column( 12 );
-		}
-	}
-
+  .school-image-column {
+    margin-bottom: 5px;
+  }
+  .school-description-column p {
+    margin-bottom: 20px;
+  }
   img.school-image {
     width: 50%;
+    max-width: 225px;
   }
-
 	img.avatar {
 		width: 100%;
 		max-width: 165px;
@@ -247,7 +258,6 @@ a.school {
 			margin: 0 auto 14px;
 		}
 	}
-
 	.author-info {
 		@include make-row();
 		padding: 30px 0px;
@@ -276,6 +286,10 @@ a.school {
 
 .author figure.byline figcaption{
 	padding-left: 0px !important;
+}
+
+p.search-order {
+  margin-top: 10px;
 }
 
 /* =Tags
@@ -379,6 +393,7 @@ p img {
 }
 .wp-caption img {
 	margin: .25em;
+  width: 100%;
 }
 .wp-caption-text {
 	margin: .5em;
