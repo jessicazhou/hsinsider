@@ -2365,6 +2365,11 @@ jQuery('img[src="https://s0.wp.com/wp-content/themes/vip/plugins/lazy-load/image
 
 var map;
 var bounds;
+// I'd prefer to not have to use global vars, I couldn't think of another way to do it.
+var delay = false;
+var nextAddress = 0;
+var lastAddress = 0;
+var school_array = [];
 
 function initMap() {
 	if( jQuery( '#gmap' ).length ) {
@@ -2437,9 +2442,8 @@ function initMap() {
 			bounds = new google.maps.LatLngBounds();
 
 			if( jQuery.isArray( school_marker ) ) {
-				jQuery.each( school_marker, function( index, marker ) {
-					geocodeAddress( marker );
-				} );
+        school_array = school_marker;
+        codeNextAddress();
 			}
 			else {
 				geocodeAddress( school_marker );
@@ -2453,7 +2457,21 @@ function initMap() {
 	}
 }
 
-function geocodeAddress( school_marker ) {
+function codeNextAddress() {
+  if( nextAddress < school_array.length ) {
+    if(delay){
+      setTimeout( function() { geocodeAddress(school_array[nextAddress], codeNextAddress) }, 2500);
+      delay = false;
+    }
+    else {
+      geocodeAddress(school_array[nextAddress], codeNextAddress);
+    }
+    lastAddress = nextAddress;
+    nextAddress++;
+  }
+}
+
+function geocodeAddress( school_marker, next ) {
 	/**
 	 * Create geocoder object
 	 */
@@ -2489,9 +2507,22 @@ function geocodeAddress( school_marker ) {
 			bounds.extend( LatLng );
 			map.fitBounds( bounds );
 
-		} else {
-			alert( "Geocode was not successful for the following reason: " + status );
 		}
+    else {
+      // === if we were sending the requests to fast, try this one again and increase the delay
+      if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+        if( lastAddress <= nextAddress ) {
+          nextAddress--;
+        }
+        delay = true;
+      }
+      else {
+        var reason="Code "+status;
+        var msg = 'address="' + school_marker.address + '" error=' +reason+ '(delay='+delay+'ms)<br>';
+        console.log( "Geocode was not successful for the following reason: " + msg );
+      }
+		}
+    next();
 	} );
 }
 
