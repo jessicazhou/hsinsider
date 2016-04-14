@@ -14,11 +14,11 @@ if( empty( $title ) || empty( $url ) ) {
 	$title = "High School Insider";
 } ?>
 <span class="trb_socialize_bar">
-	<a target="_blank" class="trb_socialize_item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_attr( $url ); ?>" style="padding-left: 0px;">
+	<a target="_blank" class="trb_socialize_item" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( $url ); ?>" style="padding-left: 0px;">
 		<i class="LATFacebook"></i>
 	</a>
-	<a target="_blank" class="trb_socialize_item" href="https://twitter.com/home?status=<?php echo esc_attr( $title ); ?>+<?php echo esc_attr( $url ); ?>">
+	<a target="_blank" class="trb_socialize_item" href="https://twitter.com/home?status=<?php echo urlencode( $title ); ?>+<?php echo urlencode( $url ); ?>">
 		<i class="LATTwitter"></i>
 	</a>
-	<a class="trb_socialize_item" href="mailto:"><i class="LATEmail"></i></a>		
+	<a class="trb_socialize_item" href="mailto:?subject=<?php echo urlencode( $title ); ?>&body=<?php echo esc_url( $url ); ?>"><i class="LATEmail"></i></a>
 </span>

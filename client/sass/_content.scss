@@ -1,8 +1,10 @@
 body {
+	width: 100%;
 	font-weight: 200;
+	font-size: 17px;
 	&.noscroll {
-		position: fixed; 
-		overflow-y: none;
+		position: fixed;
+		overflow-y: hidden;
 	}
 }
 
@@ -37,7 +39,8 @@ a:focus, button:focus {
 /* =Blogroll --*/
 .blogroll {
 	@include make-row();
-	article.post {
+	article.post, article.video, article.page {
+		overflow: auto;
 		padding: 15px 0px;
 		border-bottom: 1px solid #e4e4e4;
 		figure.featured-image {
@@ -52,10 +55,11 @@ a:focus, button:focus {
 				width: 100%;
 				height: auto;
 			}
-		} 
+		}
 	}
+
 	section {
-		padding-top: 6%;
+		padding-top: 4%;
 		&.no-post-image {
 			padding: 50px 15px;
 			text-align: center;
@@ -70,19 +74,15 @@ a:focus, button:focus {
 				font-size: 24px;
 			}
 		}
-		.trb_socialize_bar, .school {
-			display: block;
+		.trb_socialize_bar {
 			padding: 0px;
-		}
-		.school {
-			margin-top: 15px;
 		}
 		@media( max-width: $screen-sm-max ) {
 			padding: 20px 40px !important;
 			text-align: center;
 		}
 	}
-	
+
 	&:not( .hero ) {
 		@media( max-width: $screen-sm-max ) {
 			article.post {
@@ -94,8 +94,9 @@ a:focus, button:focus {
 	}
 }
 
-/* =Post --*/
-article.post {
+/* =Post
+-------------------------------------------------------------- */
+article.post, article.video, article.page {
 	overflow: auto;
 	&.single {
 		h1.entry-title {
@@ -104,15 +105,18 @@ article.post {
 		.wp-post-image {
 			width: 100%;
 			height: auto;
-			padding-bottom: 40px;
 		}
 		.entry-meta {
 			margin-bottom: 20px;
 		}
-		p { 
+		p {
 			color: #000000;
 			line-height: 1.8em;
 		}
+	}
+	.trb_socialize_bar {
+		display: block;
+		margin-top: 25px;
 	}
 	figure.byline {
 		padding: 15px 0px 0px;
@@ -122,6 +126,9 @@ article.post {
 		overflow: auto;
 		img {
 			float: left;
+			width: 70px;
+			height: 70px;
+      border-radius: 50%;
 			@media( max-width: $screen-sm-max ) {
 				width: 60px;
 				height: auto;
@@ -129,14 +136,17 @@ article.post {
 		}
 		figcaption {
 			float: left;
-			padding: 28px 22px;
-			a {
-				display: block;
+			width: calc(100% - 70px);
+			padding: 16px 22px;
+			a, .posted_on {
 				text-transform: uppercase;
 				font-weight: 300;
 				font-size: 13px;
 			}
-			@media( max-width: $screen-sm-max ) { 
+      .posted_on {
+        display: block;
+      }
+			@media( max-width: $screen-sm-max ) {
 				padding-top: 12px;
 			}
 		}
@@ -152,6 +162,8 @@ article.post {
 }
 
 a.school {
+	display: block;
+	margin-top: 15px;
 	font-size: 13px;
 	i {
 		margin-left: 10px;
@@ -159,6 +171,8 @@ a.school {
 	}
 }
 
+/* =Hero
+-------------------------------------------------------------- */
 .hero {
 	display: block;
 	overflow: auto;
@@ -168,7 +182,7 @@ a.school {
 	@include hsinsider-border-radius( 0px );
 	@include make-row();
 
-	article.post {
+	article.post, article.video {
 		padding: 0px;
 		figure.featured-image {
 			padding-left: 0px;
@@ -191,28 +205,53 @@ a.school {
 	}
 }
 
+/* =Archive Header
+-------------------------------------------------------------- */
 .archive-header {
-	border-bottom: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  section {
+    padding-top: 2%;
+    text-align: center;
+  }
 	.map {
 		padding-left: 0px;
+    width: 50%;
+    float:right;
+    &.no-logo {
+      float: none;
+      width: 100%;
+      margin: 0 auto 15px;
+    }
+    #gmap {
+      max-height: 190px;
+      width: 100%;
+    }
 		@media( max-width: $screen-md-min ) {
 			padding-right: 0px;
 		}
 	}
 	h1.entry-title {
 		font-family: 'Belizio';
+    text-align: center;
+    &.school-title {
+      margin-bottom: 15px;
+    }
 		@media( min-width: $screen-md-min ) {
 			font-size: 32px;
 		}
 	}
-
-	.no-post-image {
-		.school-image-column, .school-description-column {
-			@include make-md-column( 12 );
-		}
-	}
-
-	img.school-image, img.avatar {
+  .school-image-column {
+    margin-bottom: 5px;
+  }
+  .school-description-column p {
+    margin-bottom: 20px;
+  }
+  img.school-image {
+    width: 50%;
+    max-width: 225px;
+    height: auto;
+  }
+	img.avatar {
 		width: 100%;
 		max-width: 165px;
 		height: auto;
@@ -220,7 +259,6 @@ a.school {
 			margin: 0 auto 14px;
 		}
 	}
-
 	.author-info {
 		@include make-row();
 		padding: 30px 0px;
@@ -239,21 +277,86 @@ a.school {
 			}
 		}
 	}
+	&.tag-category {
+		text-align: center;
+		span.active-order {
+			font-weight: bold;
+		}
+	}
 }
 
-/* =Ads
+.author figure.byline figcaption{
+	padding-left: 0px !important;
+}
+
+p.search-order {
+  margin-top: 10px;
+}
+
+/* =Tags
 -------------------------------------------------------------- */
-.ad {
-	padding: 20px 0px;
+.cat-links, .tags-links {
+	a {
+		display: inline-block;
+		padding: 7px 14px;
+		margin: 2px 1px;
+		background: #505050;
+		color: $white;
+		&:hover {
+			background: $highlight-color;
+			color: #333;
+		}
+	}
+}
+
+.page-template-page-about-php {
+	#primary > header {
+		padding: 30px 0px;
+		p.lead {
+			margin: 10px 0px;
+		}
+	}
+	.map {
+		padding: 0px;
+	}
+
+	article footer {
+		.widget_hsinsider_newsletter {
+			overflow: auto;
+			padding: 0px 30px 30px;
+			margin: 40px 0px 30px;
+		}
+	}
+}
+
+.page-template-default {
+	article {
+		@include make-md-column( 8 );
+	}
+}
+
+.page-header {
+	@include make-row();
+	margin-bottom: 0px;
 	text-align: center;
-	&:after {
-		content: "Advertisement"
+	.page-title {
+		margin: 0px 0px 30px;
+	}
+}
+
+.not-found {
+	margin: 100px auto;
+	text-align: center;
+	.icon {
+		.fa-stack-1x {
+			top: -3px;
+    		left: -7px;
+    	}
 	}
 }
 
 /* =Images
 -------------------------------------------------------------- */
-
 .image-attachment {
 	div.entry-meta {
 		float: left;
@@ -284,6 +387,37 @@ a img {
 p img {
 	margin-bottom: 0.5em; /* a small bottom margin prevents content floating under images */
 }
+
+.wp-caption {
+	padding: .5em;
+	text-align: center;
+}
+.wp-caption img {
+	margin: .25em;
+  width: 100%;
+}
+.wp-caption-text {
+	margin: .5em;
+	text-align: center;
+}
+
+/* =Brightcove
+-------------------------------------------------------------- */
+.fluid-width-video-wrapper {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25% !important;
+  padding-top: 0px !important;
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 /*
 Resize images to fit the main content area.
 - Applies only to images uploaded via WordPress by targeting size-* classes.
@@ -299,22 +433,18 @@ img.size-medium,
 	max-width: 100%; /* When images are too wide for containing element, force them to fit. */
 	height: auto; /* Override height to match resized width for correct aspect ratio. */
 }
-img.alignleft {
+img.alignleft, figure.alignleft {
 	margin-right: 1em;
 }
-img.alignright {
+img.alignright, figure.alignright {
 	margin-left: 1em;
 }
-.wp-caption {
-	padding: .5em;
-	text-align: center;
+
+img.alignnone, figure.alignnone {
+	margin-left: 0px;
+	margin-right: 0px;
 }
-.wp-caption img {
-	margin: .25em;
-}
-.wp-caption .wp-caption-text {
-	margin: .5em;
-}
+
 .gallery-caption {
 }
 .wp-smiley {
@@ -323,7 +453,6 @@ img.alignright {
 
 /* =Widgets
 -------------------------------------------------------------- */
-
 .widget {
 	display: block;
 }
@@ -332,4 +461,8 @@ img.alignright {
 	input {
 		float: left;
 	}
+}
+
+#wpstats {
+  display: none;
 }

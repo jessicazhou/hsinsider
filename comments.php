@@ -16,59 +16,42 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="comments-area">
+<div class="post-comments" id="comments">
+	
+	<?php 
+		if ( comments_open() ) :
+			echo '<div class="post-box"><h4 class="post-box-title">';
+			comments_number( __( 'No Comments', 'hsinsider' ), __( '1 Comment', 'hsinsider' ), '% ' . __( 'Comments', 'hsinsider' ) );
+			echo '</h4></div>';
+		endif;
 
-	<?php // You can start editing here -- including this comment! ?>
+		echo "<div class='comments'>";
+		
+			wp_list_comments(array(
+				'avatar_size'	=> 50,
+				'max_depth'		=> 5,
+				'style'			=> 'ul',
+				'callback'		=> 'hsinsider_get_comments',
+				'type'			=> 'all'
+			));
 
-	<?php if ( have_comments() ) : ?>
-		<h2 class="comments-title">
-			<?php
-				printf(
-					_nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'hsinsider' ),
-					number_format_i18n( get_comments_number() ),
-					'<span>' . get_the_title() . '</span>'
-				);
-			?>
-		</h2>
+		echo "</div>";
 
-		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
-		<nav id="comment-nav-above" class="navigation comment-navigation" role="navigation">
-			<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'hsinsider' ); ?></h2>
-			<div class="nav-links">
-				<div class="nav-previous"><?php previous_comments_link( __( 'Older Comments', 'hsinsider' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments', 'hsinsider' ) ); ?></div>
-			</div><!-- .nav-links -->
-		</nav><!-- #comment-nav-above -->
-		<?php endif; // check for comment navigation ?>
+		echo "<div id='comments_pagination'>";
+			paginate_comments_links(array('prev_text' => '&laquo;', 'next_text' => '&raquo;'));
+		echo "</div>";
 
-		<ol class="comment-list">
-			<?php
-				wp_list_comments( array(
-					'style'      => 'ol',
-					'short_ping' => true,
-				) );
-			?>
-		</ol><!-- .comment-list -->
+		$custom_comment_field = '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>';  //label removed for cleaner layout
 
-		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
-		<nav id="comment-nav-below" class="navigation comment-navigation" role="navigation">
-			<h2 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'hsinsider' ); ?></h2>
-			<div class="nav-links">
-				<div class="nav-previous"><?php previous_comments_link( __( 'Older Comments', 'hsinsider' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments', 'hsinsider' ) ); ?></div>
-			</div><!-- .nav-links -->
-		</nav><!-- #comment-nav-below -->
-		<?php endif; // check for comment navigation ?>
+		comment_form(array(
+			'comment_field'			=> $custom_comment_field,
+			'comment_notes_after'	=> '',
+			'logged_in_as' 			=> '',
+			'comment_notes_before' 	=> '',
+			'title_reply'			=> __('Leave a Reply', 'hsinsider'),
+			'cancel_reply_link'		=> __('Cancel Reply', 'hsinsider'),
+			'label_submit'			=> __('Post Comment', 'hsinsider')
+		));
+	 ?>
 
-	<?php endif; // have_comments() ?>
-
-	<?php
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() && '0' != get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
-	?>
-		<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'hsinsider' ); ?></p>
-	<?php endif; ?>
-
-	<?php comment_form(); ?>
-
-</div><!-- #comments -->
+</div> <!-- end comments div -->

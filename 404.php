@@ -9,14 +9,9 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 			<section class="error-404 not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'hsinsider' ); ?></h1>
-				</header><!-- .page-header -->
-
 				<div class="page-content">
-					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'hsinsider' ); ?></p>
-
-					<?php get_search_form(); ?>
+					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'hsinsider' ); ?></h1>
+					<p><?php esc_html_e( "It looks like this page doesn't exist. Why don't you go back to the ", 'hsinsider' ); ?><a href="<?php esc_url( home_url() ); ?>"><?php esc_html_e( 'Go Back to the Home Page', 'hsinsider' ); ?></a></p>
 				</div><!-- .page-content -->
 			</section><!-- .error-404 -->
 

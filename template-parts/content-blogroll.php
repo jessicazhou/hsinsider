@@ -4,7 +4,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> >
 
 		<?php $column_class = 'no-post-image' ?>
 		<!-- image -->
@@ -15,7 +15,7 @@
 			<?php $column_class = 'col-md-5'; ?>
 		<?php endif ?>
 
-		<section class="col-xs-12 col-sm-12 <?php echo $column_class; ?>">
+		<section class="col-xs-12 col-sm-12 <?php echo esc_attr( $column_class ); ?>">
 			<!-- Social Share -->
 			<?php ai_get_template_part( 'template-parts/module', 'share', array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
 

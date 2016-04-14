@@ -12,9 +12,12 @@
 		<section class="container">
 			<!-- Footer Widgets Go Here-->
 			<?php get_sidebar( 'footer' ); ?>
-			<div class="row">
-				<div class="site-info">
+			<div class="site-info">
+				<div class="col-sm-4">
 					<a href="<?php echo esc_url( __( 'https://latimes.com/', 'hsinsider' ) ); ?>"><?php esc_html_e( 'Presented By', 'hsinsider' ); ?><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/latimes.svg' ); ?>"/></a>
+				</div>
+				<div class="col-sm-4 col-sm-offset-4">
+					<?php echo vip_powered_wpcom( 3 ); ?>
 				</div>
 			</div>
 		</section>

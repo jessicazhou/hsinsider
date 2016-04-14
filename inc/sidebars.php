@@ -3,10 +3,10 @@
  * This file holds configuration settings for widget areas.
  */
 
-if ( function_exists('register_sidebar') ) {
+if ( function_exists( 'register_sidebar' ) ) {
 	register_sidebar( array(
-		'name' => 'Popular Posts',
-		'id' => 'popular-posts',
+		'name' => 'Featured Items',
+		'id' => 'featured-posts',
 		'before_widget' => '<div id="%1$s" class="widget %2$s container">',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="widget-title">',
@@ -63,7 +63,7 @@ if ( function_exists('register_sidebar') ) {
 }
 
 //returns the number of widgets in a sidebar for later use
-function hsinsider_count_sidebar_widgets( $sidebar_id, $echo = false ) {
+function hsinsider_count_sidebar_widgets( $sidebar_id ) {
 	$the_sidebars = wp_get_sidebars_widgets();
 	if( !isset( $the_sidebars[$sidebar_id] ) )
 		return __( 'Invalid sidebar ID' );
@@ -73,13 +73,14 @@ function hsinsider_count_sidebar_widgets( $sidebar_id, $echo = false ) {
 
 //adjusts widget classes for horizonal sidebars based on the number of widgets the sidebar contains
 function hsinsider_horizontal_sidebar_classes( $params ) {
-	$sidebar_id = $params[0]['id'];
-	if ( $sidebar_id == 'footer-widgets' ) {
-		$widget_count = hsinsider_count_sidebar_widgets( $sidebar_id );
-		$params[0]['before_widget'] = str_replace( 'class="', 'class="col-md-' . floor( 12 / $widget_count ) . ' ', $params[0]['before_widget'] );
+	if( array_key_exists( 'id', $params[0] ) ) {
+		$sidebar_id = $params[0]['id'];
+		if ( 'footer-widgets' == $sidebar_id ) {
+			$widget_count = hsinsider_count_sidebar_widgets( $sidebar_id );
+			$params[0]['before_widget'] = str_replace( 'class="', 'class="' . esc_attr( 'col-md-' . floor( 12 / $widget_count ) . ' ' ), $params[0]['before_widget'] );
+		}
+		return $params;
 	}
-	return $params;
+	return null;
 }
 add_filter( 'dynamic_sidebar_params','hsinsider_horizontal_sidebar_classes' );
-
-?>

@@ -1,6 +1,10 @@
 /* =Forms
 -------------------------------------------------------------- */
 
+input:focus {
+	outline: none;
+}
+
 /** Search **/
 #top-search {
 	width:30px;

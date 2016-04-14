@@ -4,14 +4,13 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( array(  'col-md-8', 'single' ) ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( array(  'col-md-8', ' post video' ) ); ?>>
 	<header class="entry-header">
-		<?php hsinsider_get_lead_art(); ?>
-		<!-- Social Sharing -->
-		<?php ai_get_template_part( 'template-parts/module', 'share',  array ( 'title' =>  get_the_title(), 'url' => get_permalink() ) ); ?>
-		<!-- School -->
-		<?php hsinsider_school_link( 'school', $post->ID ); ?>
-		<!-- Post Title -->
+		<div class="iframe-wrapper">
+		<?php $youtube_id = get_post_meta( $post->ID, 'video_info', TRUE )[ 'youtube_id' ]; ?>
+			<iframe src="https://www.youtube.com/embed/<?php echo urlencode( $youtube_id ); ?>" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		<div class="entry-meta">
 			<?php hsinsider_get_post_byline(); ?>

@@ -17,7 +17,7 @@ abstract class HSInsider_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		// Create the Widget
-		parent::__construct( false, __( $this->name, 'hsinsider' ), array( 'description' => __( $this->description, 'hsinsider' ) ) );
+		parent::__construct( false, $this->name, array( 'description' => $this->description ) );
 		
 		add_action( 'widgets_init', array( $this, 'create_widget' ) );
 	}

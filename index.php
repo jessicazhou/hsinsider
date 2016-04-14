@@ -17,14 +17,22 @@ get_header(); ?>
 		<main id="main" class="site-main container-fluid" role="main">
 		<?php if( is_home() || is_category() ) : ?>
 			<header class="hero jumbotron blogroll">
-				<?php 
-					$args = array(
-						'post_type' => 'any',
-						'post_status' => 'publish',
-						'category_name' => 'featured',
-						'posts_per_page' => 1
-					);
-					$the_query = new WP_Query( $args );
+				<?php
+					// Check if obj exists in cache
+					$the_query = wp_cache_get( 'index_blogroll' );
+
+					if( $the_query == false ) {
+						// Create the query
+					  $args = array(
+							'post_type' => array( 'post', 'video' ),
+							'post_status' => 'publish',
+							'category_name' => 'featured',
+							'posts_per_page' => 1
+						);
+						$the_query = new WP_Query( $args );
+				    // Cache the results
+				    wp_cache_set( 'index_blogroll', $the_query, '', 300 );
+					}
 
 					if ( $the_query->have_posts() ) {
 						$the_query->the_post();
@@ -34,7 +42,7 @@ get_header(); ?>
 						 */
 						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$curated = get_the_ID();
-						
+
 						/**
 						 * Always reset the post data after a wp_query
 						 */
@@ -43,8 +51,8 @@ get_header(); ?>
 				?>
 			</header>
 		<?php endif; ?>
-		
-		<?php get_sidebar( 'popular' ); ?>
+
+		<?php get_sidebar( 'featured' ); ?>
 		<div class="row widget-area">
 			<div class="container">
 				<?php echo hsinsider_video_gallery(); ?>
@@ -54,26 +62,23 @@ get_header(); ?>
 			<?php $post_count = 0; ?>
 			<section class="blogroll row">
 				<?php while ( have_posts() ) : the_post(); //the Loop ?>
-
 					<?php
 						/**
 						 * Include the Post-Format-specific template for the content.
 						 * Remove the $curated post from the blogroll
-						 * TODO: Move jumbotron div into featured template
 						 */
 						if( $curated != get_the_ID() ) {
 							ai_get_template_part( 'template-parts/content', 'blogroll' );
-							$post_count ++;
 						}
-				
 						if( 0 == $post_count % 2 ) {
 							ai_get_template_part( 'template-parts/module', 'mid-roll', array( 'post_count' => $post_count ) );
 						}
+						$post_count ++;
 					?>
 				<?php endwhile; ?>
 			</section>
 
-			<?php the_posts_navigation(); ?>
+			<?php hsinsider_the_posts_navigation(); ?>
 
 		<?php else : ?>
 

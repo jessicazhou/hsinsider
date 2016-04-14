@@ -1,9 +1,3 @@
-<?php
-/**
- * The template used for displaying page content in page.php
- */
-?>
-
 <header id="masthead" class="site-header" role="banner">
 	<nav id="navigation" <?php if( hsinsider_get_school() || is_category() ) { ?>class="has-school <?php if( hsinsider_has_school_image() ) { ?>has-school-image<?php } ?>"<?php } ?>>
 		<div class="container">
@@ -13,32 +7,28 @@
 						<img class="img-responsive hidden-xs hidden-sm" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-full.png' ); ?>" >
 						<img class="img-responsive hidden-md hidden-lg" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/hsinsider-logo-small.png' ); ?>" >
 					</a>
-
-					<?php if( hsinsider_get_school() ) : ?>
-						<span class="school-header">
-						<?php if( hsinsider_has_school_image() ) : ?>
-							<a href="<?php echo esc_url( hsinsider_get_school_link() ); ?>"><?php hsinsider_school_image(); ?></a>
-						<?php endif; ?>
-						<?php hsinsider_school_link(); ?>
-						</span>
-					<?php elseif( is_category() ) :
-						$category = get_queried_object(); ?>
-						<a href="<?php echo esc_url( wpcom_vip_get_term_link( $category, $category->taxonomy ) ); ?>" class="school topic"><?php echo esc_html( $category->name ); ?></a>
-					<?php endif; ?>
-					
+					<span class="tagline"><?php esc_html_e( 'For Students, By Students', 'hsinsider' ); ?></span>				
 					<div class="menus">
 						<div class="menus-wrapper">
 							<span class="hidden-xs">
-								<?php ai_get_template_part( 'template-parts/module', 'share' ); ?>
+								<span class="trb_socialize_bar">
+									<a target="_blank" class="trb_socialize_item" href="https://www.facebook.com/hsinsider" style="padding-left: 0px;">
+										<i class="LATFacebook"></i>
+									</a>
+									<a target="_blank" class="trb_socialize_item" href=" https://twitter.com/hsinsider">
+										<i class="LATTwitter"></i>
+									</a>
+									<a class="trb_socialize_item" href="mailto:<?php echo is_email( get_option( 'admin_email' ) ); ?>"><i class="LATEmail"></i></a>		
+								</span>
 							</span>
-							<a id="menu-about" class="menu hidden-xs" href="/about/">
-								<?php esc_html_e( 'About', 'hsinsider' ); ?>
-							</a>
+							<button id="menu-about" class="menu menu-mobile hidden-xs">
+								<?php echo esc_html( 'About' ); ?>
+							</button>
 							<button id="menu-schools" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'Schools & Organizations', 'hsinsider' ); ?>
+								<?php echo esc_html( 'Schools' ); ?>
 							</button>
 							<button id="menu-activities" class="menu menu-mobile hidden-xs">
-								<?php esc_html_e( 'Topics', 'hsinsider' ); ?>
+								<?php echo esc_html( 'Topics' ); ?>
 							</button>
 							<button id="menu-hamburger" class="menu visible-xs-block">
 								<i class="LATMenu"></i>
@@ -96,17 +86,23 @@
 		<menu data-menu="menu-activities">
 			<div class="sections">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'sections_menu' ) ) ) : ?>
-					<div class="title"><?php esc_html_e( $menu_name, 'hsinsider' ); ?></div>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
 				<?php endif; ?>
 				<?php wp_nav_menu( array( 'theme_location' => 'sections_menu' ) ); ?>
 			</div>
 			<div class="topics">
 				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'topics_menu' ) ) ) : ?>
-					<div class="title">
-						<i class="fa fa-flash"></i> <?php esc_html_e( $menu_name, 'hsinsider' ); ?>
-					</div>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
 				<?php endif; ?>		
 				<?php wp_nav_menu( array( 'theme_location' => 'topics_menu' ) ); ?>
+			</div>
+		</menu>
+		<menu data-menu="menu-about">
+			<div class="about">
+				<?php if( ( $menu_name = hsinsider_get_menu_name_by_location( 'about_menu' ) ) ) : ?>
+					<div class="title"><?php echo esc_html( $menu_name ); ?></div>
+				<?php endif; ?>
+				<?php wp_nav_menu( array( 'theme_location' => 'about_menu' ) ); ?>
 			</div>
 		</menu>
 	</div>

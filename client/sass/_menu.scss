@@ -15,6 +15,15 @@ header.site-header {
 			}
 		}
 	}
+	.tagline {
+		display: inline-block;
+		margin-top: 16px;
+		font-size: 18px;
+		@media( max-width: $screen-sm-max ) {
+			margin-top: 9px;
+		}
+	}
+
 	.school-header {
 		display: block;
 		float: left;
@@ -35,7 +44,6 @@ header.site-header {
 				width: auto;
 			}
 			@media( max-width: $screen-md-min ) {
-
 				img {
 					height: 45px;
 				}
@@ -59,6 +67,7 @@ header.site-header {
 	overflow: scroll;
 	margin-top: 90px;
 	width: 100%;
+	
 	display: none;
 	list-style: none;
 	menu {
@@ -81,6 +90,9 @@ header.site-header {
 		&[data-menu="menu-activities"] {
 			background-color: #1c1c1c;
 			padding-top: 0;
+		}
+		&[data-menu="menu-schools"] {
+			/*margin-right: -15px !important;*/
 		}
 		@media( max-width: $screen-xs-max ) {
 			height: auto;
@@ -166,6 +178,13 @@ header.site-header {
 				border-bottom: 0;
 			}
 		}
+		div.about {
+			.title{
+				i {
+					padding: 0px 4px 0px 0px;
+				}
+			}
+		}
 		div.title {
 			font-weight: 500;
 			margin-bottom: 5px;
@@ -198,24 +217,61 @@ header.site-header {
 	}
 }
 
-.site-main .comment-navigation,
-.site-main .posts-navigation,
-.site-main .post-navigation {
-	margin: 0 0 1.5em;
-	overflow: hidden;
+.home {
+	.site-main .comment-navigation,
+	.site-main .posts-navigation, 
+	.post-navigation {
+		overflow: auto;
+		width: 100%;
+		max-width: 1170px;
+
+		margin-right: auto;
+		margin-left: auto;
+		padding-left: 15px;
+		padding-right: 15px;
+
+		.nav-links {
+			@include make-row();
+		}
+	}
+}
+
+.single {
+	.site-main .comment-navigation,
+	.site-main .posts-navigation, 
+	.post-navigation {
+		@include make-row();
+	}
+}
+
+.comment-navigation .nav-previous,
+.posts-navigation .nav-previous,
+.post-navigation .nav-previous, 
+.comment-navigation .nav-next,
+.posts-navigation .nav-next,
+.post-navigation .nav-next {
+	@include make-xs-column( 6 );
+	padding-top: 35px;
+	padding-bottom: 35px;
+	a{
+		font-size: 16px;
+		i {
+			margin: 0px 5px;
+			font-size: 20px;
+			position: relative;
+			top: 3px;
+		}
+	}
 }
 
 .comment-navigation .nav-previous,
 .posts-navigation .nav-previous,
 .post-navigation .nav-previous {
-	float: left;
-	width: 50%;
+	text-align: right;
 }
 
 .comment-navigation .nav-next,
 .posts-navigation .nav-next,
 .post-navigation .nav-next {
-	float: right;
-	text-align: right;
-	width: 50%;
+	text-align: left;
 }

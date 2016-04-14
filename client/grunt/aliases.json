@@ -7,9 +7,7 @@
     "uglify"
   ],
   "styles": [
-    "sass",
-    "postcss",
-    "cssmin"
+    "sass"
   ],
   "build": [
     "scripts",

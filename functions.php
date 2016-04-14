@@ -12,7 +12,7 @@ define( 'HSINSIDER_URL', get_template_directory_uri() );
 // Config Loader
 require_once( HSINSIDER_PATH . '/inc/site-config.php' );
 
-// Switch certain resources based on whether this is in the WordPress VIP environment
+// Switch certain resources based on whether this is in the WordPress.com VIP environment
 if ( defined( 'WPCOM_IS_VIP_ENV' ) && true === WPCOM_IS_VIP_ENV ) {
 	/**
 	 * Disable global terms on WordPress.com.
@@ -36,7 +36,6 @@ if ( is_admin() ) {
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once HSINSIDER_PATH . '/inc/cli.php';
 }
-
 
 // Ad integrations
 require_once( HSINSIDER_PATH . '/inc/ads.php' );
@@ -119,9 +118,10 @@ require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy-school.
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget.php' );
 
 //Custom Widgets
-require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-popular.php' );
+require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-featured-items.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-polls.php' );
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-newsletter.php' );
+require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget-ad-block.php' );
 /* End Data Structures */
 
 // Video Gallery

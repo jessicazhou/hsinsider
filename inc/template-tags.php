@@ -1,6 +1,7 @@
 <?php
 /**
  * Helper functions
+ * Refactor if time allows
  */
 
 if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
@@ -11,15 +12,15 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 		// Hide category and tag text for pages.
 		if ( 'post' == get_post_type() ) {
 			/* translators: used between list items, there is a space after the comma */
-			$categories_list = get_the_category_list( __( ', ', 'hsinsider' ) );
+			$categories_list = get_the_category_list( __( ' ', 'hsinsider' ) );
 			if ( $categories_list && hsinsider_categorized_blog() ) {
-				printf( '<span class="cat-links">' . __( 'Posted in %1$s', 'hsinsider' ) . '</span>', $categories_list );
+				echo '<div class="cat-links"><h3>' . esc_html__( 'Posted in', 'hsinsider' ) . '</h3>' . $categories_list . '</div>';
 			}
 
 			/* translators: used between list items, there is a space after the comma */
-			$tags_list = get_the_tag_list( '', __( ', ', 'hsinsider' ) );
+			$tags_list = get_the_tag_list( '', __( ' ', 'hsinsider' ) );
 			if ( $tags_list ) {
-				printf( '<span class="tags-links">' . __( 'Tagged %1$s', 'hsinsider' ) . '</span>', $tags_list );
+				echo '<div class="tags-links"><h3>' . esc_html__( 'Tagged', 'hsinsider' ) . '</h3>' . $tags_list . '</div>';
 			}
 		}
 
@@ -33,6 +34,42 @@ if ( ! function_exists( 'hsinsider_entry_footer' ) ) :
 	}
 endif;
 
+function hsinsider_get_lead_art( $post = null ) {
+	if( empty( $post ) ) {
+		global $post;
+	}
+
+	if( has_post_thumbnail() ) {
+		$featured_id = get_post_thumbnail_id( $post->ID );
+
+		$the_query = wp_cache_get( $featured_id . '_attachment' );
+		if( $the_query == false ) {
+			/**
+			 * Query for the Featured Image Caption
+			 */
+			$args = array(
+				'p' => $featured_id,
+				'post_type' => 'attachment',
+			);
+			$the_query = new WP_Query( $args );
+
+			// Set the cache to expire the data after 300 seconds
+			wp_cache_set( $featured_id . '_attachment', $the_query, '', 300 );
+		}
+
+		if ( $the_query->have_posts() ) :
+			while ( $the_query->have_posts() ) : $the_query->the_post();
+				$featured_caption = get_the_excerpt();
+			endwhile;
+		endif;
+		wp_reset_postdata();
+
+		$featured_url = wp_get_attachment_url( $featured_id );
+		$featured_html = '<figure><img src="' . esc_url( $featured_url ) . '" class="attachment-post-thumbnail size-post-thumbnail wp-post-image img-responsive"/><figcaption class="wp-caption-text">' . esc_html( $featured_caption ) . '</figcaption></figure>';
+		echo $featured_html;
+	}
+}
+
 /**
  * Retrieve and compile Post Byline Information
  */
@@ -45,14 +82,17 @@ function hsinsider_get_post_byline() {
 		$time_string = sprintf( $time_string, esc_attr( get_the_modified_date( 'c' ) ), esc_html( get_the_modified_date() ) );
 	}
 
-	$posted_on = '<a class="posted_on" href="' . esc_url( get_permalink() ) . '" rel="boomark">' . _( $time_string ) . '</a>';
+	$posted_on = '<span class="posted_on">' . $time_string . '</span>';
 
 	$byline = hsinsider_get_coauthors() . $posted_on;
 	$author = get_coauthors()[0];
 
-	$avatar = get_avatar( $author->ID, null, '', '', array( 'class' => 'img-circle' ) );
+	$avatar = '';
+	if( !is_author() ) {
+		$avatar = get_avatar( $author->ID, 96, '', '', array( 'class' => 'img-circle' ) );
+	}
 
-	echo '<figure class="byline">' . $avatar . '<figcaption>' . $byline . '</figcaption></figure>';
+	echo '<figure class="byline">' . wp_kses_post( $avatar ) . '<figcaption>' . wp_kses_post( $byline ) . '</figcaption></figure>';
 }
 
 /**
@@ -111,17 +151,17 @@ function hsinsider_get_school( $post = null ) {
 	 */
 	if( is_tax( 'school' ) ) {
 		$term = get_queried_object();
-	} 
+	}
 	/**
 	 * If we're on a an author page, get the term_id from the current author object
 	 * author object and use it to find the School
 	 */
 	elseif ( is_author() ) {
 		$author = get_queried_object();
-	
+
 		if( !empty( $author ) && is_object( $author ) ) {
 			$term_id = (int) get_user_attribute( $author->ID, 'school', true );
-		
+
 			if( !empty( $term_id ) ) {
 				$term = ( is_object( wpcom_vip_get_term_by( 'id', $term_id, 'school' ) ) ) ? wpcom_vip_get_term_by( 'id', $term_id, 'school' ) : false;
 			}
@@ -164,9 +204,9 @@ function hsinsider_get_school( $post = null ) {
  * Gets the meta for the school from Fieldmanager
  */
 function hsinsider_get_school_meta( $meta_key = null, $post = null ) {
-	
+
 	$school = hsinsider_get_school( $post );
-	
+
 	if( empty( $school ) )
 		return false;
 
@@ -174,12 +214,12 @@ function hsinsider_get_school_meta( $meta_key = null, $post = null ) {
 
 	if( empty( $meta_key ) )
 		return $meta;
-	
+
 	if( isset( $meta[ $meta_key ] ) )
 		return $meta[ $meta_key ];
-		
+
 	return false;
-	
+
 }
 
 
@@ -195,9 +235,9 @@ function hsinsider_has_school_image( $post = null ) {
 
 	if( !empty( $attachment_id ) )
 		return true;
-	
+
 	return false;
-	
+
 }
 
 
@@ -210,10 +250,10 @@ function hsinsider_get_school_image( $image_size = 'thumbnail', $post = null ) {
 	}
 
 	$attachment_id = hsinsider_get_school_meta( 'logo', $post );
-	
+
 	if( empty( $attachment_id ) )
 		return false;
-	
+
 	return wp_get_attachment_image_src( $attachment_id, $image_size );
 }
 
@@ -222,14 +262,14 @@ function hsinsider_get_school_image( $image_size = 'thumbnail', $post = null ) {
  * Displays the school image (set in fieldmanager)
  */
 function hsinsider_school_image( $size = 'thumbnail' ) {
-	
+
 	$image = hsinsider_get_school_image( $size );
-	
+
 	if( empty( $image ) )
 		return false;
-	
-	echo '<img src="' . esc_url( reset( $image ) ) . '" class="school-image" width="' . intval( next( $image ) ) . '" height="' . intval( next( $image ) ) . '" />';
-	
+
+	echo '<img src="' . esc_url( reset( $image ) ) . '" class="school-image" />';
+
 }
 
 
@@ -242,15 +282,15 @@ function hsinsider_get_school_link( $post = null ) {
 	}
 
 	$term = hsinsider_get_school( $post );
-	
+
 	if( empty( $term ) )
 		return;
-	
+
 	$term_link = wpcom_vip_get_term_link( $term, $term->taxonomy );
-	
+
 	if( empty( $term_link ) || is_wp_error( $term_link ) )
 		return;
-	
+
 	return $term_link;
 
 }
@@ -263,46 +303,46 @@ function hsinsider_school_link( $class = 'school', $post = null ) {
 	if( empty( $post ) ) {
 		$post = get_post();
 	}
-	
+
 	$term = hsinsider_get_school( $post );
-	
+
 	if( empty( $term ) )
 		return;
-	
+
 	$term_link = hsinsider_get_school_link( $post );
-	
+
 	if( empty( $term_link ) )
 		return;
-	
+
 	echo '<a href="' . esc_url( $term_link ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $term->name ) . '<i class="LATLinkOutArrow"></i></a>';
 
 }
 
 function hsinsider_author_school_link( $class = 'school' ) {
-	
+
 	$term_id = hsinsider_get_the_author_meta( 'school' );
-	
+
 	if( empty( $term_id ) )
 		return false;
-	
+
 	$term = wpcom_vip_get_term_by( 'id', $term_id, 'school' );
-		
+
 	if( empty( $term ) )
 		return false;
-	
+
 	$term_link = wpcom_vip_get_term_link( $term, $term->taxonomy );
-	
+
 	if( empty( $term_link ) || is_wp_error( $term_link ) )
 		return false;
-	
+
 	echo '<a href="' . esc_url( $term_link ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $term->name ) . '</a>';
-	
+
 }
 
 function hsinsider_get_author_school_meta( $meta_key = null ) {
-	
+
 	$school_id = hsinsider_get_the_author_meta( 'school' );
-	
+
 	if( empty( $school_id ) )
 		return false;
 
@@ -310,10 +350,10 @@ function hsinsider_get_author_school_meta( $meta_key = null ) {
 
 	if( empty( $meta_key ) )
 		return $meta;
-	
+
 	if( isset( $meta[ $meta_key ] ) )
 		return $meta[ $meta_key ];
-		
+
 	return false;
 }
 
@@ -321,30 +361,30 @@ function hsinsider_get_author_school_meta( $meta_key = null ) {
  * Get the author meta smartly based on whether we're in the loop or on a post author page
  */
 function hsinsider_get_the_author_meta( $meta_key = false ) {
-	
+
 	global $coauthor;
-	
+
 	if( empty( $meta_key ) )
 		return false;
-	
+
 	if( is_author() ) {
 		$author = get_queried_object();
 		if( empty( $author ) )
 			return false;
-		
+
 		$author_id = $author->ID;
 	} elseif( !empty( $coauthor ) && is_object( $coauthor ) ) {
 		$author_id = $coauthor->ID;
 	} else {
 		$author_id = get_the_author_meta( 'ID' );
 	}
-	
+
 	if( 'posts_url' == $meta_key )
 		return get_author_posts_url( $author_id );
-	
+
 	if( 'school' == $meta_key )
 		return (int) get_user_attribute( $author_id, '_lat_school', true );
-	
+
 	return get_the_author_meta( $meta_key, $author_id );
 }
 
@@ -354,14 +394,14 @@ function hsinsider_get_the_author_meta( $meta_key = false ) {
 function hsinsider_school_range( $start = 'A', $end = 'Z' ) {
 
 	$schools = get_terms( 'school', array( 'hide_empty' => false ) );
-	
+
 	foreach( $schools as $school ) {
-		
+
 		if( substr( $school->name, 0, 1 ) < $start || substr( $school->name, 0, 1 ) > $end )
 			continue;
-		
+
 		$link = wpcom_vip_get_term_link( $school, $school->taxonomy );
-		
+
 		echo '<li><a href="' . esc_url( $link ) . '">' . esc_html( $school->name ) . '</a></li>';
 	}
 }
@@ -370,15 +410,15 @@ function hsinsider_school_range( $start = 'A', $end = 'Z' ) {
  * Checks if the post author is staff or student
  */
 function hsinsider_is_staff_post( $post = null ) {
-	
+
 	if( empty( $post ) )
 		global $post;
-	
+
 	$user = get_user_by( 'id', $post->post_author );
-	
+
 	if( in_array( 'editor', $user->roles ) || in_array( 'administrator', $user->roles ) )
 		return true;
-	
+
 	return false;
 }
 
@@ -388,15 +428,15 @@ function hsinsider_is_staff_post( $post = null ) {
  */
 function hsinsider_get_menu_name_by_location( $location = false ) {
 	$locations = get_nav_menu_locations();
-	
+
 	if( empty( $locations[ $location ] ) )
 		return false;
-	
+
 	$menu = wp_get_nav_menu_object( $locations[ $location ] );
-	
+
 	if( empty( $menu ) || empty( $menu->name ) )
 		return;
-	
+
 	return $menu->name;
 }
 
@@ -404,7 +444,7 @@ function hsinsider_get_menu_name_by_location( $location = false ) {
  * Return the title without passing it through widont
  */
 function hsinsider_get_the_title_no_widont( $post = null ) {
-	
+
 	remove_filter( 'the_title', 'widont' );
 	return get_the_title( $post );
 	add_filter( 'the_title', 'widont' );

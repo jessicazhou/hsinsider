@@ -2321,6 +2321,42 @@ if( document.getElementById( "video-carousel" ) ) {
 }
 
 
+/**
+ * LA Times HS Insider Recent & Popular Posts Widget Script
+ *
+ */
+jQuery( document ).ready( function( $ ) {
+	$(window).on( 'load resize', adjustFeaturedItems );
+	function adjustFeaturedItems() {
+		newHeight = 0;
+		$( '#featured .reduced' ).each( function( e ) {
+			// Make sure each element is at it's deal height
+			idealHeight = $( 'figure', $( this ) ).height() +  $( '.post-info', $( this ) ).height();
+			if( $( this ).height() != idealHeight ) {
+				$( this ).height( idealHeight );
+			}
+
+			// Find the tallest element
+			thisHeight = $( this ).height();
+			if( thisHeight > newHeight ) {
+				newHeight = thisHeight;
+			}
+		} );
+
+		// Set all elements heights to the tallest one
+		$( '#featured .reduced' ).each( function( e ) {
+			$( this ).height( newHeight );
+		} );
+	}
+} );
+
+// Hide lazy load gravatar images
+jQuery('img[src="https://s0.wp.com/wp-content/themes/vip/plugins/lazy-load/images/1x1.trans.gif"]').hide();
+
+if( jQuery( '.BrightcoveExperience' ).length != -1 ) {
+  alert('do the thing');
+  brightcove.createExperiences();
+}
 
 /**
  * LA Times HS Insider Maps
@@ -2333,81 +2369,114 @@ if( document.getElementById( "video-carousel" ) ) {
  */
 
 var map;
+var bounds;
+// I'd prefer to not have to use global vars, I couldn't think of another way to do it.
+var delay = false;
+var nextAddress = 0;
+var lastAddress = 0;
+var school_array = [];
 
 function initMap() {
-
-	var styles = [
-		{
-			"featureType": "landscape.man_made",
-			"stylers": [
-				{ "color": "#fbfbfb" }
-			]
-		},{
-			"featureType": "landscape.natural",
-			"stylers": [
-				{ "color": "#f1f1f1" }
-			]
-		},{
-			"featureType": "water",
-			"stylers": [
-				{ "color": "#a3ddf4" }
-			]
-		},{
-			"featureType": "road.highway",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{ "color": "#ffffba" }
-			]
-		},{
-			"featureType": "road.highway",
-			"elementType": "geometry.stroke",
-			"stylers": [
-				{ "color": "#ffd8b5" }
-			]
-		},{
-			"featureType": "poi.park",
-			"stylers": [
-				{ "color": "#ccf1ba" }
-			]
-		},{
-			"featureType": "poi.business",
-			"elementType": "geometry",
-			"stylers": [
-				{ "color": "#edece6" }
-			]
-		},{
-		}
-	];
-
-	var styledMap = new google.maps.StyledMapType( styles, {
-		name: "Styled Map"
-	});
-
-	school_marker = $( '#gmap' ).data( 'marker' );
-
-	if( school_marker !== '' ) {
-
-		var mapOptions = {
-			center: { lat: 34.052235, lng: -118.243683 },
-			zoom: 10,
-			scrollwheel: false,
-			zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL
+	if( jQuery( '#gmap' ).length ) {
+		var styles = [
+			{
+				"featureType": "landscape.man_made",
+				"stylers": [
+					{ "color": "#fbfbfb" }
+				]
+			},{
+				"featureType": "landscape.natural",
+				"stylers": [
+					{ "color": "#f1f1f1" }
+				]
+			},{
+				"featureType": "water",
+				"stylers": [
+					{ "color": "#a3ddf4" }
+				]
+			},{
+				"featureType": "road.highway",
+				"elementType": "geometry.fill",
+				"stylers": [
+					{ "color": "#ffffba" }
+				]
+			},{
+				"featureType": "road.highway",
+				"elementType": "geometry.stroke",
+				"stylers": [
+					{ "color": "#ffd8b5" }
+				]
+			},{
+				"featureType": "poi.park",
+				"stylers": [
+					{ "color": "#ccf1ba" }
+				]
+			},{
+				"featureType": "poi.business",
+				"elementType": "geometry",
+				"stylers": [
+					{ "color": "#edece6" }
+				]
 			}
-		};
+		];
 
-		map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
-		google.maps.event.trigger( map, 'resize' );
+		var styledMap = new google.maps.StyledMapType( styles, {
+			name: "Styled Map"
+		});
 
-		// apply the styles
-		map.mapTypes.set( 'map_style', styledMap );
-		map.setMapTypeId( 'map_style' );
+		school_marker = jQuery( '#gmap' ).data( 'marker' );
 
-		codeAddress( school_marker );
+		if( school_marker !== '' ) {
+
+			var mapOptions = {
+				center: { lat: 34.052235, lng: -118.243683 },
+				zoom: 10,
+				scrollwheel: false,
+				zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+				}
+			};
+
+			map = new google.maps.Map( document.getElementById( 'gmap' ), mapOptions );
+			google.maps.event.trigger( map, 'resize' );
+
+			// apply the styles
+			map.mapTypes.set( 'map_style', styledMap );
+			map.setMapTypeId( 'map_style' );
+
+			bounds = new google.maps.LatLngBounds();
+
+			if( jQuery.isArray( school_marker ) ) {
+        school_array = school_marker;
+        codeNextAddress();
+			}
+			else {
+				geocodeAddress( school_marker );
+
+				var fixBoundsZoom = google.maps.event.addListener( map, 'bounds_changed', function( event ) {
+						map.setZoom( 9 );
+						setTimeout( function() { google.maps.event.removeListener( fixBoundsZoom ) }, 2000 );
+				} );
+			}
+		}
 	}
 }
 
-function codeAddress( school_marker ) {
+function codeNextAddress() {
+  if( nextAddress < school_array.length ) {
+    if(delay){
+      setTimeout( function() { geocodeAddress(school_array[nextAddress], codeNextAddress) }, 2500);
+      delay = false;
+    }
+    else {
+      geocodeAddress(school_array[nextAddress], codeNextAddress);
+    }
+    lastAddress = nextAddress;
+    nextAddress++;
+  }
+}
+
+function geocodeAddress( school_marker, next ) {
 	/**
 	 * Create geocoder object
 	 */
@@ -2426,10 +2495,39 @@ function codeAddress( school_marker ) {
 				position: results[0].geometry.location,
 				title: school_name
 			} );
-			map.setCenter( marker.getPosition() );
-		} else {
-			alert( "Geocode was not successful for the following reason: " + status );
+
+			var infowindow = new google.maps.InfoWindow({
+				content: school_name
+			});
+
+			marker.addListener( 'mouseover', function() {
+				infowindow.open( map, marker );
+			} );
+
+			marker.addListener( 'mouseout', function() {
+				infowindow.close();
+			} );
+
+			var LatLng = marker.getPosition();
+			bounds.extend( LatLng );
+			map.fitBounds( bounds );
+
 		}
+    else {
+      // === if we were sending the requests to fast, try this one again and increase the delay
+      if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+        if( lastAddress <= nextAddress ) {
+          nextAddress--;
+        }
+        delay = true;
+      }
+      else {
+        var reason="Code "+status;
+        var msg = 'address="' + school_marker.address + '" error=' +reason+ '(delay='+delay+'ms)<br>';
+        console.log( "Geocode was not successful for the following reason: " + msg );
+      }
+		}
+    next();
 	} );
 }
 
@@ -2439,7 +2537,6 @@ function codeAddress( school_marker ) {
  * TODO: refactor if time allows
  */
 
-var backLinkTop = false;
 jQuery( document ).ready( function( $ ) { 
 
 	"use strict";
@@ -2458,7 +2555,7 @@ jQuery( document ).ready( function( $ ) {
 
 		if( $( 'menu.open' ).length ) {
 			$( 'menu.open' ).hide( "slide", { direction: "right" }, 500, function( e ) {
-				$( '.active' ).removeClass( 'active' );
+				$( 'button.menu-mobile.active' ).removeClass( 'active' );
 				$( 'menu.open' ).removeClass( 'open' );
 				$( '.menuwrapper' ).hide();
 				$( '.menuwrapper' ).find( '.menu-overlay' ).hide();
@@ -2472,7 +2569,6 @@ jQuery( document ).ready( function( $ ) {
 	
 	/**
 	 * Show/Hide Menus
-	 * Refactored (again) : 11/2
 	 */
 	$( 'button.menu-mobile' ).click( function( e ) {
 		e.preventDefault();
@@ -2500,7 +2596,7 @@ jQuery( document ).ready( function( $ ) {
 			$( '.show-search' ).hide( 'slide' );
 
 			// remove active class from buttons
-			$( '.active' ).removeClass( 'active' );
+			$( 'button.menu-mobile.active' ).removeClass( 'active' );
 			$( this ).addClass( 'active' );
 			currentMenu = $( 'menu[data-menu="' + $( this ).attr( 'id' ) + '"]' );
 			
@@ -2538,9 +2634,10 @@ jQuery( document ).ready( function( $ ) {
 		if( $( this ).attr( 'href' ) == '#' && !jQuery( this ).hasClass( 'backLink' ) ) { 
 			e.preventDefault();
 			
-			backLinkTop = jQuery( this ).text().substr( 0, 1 );
+			var backLinkTop = jQuery( this ).text().substr( 0, 1 );
 			$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).show( "slide", { direction: "right" }, 490, function() { 
-				jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
+				var position = jQuery( 'li.school #' + backLinkTop ).position();
+				jQuery( '.menuwrapper' ).scrollTop( position.top );
 				jQuery( '.back', 'menu[data-menu="menu-schools"]' ).show();
 			 } ).css( 'overflow', 'scroll' );
 			jQuery( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).scrollTop( jQuery( '.menu-overlay' ).scrollTop() - jQuery( '.menu-overlay' ).offset().top + jQuery( '#' + backLinkTop ).offset().top - 37 );
@@ -2549,13 +2646,13 @@ jQuery( document ).ready( function( $ ) {
 	
 	$( '.back a', 'menu[data-menu="menu-schools"]' ).click( function( e ) { 
 		e.preventDefault();
+		$( '.menuwrapper' ).scrollTop( 0 );
 		$( '.menu-overlay', 'menu[data-menu="menu-schools"]' ).hide( "slide", { direction: "right" }, 500 ).css( 'overflow', 'scroll' );
 		$( '.back', 'menu[data-menu="menu-schools"]' ).hide();
 	 } );
 	
 	/** 
 	 * Hide menu when page is clicked
-	 * Refactored - 11/2
 	 */
 	$( '.menuwrapper' ).click( function( e ) {
 		if( $( 'menu.open' ).length ) {
@@ -2572,7 +2669,6 @@ jQuery( document ).ready( function( $ ) {
 	
 	/** 
 	 * Code for the collapsed Hamburger Menu
-	 * Refactored - 11/3
 	 */
 	$( '#menu-hamburger' ).click( function( e ) { 
 		e.preventDefault();
@@ -2647,22 +2743,6 @@ jQuery( document ).ready( function( $ ) {
 	};
 } );
 
-/**
- * LA Times HS Insider Recent & Popular Posts Widget Script
- *
- */
-jQuery( document ).ready( function( $ ) {
-	$( '#recent-widget-tabs .toggle a.btn' ).click( function( e ) {
-		e.preventDefault();
-		
-		$( '#recent-widget-tabs .toggle a.btn' ).removeClass( 'active' );
-		$( this ).addClass( 'active' );
-
-		tab = $( this ).data( 'tab' );
-		$( '#recent-widget .panel' ).removeClass( 'active' );		
-		$( '#recent-widget #' + tab ).addClass( 'active' );
-	} );
-} );
 
 // HS Insider Responsive Ads
 
@@ -2678,9 +2758,7 @@ googletag.cmd = googletag.cmd || [];
 	node.parentNode.insertBefore( gads, node );
 } )();
 
-var mappingHorizontal = null;
 googletag.cmd.push( function() {
-
 	/*
 	 * Section Front Desktop
 	 */
@@ -2741,53 +2819,40 @@ googletag.cmd.push( function() {
 	//Adslot 12 declaration
 	gptadslots[16] = googletag.defineSlot( '/4011/trb.latimes/hsinsider', [[320, 50]], 'div-gpt-ad-283030070724299354-4' ).setTargeting( 'pos', ['2'] ).addService( googletag.pubads() );
 	
-
-	//googletag.pubads().setTargeting( 'ptype', ['sf'] );
 	googletag.pubads().enableAsyncRendering();
 	googletag.pubads().collapseEmptyDivs();
 	googletag.enableServices();
 
-	googletag.cmd.push( function() { 
-		//googletag.pubads().setTargeting( 'ptype',['s'] );
+	/*
+	 * Section Front Desktop
+	 */
+	googletag.display( 'div-gpt-ad-354595391948526756-1' );
+	googletag.display( 'div-gpt-ad-354595391948526756-2' );
+	googletag.display( 'div-gpt-ad-354595391948526756-3' );
+	googletag.display( 'div-gpt-ad-354595391948526756-4' );
 
-		/*
-		 * Section Front Desktop
-		 */
-		googletag.display( 'div-gpt-ad-354595391948526756-1' );
-		googletag.display( 'div-gpt-ad-354595391948526756-2' );
-		googletag.display( 'div-gpt-ad-354595391948526756-3' );
-		googletag.display( 'div-gpt-ad-354595391948526756-4' );
+	/*
+	 * Section Front Mobile
+	 */
+	googletag.display( 'div-gpt-ad-345050247239781093-1' );
+	googletag.display( 'div-gpt-ad-345050247239781093-2' );
+	googletag.display( 'div-gpt-ad-345050247239781093-3' );
+	googletag.display( 'div-gpt-ad-345050247239781093-4' );
 
-		/*
-		 * Section Front Mobile
-		 */
-		googletag.display( 'div-gpt-ad-345050247239781093-1' );
-		googletag.display( 'div-gpt-ad-345050247239781093-2' );
-		googletag.display( 'div-gpt-ad-345050247239781093-3' );
-		googletag.display( 'div-gpt-ad-345050247239781093-4' );
+	/*
+	 * Story Desktop
+	 */
+	googletag.display( 'div-gpt-ad-283030070724299354-1' );
+	googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
+	googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
+	googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
 
-		/*
-		 * Story Desktop
-		 */
-		googletag.display( 'div-gpt-ad-283030070724299354-1' );
-		googletag.display( 'div-gpt-ad-283030070724299354-2' ); 
-		googletag.display( 'div-gpt-ad-283030070724299354-3' ); 
-		googletag.display( 'div-gpt-ad-283030070724299354-4' ); 
-
-		/*
-		 * Story Mobile
-		 */
-		googletag.display( 'div-gpt-ad-597875899873789138-1' );
-		googletag.display( 'div-gpt-ad-597875899873789138-2' );
-		googletag.display( 'div-gpt-ad-597875899873789138-3' );
-		googletag.display( 'div-gpt-ad-597875899873789138-4' );
-	} );
-
-	// Show the Ads
-	/*googletag.display( 'div-gpt-ad-783778988016615787-1' );
-	googletag.display( 'div-gpt-ad-783778988016615787-2' ); 
-	googletag.display( 'lat-hs-728x90' );
-	googletag.display( 'lat-hs-300x250-1' );
-	googletag.display( 'lat-hs-300x250-2' );*/
+	/*
+	 * Story Mobile
+	 */
+	googletag.display( 'div-gpt-ad-597875899873789138-1' );
+	googletag.display( 'div-gpt-ad-597875899873789138-2' );
+	googletag.display( 'div-gpt-ad-597875899873789138-3' );
+	googletag.display( 'div-gpt-ad-597875899873789138-4' );
 } );
 

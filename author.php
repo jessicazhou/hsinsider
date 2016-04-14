@@ -4,7 +4,7 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package Blankstrap
+ * @package HSInsider
  */
 
 get_header(); ?>
@@ -31,7 +31,6 @@ get_header(); ?>
 							<?php if ( get_the_author_meta( 'description' ) ) : ?>
 								<?php the_author_meta( 'description' ); ?>
 							<?php endif; ?>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam congue urna vel feugiat luctus. Morbi pretium lacus molestie libero blandit, blandit varius tortor facilisis. Donec ultrices vitae massa in commodo. Maecenas rhoncus purus dolor, vitae vehicula magna tincidunt sit amet. Nunc odio mauris, efficitur id commodo in, laoreet nec odio. Curabitur ac pulvinar ex, eu pellentesque ipsum.
 							</p>
 						</div><!-- .author-description -->
 					</div><!-- .author-info -->
@@ -46,7 +45,6 @@ get_header(); ?>
 					<?php
 						/**
 						 * Include the Post-Format-specific template for the content.
-						 * Remove the $curated post from the blogroll
 						 */
 						ai_get_template_part( 'template-parts/content', 'blogroll' );
 						$post_count ++;
@@ -58,7 +56,7 @@ get_header(); ?>
 				<?php endwhile; ?>
 			</section>
 
-			<?php the_posts_navigation(); ?>
+			<?php hsinsider_the_posts_navigation(); ?>
 
 			<?php else : ?>
 

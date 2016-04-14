@@ -41,16 +41,23 @@ html {
 			background: $gray-dark;
 			color: $white;
 			.site-info {
-				@include make-md-column( 12 );
+				@include make-row();
 				color: $white;
 				padding: 25px 10px;
 				a {
-					display: block;
+					display: inline-block;
+					padding: 5px 0px;
 					color: $white;
 					img {
 						height: 20px;
 						width: auto;
 						margin: 0px 10px;
+					}
+				}
+				a.powered-by-wpcom {
+					img {
+						height: 40px;
+						margin: 0px;
 					}
 				}
 			}
