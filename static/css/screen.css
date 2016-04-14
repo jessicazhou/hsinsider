@@ -7795,6 +7795,10 @@ header.site-header {
           .menuwrapper menu ul li a:hover {
             background-color: #636363;
             color: #fff; }
+      .menuwrapper menu ul#menu-series {
+        background: #1c1c1c;
+        margin-bottom: 0px;
+        padding-bottom: 10px; }
     .menuwrapper menu .menu-container {
       position: absolute;
       height: 100%;
@@ -8316,7 +8320,7 @@ a:focus, button:focus {
 article.post, article.video, article.page {
   overflow: auto; }
   article.post.single h1.entry-title, article.video.single h1.entry-title, article.page.single h1.entry-title {
-    font-size: 32px; }
+    font-size: 36px; }
   article.post.single .wp-post-image, article.video.single .wp-post-image, article.page.single .wp-post-image {
     width: 100%;
     height: auto; }
@@ -8325,6 +8329,13 @@ article.post, article.video, article.page {
   article.post.single p, article.video.single p, article.page.single p {
     color: #000000;
     line-height: 1.8em; }
+    article.post.single p:first-of-type:first-letter, article.video.single p:first-of-type:first-letter, article.page.single p:first-of-type:first-letter {
+      float: left;
+      display: inline-block;
+      font-size: 60px;
+      line-height: 60px;
+      padding: 0px 8px 0px 3px;
+      margin: -2px 0px 0px; }
   article.post .trb_socialize_bar, article.video .trb_socialize_bar, article.page .trb_socialize_bar {
     display: block;
     margin-top: 25px; }
@@ -8939,7 +8950,9 @@ ul.children li.thecomment {
   #sidebar-single-post .widget_hsinsider_featured_items h4 {
     display: block;
     margin: 0px;
-    padding: 5px 0px;
+    padding: 0px 0px 5px;
+    font-size: 17px; }
+  #sidebar-single-post .widget_hsinsider_featured_items a.author.url {
     font-size: 16px; }
 
 .widget_hsinsider_featured_items {

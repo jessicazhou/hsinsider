@@ -67,7 +67,7 @@ header.site-header {
 	overflow: scroll;
 	margin-top: 90px;
 	width: 100%;
-	
+
 	display: none;
 	list-style: none;
 	menu {
@@ -126,6 +126,11 @@ header.site-header {
 					}
 				}
 			}
+      &#menu-series {
+        background: #1c1c1c;
+        margin-bottom: 0px;
+        padding-bottom: 10px;
+      }
 		}
 		.menu-container {
 			position: absolute;
@@ -219,7 +224,7 @@ header.site-header {
 
 .home {
 	.site-main .comment-navigation,
-	.site-main .posts-navigation, 
+	.site-main .posts-navigation,
 	.post-navigation {
 		overflow: auto;
 		width: 100%;
@@ -238,7 +243,7 @@ header.site-header {
 
 .single {
 	.site-main .comment-navigation,
-	.site-main .posts-navigation, 
+	.site-main .posts-navigation,
 	.post-navigation {
 		@include make-row();
 	}
@@ -246,7 +251,7 @@ header.site-header {
 
 .comment-navigation .nav-previous,
 .posts-navigation .nav-previous,
-.post-navigation .nav-previous, 
+.post-navigation .nav-previous,
 .comment-navigation .nav-next,
 .posts-navigation .nav-next,
 .post-navigation .nav-next {

@@ -100,7 +100,7 @@ article.post, article.video, article.page {
 	overflow: auto;
 	&.single {
 		h1.entry-title {
-			font-size: 32px;
+			font-size: 36px;
 		}
 		.wp-post-image {
 			width: 100%;
@@ -112,6 +112,14 @@ article.post, article.video, article.page {
 		p {
 			color: #000000;
 			line-height: 1.8em;
+      &:first-of-type:first-letter {
+        float: left;
+        display:inline-block;
+        font-size: 60px;
+        line-height: 60px;
+        padding: 0px 8px 0px 3px;
+        margin: -2px 0px 0px;
+      }
 		}
 	}
 	.trb_socialize_bar {
