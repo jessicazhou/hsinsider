@@ -11,7 +11,7 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 	 */
 	public $name = 'Featured';
 	public $description = 'Displays the five most recent featured items';
-	
+
 	/**
 	 * Create the Widget
 	 */
@@ -28,20 +28,19 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 		$this->get_featured();
 		echo $args['after_widget'];
 	}
-	
+
 	private function get_featured() {
-	
+
 		$today = getdate();
 		$args = array(
 			'posts_per_page' => 4,
-			'offset' => 1,
 			'post_type' => 'any',
 			'post_status' => 'publish',
 			'category_name' => 'featured',
-			'meta_query' => array( 
+			'meta_query' => array(
 				array(
 					'key' => '_thumbnail_id'
-				) 
+				)
 			),
 			'orderby' => 'date',
 		);
@@ -57,11 +56,11 @@ class HSInsider_Widget_Featured_Items extends HSInsider_Widget {
 		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'New title', 'text_domain' );
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'hsinsider' ); ?></label> 
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'hsinsider' ); ?></label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
-		<?php 
+		<?php
 	}
 }
 
-$featured_items_widget = new HSInsider_Widget_Featured_Items(); 
+$featured_items_widget = new HSInsider_Widget_Featured_Items();

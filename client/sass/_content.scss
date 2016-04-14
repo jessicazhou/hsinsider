@@ -401,6 +401,23 @@ p img {
 	text-align: center;
 }
 
+/* =Brightcove
+-------------------------------------------------------------- */
+.fluid-width-video-wrapper {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25% !important;
+  padding-top: 0px !important;
+  iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 /*
 Resize images to fit the main content area.
 - Applies only to images uploaded via WordPress by targeting size-* classes.
