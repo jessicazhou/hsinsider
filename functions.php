@@ -113,6 +113,7 @@ require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy.php' );
 //Custom Taxonomies
 require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy-browse.php' );
 require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy-school.php' );
+require_once( HSINSIDER_PATH . '/inc/taxonomies/class-hsinsider-taxonomy-youth-group.php' );
 
 // Widget Base Class
 require_once( HSINSIDER_PATH . '/inc/widgets/class-hsinsider-widget.php' );

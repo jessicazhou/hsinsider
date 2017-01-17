@@ -689,7 +689,7 @@
 .fa-check-circle:before {
   content: ""; }
 
-.fa-question-circle:before {
+.fa-question:before {
   content: ""; }
 
 .fa-info-circle:before {
@@ -8333,9 +8333,9 @@ article.post, article.video, article.page {
       float: left;
       display: inline-block;
       font-size: 60px;
-      line-height: 60px;
-      padding: 0px 8px 0px 3px;
-      margin: -2px 0px 0px; }
+      line-height: 35px;
+      padding: 10px 8px 0px 3px;
+      margin: 0px 0px 0px; }
   article.post .trb_socialize_bar, article.video .trb_socialize_bar, article.page .trb_socialize_bar {
     display: block;
     margin-top: 25px; }
@@ -8944,9 +8944,6 @@ ul.children li.thecomment {
       padding-left: 15px;
       padding-right: 15px;
       padding-right: 0px; }
-    @media (max-width: 992px) {
-      #sidebar-single-post .widget_hsinsider_featured_items article {
-        margin-bottom: 25px; } }
   #sidebar-single-post .widget_hsinsider_featured_items h4 {
     display: block;
     margin: 0px;
@@ -8998,9 +8995,12 @@ ul.children li.thecomment {
         bottom: 0;
         right: 0;
         left: 0; }
+    @media (max-width: 992px) {
+      .widget_hsinsider_featured_items article {
+        margin-bottom: 10px; } }
   .widget_hsinsider_featured_items h4 {
     display: block;
-    margin: 5px 0px 0px;
+    margin: 0px;
     padding: 10px 0px;
     font-size: 16px;
     text-align: left; }

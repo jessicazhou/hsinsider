@@ -73,9 +73,6 @@
 				@include make-xs-column( 7 );
 				padding-right: 0px;
 			}
-			@media( max-width: $screen-md ) {
-				margin-bottom: 25px;
-			}
 		}
 		h4 {
 			display: block;
@@ -125,11 +122,14 @@
 				left: 0;
 			}
 		}
+    @media( max-width: $screen-md-min ) {
+      margin-bottom: 10px;
+    }
 	}
 
 	h4 {
 		display: block;
-		margin: 5px 0px 0px;
+		margin: 0px;
 		padding: 10px 0px;
 		font-size: 16px;
 		text-align: left;
