@@ -19,17 +19,16 @@ function hsinsider_enqueue_assets() {
 	// Deregister JQuery and Reregister in the footer
 	wp_deregister_script( 'jquery' );
 
-	// Register JQuery and place in the footer
+	// Register aJQuery and place in the footer
 	wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), array(), NULL, true );
 
 	// Global Script placed in the footer
 	wp_register_script( 'hsinsider-global-js', get_template_directory_uri() . '/static/js/global.js', 'jquery', '1.2', true );
+
 	wp_register_script( 'google-maps', 'http://maps.googleapis.com/maps/api/js?key=' . hsinsider_site_config( 'api.googlemaps' ) . '&v=3.14&callback=initMap', array( 'hsinsider-global-js' ), '1.0', true );
-  wp_register_script( 'brightcove-experiences', 'https://sadmin.brightcove.com/js/BrightcoveExperiences.js', array( 'jquery' ), '1.0', true );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-effects-slide' );
-  wp_enqueue_script( 'brightcove-experiences' );
 	wp_enqueue_script( 'hsinsider-global-js' );
 
 	if( is_tax( 'school' ) || is_page_template( 'page-about.php' ) ) {

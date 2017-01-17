@@ -46,7 +46,7 @@ get_header(); ?>
 		<?php if( !empty( $markers ) ) : ?>
 		<section class="row">
 			<div class="map col-sm-12 hidden-xs">
-				<div id="gmap" data-marker='<?php esc_attr( $markers ); ?>'></div>
+				<div id="gmap" data-marker='<?php esc_attr_e( $markers ); ?>'></div>
 				<h3><?php esc_html_e( 'Participating Schools', 'hsinsider' ); ?></h3>
 			</div>
 		</section>

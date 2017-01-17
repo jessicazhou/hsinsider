@@ -17,7 +17,7 @@ function hsinsider_fm_video_info() {
 }
 add_action( 'fm_post_video', 'hsinsider_fm_video_info' );
 
-function hsinsider_fm_school_info() {	
+function hsinsider_fm_school_info() {
 	$fm = new Fieldmanager_Group( array(
 		'name' => 'school_info',
 		'children' => array(
@@ -29,6 +29,10 @@ function hsinsider_fm_school_info() {
 				)
 			),
 			'logo' => new Fieldmanager_Media( 'Logo' ),
+      'out_of_socal' => new Fieldmanager_Checkbox( array(
+        'name' => 'out_of_socal',
+        'label' => 'School is Located Outside of SoCal Area'
+      ) ),
 		)
 	) );
 	$fm->add_term_form( 'School Info', 'school' );

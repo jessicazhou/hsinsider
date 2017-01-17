@@ -8,7 +8,7 @@
  * Post URLS to include the slug of the school
  *
  */
-// wpcom_vip_load_permastruct( '/%category%/%postname%/' );
+wpcom_vip_load_permastruct( '/%category%/%postname%/' );
 
 class HSInsider_Taxonomy_School extends HSInsider_Taxonomy {
 
@@ -39,7 +39,7 @@ class HSInsider_Taxonomy_School extends HSInsider_Taxonomy {
 			'menu_name'                  => __( 'Schools' ),
 		);
 
-    register_taxonomy( $this->name,
+		register_taxonomy( $this->name,
 			array( 'post', 'video' ),
 			array(
 				'labels' => $labels,

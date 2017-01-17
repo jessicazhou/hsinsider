@@ -9,9 +9,11 @@
 		<?php $column_class = 'no-post-image' ?>
 		<!-- image -->
 		<?php if ( has_post_thumbnail() ) : ?>
-			<figure class="featured-image col-xs-12 col-sm-12 col-md-7">
-				<?php the_post_thumbnail(); ?>
-			</figure>
+			<a href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark">
+				<figure class="featured-image col-xs-12 col-sm-12 col-md-7">
+					<?php the_post_thumbnail(); ?>
+				</figure>
+			</a>
 			<?php $column_class = 'col-md-5'; ?>
 		<?php endif ?>
 
@@ -24,7 +26,7 @@
 
 			<!-- title -->
 			<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
-			
+
 			<footer class="entry-footer">
 				<!-- byline -->
 				<?php hsinsider_get_post_byline(); ?>

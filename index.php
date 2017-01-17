@@ -26,7 +26,7 @@ get_header(); ?>
 					  $args = array(
 							'post_type' => array( 'post', 'video' ),
 							'post_status' => 'publish',
-							'category_name' => 'featured',
+							'category_name' => 'hero',
 							'posts_per_page' => 1
 						);
 						$the_query = new WP_Query( $args );

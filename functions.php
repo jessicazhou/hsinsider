@@ -6,6 +6,10 @@
 // Init WP.com VIP environment
 require_once( WP_CONTENT_DIR . '/themes/vip/plugins/vip-init.php' );
 
+// Maintenance Mode - Temporary
+define( 'VIP_MAINTENANCE_MODE', true );
+wpcom_vip_load_plugin( 'maintenance-mode' );
+
 define( 'HSINSIDER_PATH', dirname( __FILE__ ) );
 define( 'HSINSIDER_URL', get_template_directory_uri() );
 

@@ -17,7 +17,7 @@ class HSInsider_Special_Users {
 		add_filter( 'user_has_cap', array( $this, 'hsinsider_polldaddy_fake_editor' ), 10, 3 );
 
 		//Modify the user capabilities to prevent students form editing their posts once they have been saved
-		add_filter( 'user_has_cap', array( $this, 'hsinsider_lock_submitted_posts' ), 10, 3 );
+		//add_filter( 'user_has_cap', array( $this, 'hsinsider_lock_submitted_posts' ), 10, 3 );
 	
 		if( !is_admin() )
 			return;
@@ -71,14 +71,16 @@ class HSInsider_Special_Users {
 
 	/**
 	 * Prevents students from editing posts after they are sent for editing or published on the site
+	 *
+     * THIS IS BREAKING OVERALL USER PERMISSIONS.  COMMENTED OUT UNTIL IT CAN BE DEBUGGED
 	 */
-	public function hsinsider_lock_submitted_posts( $allcaps, $caps, $args ) {
+	/*public function hsinsider_lock_submitted_posts( $allcaps, $caps, $args ) {
 		$post_status = get_post_status();
 		if( 'pending' == $post_status || 'ready-for-edit' == $post_status || 'published' == $post_status ) {
 			$allcaps[ 'edit_posts' ] = 0;
 		}
 		return $allcaps;
-	}
+	}*/
 	
 	/**
 	 * Basically, we want students to be able to edit add polls, which requires the edit_others_posts
