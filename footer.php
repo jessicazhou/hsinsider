@@ -16,7 +16,11 @@
 				<div class="col-sm-4">
 					<a href="<?php echo esc_url( __( 'https://latimes.com/', 'hsinsider' ) ); ?>"><?php esc_html_e( 'Presented By', 'hsinsider' ); ?><img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/static/images/latimes.svg' ); ?>"/></a>
 				</div>
-				<div class="col-sm-4 col-sm-offset-4">
+				<div class="col-sm-4">
+					<a href="<?php echo esc_url( __( 'http://www.tronc.com/central-terms-of-service/', 'hsinsider' ) ); ?>" target="_blank"><?php esc_html_e( 'Terms of Service', 'hsinsider' ); ?></a>
+					<a href="<?php echo esc_url( __( 'http://www.tronc.com/privacy-policy/', 'hsinsider' ) ); ?>" target="_blank"><?php esc_html_e( 'Privacy Policy', 'hsinsider' ); ?></a>
+				</div>
+				<div class="col-sm-4">
 					<?php echo vip_powered_wpcom( 3 ); ?>
 				</div>
 			</div>
