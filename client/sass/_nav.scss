@@ -8,11 +8,11 @@
  */
 
 #navigation, #footer-social, #footer-copyright {
-    background-color: $gray-dark;
-    color: #FFF;
-    a {
-    	color: #fff;
-    }
+	background-color: $gray-dark;
+	color: #FFF;
+	a {
+		color: #fff;
+	}
 }
 
 .menu .sub-menu, .menu .children {
@@ -102,7 +102,7 @@
 }
 
 /*** DROPDOWN ***/
-		
+
 #navigation .menu .sub-menu,
 #navigation .menu .children {
 	display: none;
@@ -112,7 +112,7 @@
 	margin-top:0;
 	left: -11px;
 	z-index: 99999;
-	
+
 }
 
 #navigation .menu .sub-menu .sub-menu {
@@ -165,10 +165,10 @@ menu ul ul a:hover {
 }
 
 #navigation .menu .sub-menu ul,
-#navigation .menu .children ul {	
+#navigation .menu .children ul {
 	left: 100%;
 	top: 0;
-	
+
 }
 
 #navigation .menu li.back, menu li.back {

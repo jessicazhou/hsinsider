@@ -2353,6 +2353,10 @@ jQuery( document ).ready( function( $ ) {
 // Hide lazy load gravatar images
 jQuery('img[src="https://s0.wp.com/wp-content/themes/vip/plugins/lazy-load/images/1x1.trans.gif"]').hide();
 
+if( jQuery( '.BrightcoveExperience' ).length != -1 ) {
+  brightcove.createExperiences();
+}
+
 /**
  * LA Times HS Insider Maps
  * This script uses the Google Maps API to display a map of Los Angeles
